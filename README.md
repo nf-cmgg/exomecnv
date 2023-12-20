@@ -21,8 +21,16 @@
      workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
-1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+## Pipeline Summary
+
+1. Gender prediction
+2. CRAM -> BAM
+3. ExomeDepth counting per sample
+4. Create count file for all samples per pool
+5. ExomeDepth CNV calling per sample
+6. Convert BED to VCF
+7. Annotation per sample (VEP + custom annotation) => make it possible to run from here (from VCF file)
+8. Output as XLSX file
 
 ## Usage
 
