@@ -50,13 +50,13 @@ WorkflowMain.initialise(workflow, params, log)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { NF-CMGG-EXOMECNV } from './workflows/nf-cmgg-exomecnv'
+include { CMGGEXOMECNV } from './workflows/cmggexomecnv'
 
 //
 // WORKFLOW: Run main CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv analysis pipeline
 //
-workflow CENTERFORMEDICALGENETICSGHENT_NF-CMGG-EXOMECNV {
-    NF-CMGG-EXOMECNV ()
+workflow CMGG_CMGGEXOMECNV {
+    CMGGEXOMECNV ()
 }
 
 /*
@@ -70,7 +70,7 @@ workflow CENTERFORMEDICALGENETICSGHENT_NF-CMGG-EXOMECNV {
 // See: https://github.com/nf-core/rnaseq/issues/619
 //
 workflow {
-    CENTERFORMEDICALGENETICSGHENT_NF-CMGG-EXOMECNV ()
+    CMGG_CMGGEXOMECNV ()
 }
 
 /*

@@ -5,7 +5,7 @@
 import nextflow.Nextflow
 import groovy.text.SimpleTemplateEngine
 
-class WorkflowNf-cmgg-exomecnv {
+class WorkflowCmggExomecnv {
 
     //
     // Check and validate parameters
