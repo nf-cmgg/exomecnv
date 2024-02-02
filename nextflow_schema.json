@@ -71,6 +71,12 @@
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
                     "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
+                },
+                "cmgg_config_base": {
+                    "type": "string",
+                    "default": "/conf/",
+                    "description": "The config base path for the cmgg configs",
+                    "format": "directory-path"
                 }
             }
         },
