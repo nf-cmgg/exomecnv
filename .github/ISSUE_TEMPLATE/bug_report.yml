@@ -49,7 +49,7 @@ body:
 
       * OS _(eg. CentOS Linux, macOS, Linux Mint)_
 
-      * Version of CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv _(eg. 1.1, 1.5,
+      * Version of nf-cmgg/exomecnv _(eg. 1.1, 1.5,
       1.8.2)_
 
       '

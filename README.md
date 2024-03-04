@@ -1,15 +1,15 @@
-[![GitHub Actions CI Status](https://github.com/CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv/workflows/nf-core%20CI/badge.svg)](https://github.com/CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv/actions?query=workflow%3A%22nf-core+CI%22)
-[![GitHub Actions Linting Status](https://github.com/CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv/workflows/nf-core%20linting/badge.svg)](https://github.com/CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv/actions?query=workflow%3A%22nf-core+linting%22)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![GitHub Actions CI Status](https://github.com/nf-cmgg/exomecnv/workflows/nf-core%20CI/badge.svg)](https://github.com/nf-cmgg/exomecnv/actions?query=workflow%3A%22nf-core+CI%22)
+[![GitHub Actions Linting Status](https://github.com/nf-cmgg/exomecnv/workflows/nf-core%20linting/badge.svg)](https://github.com/nf-cmgg/exomecnv/actions?query=workflow%3A%22nf-core+linting%22)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)
 
 [![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A523.04.0-23aa62.svg)](https://www.nextflow.io/)
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
-[![Launch on Nextflow Tower](https://img.shields.io/badge/Launch%20%F0%9F%9A%80-Nextflow%20Tower-%234256e7)](https://tower.nf/launch?pipeline=https://github.com/CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv)
+[![Launch on Nextflow Tower](https://img.shields.io/badge/Launch%20%F0%9F%9A%80-Nextflow%20Tower-%234256e7)](https://tower.nf/launch?pipeline=https://github.com/nf-cmgg/exomecnv)
 
 ## Introduction
 
-**CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv** is a bioinformatics pipeline that ...
+**nf-cmgg/exomecnv** is a bioinformatics pipeline that ...
 
 <!-- TODO nf-core:
    Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
@@ -23,14 +23,13 @@
 
 ## Pipeline Summary
 
-1. Gender prediction
-2. CRAM -> BAM
-3. ExomeDepth counting per sample
-4. Create count file for all samples per pool
-5. ExomeDepth CNV calling per sample
-6. Convert BED to VCF
-7. Annotation per sample (VEP + custom annotation) => make it possible to run from here (from VCF file)
-8. Output as XLSX file
+1. CRAM -> BAM
+2. ExomeDepth counting per sample
+3. Create count file for all samples per pool
+4. ExomeDepth CNV calling per sample
+5. Convert BED to VCF
+6. Annotation per sample (VEP + custom annotation) => make it possible to run from here (from VCF file)
+7. Output as XLSX file
 
 ## Usage
 
@@ -61,7 +60,7 @@ Now, you can run the pipeline using:
 <!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->
 
 ```bash
-nextflow run CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv \
+nextflow run nf-cmgg/exomecnv \
    -profile <docker/singularity/.../institute> \
    --input samplesheet.csv \
    --outdir <OUTDIR>
@@ -75,7 +74,7 @@ see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
 
 ## Credits
 
-CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv was originally written by nvnieuwk.
+nf-cmgg/exomecnv was originally written by nvnieuwk.
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
@@ -88,7 +87,7 @@ If you would like to contribute to this pipeline, please see the [contributing g
 ## Citations
 
 <!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
-<!-- If you use CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
+<!-- If you use nf-cmgg/exomecnv for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
 
 <!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
 

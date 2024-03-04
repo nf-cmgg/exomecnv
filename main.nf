@@ -1,9 +1,9 @@
 #!/usr/bin/env nextflow
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv
+    nf-cmgg/exomecnv
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Github : https://github.com/CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv
+    Github : https://github.com/nf-cmgg/exomecnv
 ----------------------------------------------------------------------------------------
 */
 
@@ -53,7 +53,7 @@ WorkflowMain.initialise(workflow, params, log)
 include { CMGGEXOMECNV } from './workflows/cmggexomecnv'
 
 //
-// WORKFLOW: Run main CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv analysis pipeline
+// WORKFLOW: Run main nf-cmgg/exomecnv analysis pipeline
 //
 workflow CMGG_CMGGEXOMECNV {
     CMGGEXOMECNV ()

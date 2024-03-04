@@ -1,5 +1,5 @@
 //
-// This file holds several functions specific to the workflow/nf-cmgg-exomecnv.nf in the CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv pipeline
+// This file holds several functions specific to the workflow/nf-cmgg-exomecnv.nf in the nf-cmgg/exomecnv pipeline
 //
 
 import nextflow.Nextflow

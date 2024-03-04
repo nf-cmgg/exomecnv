@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv/master/nextflow_schema.json",
-    "title": "CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv pipeline parameters",
+    "$id": "https://raw.githubusercontent.com/nf-cmgg/exomecnv/master/nextflow_schema.json",
+    "title": "nf-cmgg/exomecnv pipeline parameters",
     "description": "A nextflow pipeline for calling exome CNVs",
     "type": "object",
     "definitions": {
