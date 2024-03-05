@@ -48,6 +48,7 @@ include { BAM_VARIANT_CALLING_EXOMEDEPTH } from '../subworkflows/local/bam_varia
 // include { FASTQC                      } from '../modules/nf-core/fastqc/main'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
+include { CRAM_PREPARE_SAMTOOLS    } from '../subworkflows/local/cram_prepare_samtools/main'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -64,16 +65,19 @@ workflow CMGGEXOMECNV {
     //
     // SUBWORKFLOW: Read in samplesheet, validate and stage input files
     //
-    ch_input = Channel.fromSamplesheet("input")
-    ch_input.view()
-
+    ch_input_prepare = Channel.fromSamplesheet("input")
+    ch_input_prepare.view()
+    
     //
-    // MODULE: Run FastQC
+    // Importing and convert the input files passed through the parameters to channels
     //
-    // FASTQC (
-    //     ch_input
-    // )
-    // ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    ch_fasta        = Channel.fromPath(params.fasta).map{ [[id:"reference"], it]}.collect()
+    ch_fai          = params.fai ? Channel.fromPath(params.fai).map{ [[id:"reference"], it]}.collect() : null
+    
+    // SUBWORKFLOW: Convert CRAM to BAM
+    CRAM_PREPARE_SAMTOOLS (
+        ch_input_prepare, ch_fasta, ch_fai
+    )
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
