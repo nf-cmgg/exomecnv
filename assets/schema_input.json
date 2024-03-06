@@ -40,6 +40,6 @@
                 "exists": true
             }
         },
-        "required": ["sample", "pool","family","cram", "crai"]
+        "required": ["sample", "pool","family","cram"]
     }
 }

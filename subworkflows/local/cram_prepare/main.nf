@@ -1,12 +1,11 @@
 
-// Convert CRAM files (optional)
+// Convert CRAM files
 include { SAMTOOLS_CONVERT as CRAM_TO_BAM  } from '../../../modules/nf-core/samtools/convert/main'
-// include { SAMTOOLS_INDEX     } from '../../../modules/nf-core/samtools/index/main'
 
-workflow CRAM_PREPARE_SAMTOOLS {
+workflow CRAM_PREPARE {
 
     take:
-    ch_cram // channel: [mandatory] [ val(meta), path(cram), path(crai) ] => sample CRAM files and their indices
+    ch_cram // channel: [mandatory] [ val(meta), path(cram), path(crai) ] => sample CRAM files and their optional indices
     fasta   // channel: [mandatory] fasta
     fasta_fai   // channel: [mandatory] fasta_fai
 

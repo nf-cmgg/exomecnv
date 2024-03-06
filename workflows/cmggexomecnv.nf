@@ -48,7 +48,7 @@ include { BAM_VARIANT_CALLING_EXOMEDEPTH } from '../subworkflows/local/bam_varia
 // include { FASTQC                      } from '../modules/nf-core/fastqc/main'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
-include { CRAM_PREPARE_SAMTOOLS    } from '../subworkflows/local/cram_prepare_samtools/main'
+include { CRAM_PREPARE    } from '../subworkflows/local/cram_prepare/main'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -67,18 +67,24 @@ workflow CMGGEXOMECNV {
     //
     ch_input_prepare = Channel.fromSamplesheet("input")
     ch_input_prepare.view()
-    
+
     //
     // Importing and convert the input files passed through the parameters to channels
     //
-    ch_fasta        = Channel.fromPath(params.fasta).map{ [[id:"reference"], it]}.collect()
-    ch_fai          = params.fai ? Channel.fromPath(params.fai).map{ [[id:"reference"], it]}.collect() : null
-    
-    // SUBWORKFLOW: Convert CRAM to BAM
-    CRAM_PREPARE_SAMTOOLS (
-        ch_input_prepare, ch_fasta, ch_fai
-    )
 
+    // SUBWORKFLOW: Convert CRAM to BAM if no BAM file was provided
+    if (params.cram){
+        
+        ch_fasta        = Channel.fromPath(params.fasta).map{ [[id:"reference"], it]}.collect()
+        ch_fai          = params.fai ? Channel.fromPath(params.fai).map{ [[id:"reference"], it]}.collect() : null
+    
+        CRAM_PREPARE (
+            ch_input_prepare, ch_fasta, ch_fai
+        )
+        CRAM_PREPARE.out.bam.view()
+    }
+    // 
+    
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
     )
