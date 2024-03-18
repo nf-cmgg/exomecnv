@@ -4,13 +4,15 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { FASTQC                 } from '../modules/nf-core/fastqc/main'
 include { MULTIQC                } from '../modules/nf-core/multiqc/main'
 include { paramsSummaryMap       } from 'plugin/nf-validation'
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
+// local 
+include { CRAM_PREPARE    } from '../subworkflows/local/cram_prepare/main'
+include { BAM_VARIANT_CALLING_EXOMEDEPTH } from '../subworkflows/local/bam_variant_calling_exomedepth/main'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -27,15 +29,28 @@ workflow EXOMECNV {
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
-    //
-    // MODULE: Run FastQC
-    //
-    FASTQC (
-        ch_samplesheet
-    )
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
-    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    // branch into CRAM and BAM files
+    ch_input.branch { meta, cram, crai ->
+                CRAM: cram.extension == "cram"
+                BAM: cram.extension == "bam"
+            }
+            .set{ ch_input_prepare }
+    // ch_input_prepare.BAM.view { "BAM: $it" }
+    // ch_input_prepare.CRAM.view { "CRAM: $it" }
 
+    // SUBWORKFLOW: Convert CRAM to BAM if no BAM file was provided
+    ch_fasta        = Channel.fromPath(params.fasta).map{ [[id:"reference"], it]}.collect()
+    ch_fai          = params.fai ? Channel.fromPath(params.fai).map{ [[id:"reference"], it]}.collect() : null
+
+    CRAM_PREPARE (
+        ch_input_prepare.CRAM, ch_fasta, ch_fai
+    )
+    
+    ch_input_prepare.BAM
+                    .mix(CRAM_PREPARE.out.bam)
+                    .set{ ch_input_bam } 
+
+    ch_input_bam.view()
     //
     // Collate and save software versions
     //
