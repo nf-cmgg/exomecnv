@@ -28,9 +28,9 @@ workflow EXOMECNV {
 
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
-
+    // ch_samplesheet.view()
     // branch into CRAM and BAM files
-    ch_input.branch { meta, cram, crai ->
+    ch_samplesheet.branch { meta, cram, crai ->
                 CRAM: cram.extension == "cram"
                 BAM: cram.extension == "bam"
             }
