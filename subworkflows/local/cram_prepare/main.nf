@@ -20,7 +20,7 @@ workflow CRAM_PREPARE {
     ch_versions = ch_versions.mix(CRAM_TO_BAM.out.versions)
 
     emit:
-    bam      = CRAM_TO_BAM.out.alignment_index           // channel: [ val(meta), [ bam ], [bai] ]
+    bam      = CRAM_TO_BAM.out.bam           // channel: [ val(meta), [ bam ], [bai] ]
 
     versions = ch_versions                     // channel: [ versions.yml ]
 }

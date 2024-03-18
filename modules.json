@@ -7,24 +7,18 @@
                 "nf-core": {
                     "custom/dumpsoftwareversions": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
-                        "installed_by": [
-                            "modules"
-                        ]
+                        "git_sha": "de45447d060b8c8b98575bc637a4a575fd0638e1",
+                        "installed_by": ["modules"]
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
-                        "installed_by": [
-                            "modules"
-                        ]
+                        "git_sha": "b7ebe95761cd389603f9cc0e0dc384c0f663815a",
+                        "installed_by": ["modules"]
                     },
                     "samtools/convert": {
                         "branch": "master",
-                        "git_sha": "a64788f5ad388f1d2ac5bd5f1f3f8fc81476148c",
-                        "installed_by": [
-                            "modules"
-                        ]
+                        "git_sha": "1b93e06140e6807cc408519759f68bd26da63a00",
+                        "installed_by": ["modules"]
                     }
                 }
             },

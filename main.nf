@@ -19,7 +19,7 @@ nextflow.enable.dsl = 2
 include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
 params.fasta = getGenomeAttribute('fasta')
-params.fai   = getGenomeAttribute('fai')
+// params.fai   = getGenomeAttribute('fai')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
