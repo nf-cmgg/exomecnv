@@ -1,4 +1,4 @@
-# CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv: Output
+# nf-cmgg/exomecnv: Output
 
 ## Introduction
 

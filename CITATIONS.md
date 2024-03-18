@@ -1,4 +1,4 @@
-# CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv: Citations
+# nf-cmgg/exomecnv: Citations
 
 ## [nf-core](https://pubmed.ncbi.nlm.nih.gov/32055031/)
 
