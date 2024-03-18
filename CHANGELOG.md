@@ -7,10 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial release of nf-cmgg/exomecnv, created with the [nf-core](https://nf-co.re/) template.
 
-### `Added`
-
-### `Fixed`
-
-### `Dependencies`
-
-### `Deprecated`
+### `Changes`
+- initiate step 1: CRAM -> BAM
+- new repo name `nf-cmgg/exomecnv`
+- Upgraded to nf-core v2.13 template
