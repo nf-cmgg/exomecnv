@@ -10,9 +10,10 @@ include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pi
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
-// local 
+// local
 include { CRAM_PREPARE    } from '../subworkflows/local/cram_prepare/main'
-include { BAM_VARIANT_CALLING_EXOMEDEPTH } from '../subworkflows/local/bam_variant_calling_exomedepth/main'
+include { EXOMEDEPTH_COUNT    } from '../subworkflows/local/exomedepth_count/main'
+// include { BAM_VARIANT_CALLING_EXOMEDEPTH } from '../subworkflows/local/bam_variant_calling_exomedepth/main'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -28,7 +29,11 @@ workflow EXOMECNV {
 
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
-    // ch_samplesheet.view()
+
+    //
+    // Importing and convert the input files passed through the parameters to channels
+    //
+
     // branch into CRAM and BAM files
     ch_samplesheet.branch { meta, cram, crai ->
                 CRAM: cram.extension == "cram"
@@ -38,19 +43,30 @@ workflow EXOMECNV {
     // ch_input_prepare.BAM.view { "BAM: $it" }
     // ch_input_prepare.CRAM.view { "CRAM: $it" }
 
-    // SUBWORKFLOW: Convert CRAM to BAM if no BAM file was provided
+    
     ch_fasta        = Channel.fromPath(params.fasta).map{ [[id:"reference"], it]}.collect()
     ch_fai          = params.fai ? Channel.fromPath(params.fai).map{ [[id:"reference"], it]}.collect() : null
+    ch_roi_auto     = Channel.fromPath(params.roi_auto).map{ [[id:"autosomal"], it]}.collect()
+    ch_roi_x        = Channel.fromPath(params.roi_chrx).map{ [[id:"chrX"], it]}.collect()
+    
+    // ch_roi_auto.view()
+    // ch_roi_auto.view()
 
+    // SUBWORKFLOW: Convert CRAM to BAM if no BAM file was provided
     CRAM_PREPARE (
         ch_input_prepare.CRAM, ch_fasta, ch_fai
     )
-    
+
     ch_input_prepare.BAM
                     .mix(CRAM_PREPARE.out.bam)
-                    .set{ ch_input_bam } 
+                    .join(CRAM_PREPARE.out.bai)
+                    .set{ ch_input_bam }
 
-    ch_input_bam.view()
+    // ch_input_bam.view()
+
+    EXOMEDEPTH_COUNT (
+        ch_input_bam, ch_roi_auto
+    )
     //
     // Collate and save software versions
     //

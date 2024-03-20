@@ -36,6 +36,8 @@ workflow PIPELINE_INITIALISATION {
     nextflow_cli_args //   array: List of positional nextflow CLI args
     outdir            //  string: The output directory where the results will be saved
     input             //  string: Path to input samplesheet
+    roi_auto        //  string: Path to ExomeDepth BED file of (merged) autosomal regions
+    roi_chrx        //  string: Path to ExomeDepth BED file of (merged) chrX regions
 
     main:
 

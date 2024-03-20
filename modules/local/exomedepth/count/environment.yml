@@ -1,0 +1,10 @@
+name: exomedepth_count
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+
+dependencies:
+  - r=3.6=r36_1003
+  - r-optparse=1.6.4=r36h6115d3f_0
+  - r-exomedepth=1.1.12=r36h6786f55_0

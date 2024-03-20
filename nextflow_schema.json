@@ -53,7 +53,8 @@
                     "type": "string",
                     "description": "Name of iGenomes reference.",
                     "fa_icon": "fas fa-book",
-                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details."
+                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details.",
+                    "default": "GRCh38"
                 },
                 "fasta": {
                     "type": "string",
@@ -79,7 +80,8 @@
                     "description": "Do not load the iGenomes reference config.",
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
-                    "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
+                    "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`.",
+                    "default": true
                 },
                 "cmgg_config_base": {
                     "type": "string",
@@ -87,7 +89,8 @@
                     "description": "The config base path for the cmgg configs",
                     "format": "directory-path"
                 }
-            }
+            },
+            "required": ["fasta", "fai"]
         },
         "institutional_config_options": {
             "title": "Institutional config options",
@@ -282,6 +285,31 @@
                     "help_text": "Allows string values that are parseable as numbers or booleans. For further information see [JSONSchema docs](https://github.com/everit-org/json-schema#lenient-mode)."
                 }
             }
+        },
+        "exomedepth_parameters": {
+            "title": "ExomeDepth parameters",
+            "type": "object",
+            "description": "Options specific for the ExomeDepth execution",
+            "default": "",
+            "properties": {
+                "roi_auto": {
+                    "type": "string",
+                    "description": "Path to the default ROI (regions of interest) BED file of autosomal (merged) regions to be used for CNV analysis",
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.bed$",
+                    "mimetype": "text/plain",
+                    "default": "/home/torossee/projects/nf-cmgg-exomecnv_references/Homo_sapiens.GRCh38.105.chr_protein_coding_basic_sorted_merged_autosomal.bed"
+                },
+                "roi_chrx": {
+                    "type": "string",
+                    "description": "Path to the default ROI (regions of interest) BED file of chrX (merged) regions to be used for CNV analysis",
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.bed$",
+                    "mimetype": "text/plain",
+                    "default": "/home/torossee/projects/nf-cmgg-exomecnv_references/Homo_sapiens.GRCh38.105.chrX_protein_coding_basic_sorted_merged.bed"
+                }
+            },
+            "required": ["roi_auto", "roi_chrx"]
         }
     },
     "allOf": [
@@ -299,6 +327,9 @@
         },
         {
             "$ref": "#/definitions/generic_options"
+        },
+        {
+            "$ref": "#/definitions/exomedepth_parameters"
         }
     ]
 }

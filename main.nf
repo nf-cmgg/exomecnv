@@ -53,7 +53,9 @@ workflow NFCMGG_EXOMECNV {
         params.monochrome_logs,
         args,
         params.outdir,
-        params.input
+        params.input,
+        params.roi_auto,
+        params.roi_chrx
     )
 
     //
