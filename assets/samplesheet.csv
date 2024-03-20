@@ -1,4 +1,3 @@
 sample,pool,family,cram,crai
-DNA049572,poolF,Proband_24.03390,/path/to/cram/files/test.cram,/path/to/cram/files/test.cram.crai
-NA24385D2_NVQ_034,poolM,Proband_24.03390,/path/to/cram/files/test2.cram,/path/to/cram/files/test2.cram.crai
-
+DNA049572,poolF,Proband_24.03390,https://github.com/nf-cmgg/test-datasets/tree/main/data/genomics/homo_sapiens/illumina/cram/cram/test.cram,https://github.com/nf-cmgg/test-datasets/tree/main/data/genomics/homo_sapiens/illumina/cram/test.cram.crai
+NA24385D2_NVQ_034,poolM,Proband_24.03390,https://github.com/nf-cmgg/test-datasets/tree/main/data/genomics/homo_sapiens/illumina/cram/test2.cram,https://github.com/nf-cmgg/test-datasets/tree/main/data/genomics/homo_sapiens/illumina/cram/test2.cram.crai
