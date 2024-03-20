@@ -14,12 +14,12 @@ nextflow.enable.dsl = 2
     GENOME PARAMETER VALUES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-//  use getGenomeAttribute() to fetch parameters 
+//  use getGenomeAttribute() to fetch parameters
 //  from igenomes.config using `--genome`
 include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
 params.fasta = getGenomeAttribute('fasta')
-// params.fai   = getGenomeAttribute('fai')
+params.fai   = getGenomeAttribute('fai')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -53,7 +53,7 @@ workflow NFCMGG_EXOMECNV {
         params.monochrome_logs,
         args,
         params.outdir,
-        params.input
+        params.input,
     )
 
     //
