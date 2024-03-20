@@ -54,8 +54,6 @@ workflow NFCMGG_EXOMECNV {
         args,
         params.outdir,
         params.input,
-        params.roi_auto,
-        params.roi_chrx
     )
 
     //

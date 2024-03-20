@@ -11,7 +11,7 @@ process COUNT {
 
     input:
     tuple val(meta), path(bam), path(bai)
-    tuple val(prefix), path(exon_target)
+    tuple val(meta2), path(exon_target)
 
     output:
     tuple val(meta), path("*.txt"), emit: counts
@@ -30,7 +30,7 @@ process COUNT {
         $bam \\
         $bai \\
         $exon_target \\
-        $prefix.id
+        $meta2.id
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
