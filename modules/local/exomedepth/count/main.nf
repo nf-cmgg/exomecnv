@@ -30,7 +30,7 @@ process COUNT {
         $bam \\
         $bai \\
         $exon_target \\
-        $prefix.id
+        $meta2.id
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
