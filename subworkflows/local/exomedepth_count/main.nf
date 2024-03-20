@@ -6,7 +6,7 @@ workflow EXOMEDEPTH_COUNT {
 
     take:
     ch_bam // channel: [mandatory] [ val(meta), path(bam), path(bai) ]
-    exon_target   // channel: [mandatory] [ val(prefix), path(bed) ]
+    exon_target   // channel: [mandatory] [ val(meta2), path(bed) ]
 
     main:
 

@@ -1,5 +1,5 @@
 process COUNT {
-    tag "$meta.id $prefix.id"
+    tag "$meta.id $meta2.id"
     label 'process_low'
 
     conda "${moduleDir}/environment.yml"
