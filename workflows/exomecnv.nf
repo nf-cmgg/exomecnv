@@ -43,12 +43,12 @@ workflow EXOMECNV {
     // ch_input_prepare.BAM.view { "BAM: $it" }
     // ch_input_prepare.CRAM.view { "CRAM: $it" }
 
-    
+
     ch_fasta        = Channel.fromPath(params.fasta).map{ [[id:"reference"], it]}.collect()
     ch_fai          = params.fai ? Channel.fromPath(params.fai).map{ [[id:"reference"], it]}.collect() : null
     ch_roi_auto     = Channel.fromPath(params.roi_auto).map{ [[id:"autosomal"], it]}.collect()
     ch_roi_x        = Channel.fromPath(params.roi_chrx).map{ [[id:"chrX"], it]}.collect()
-    
+
     // ch_roi_auto.view()
     // ch_roi_auto.view()
 

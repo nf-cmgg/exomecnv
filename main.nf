@@ -14,7 +14,7 @@ nextflow.enable.dsl = 2
     GENOME PARAMETER VALUES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-//  use getGenomeAttribute() to fetch parameters 
+//  use getGenomeAttribute() to fetch parameters
 //  from igenomes.config using `--genome`
 include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_exomecnv_pipeline'
 

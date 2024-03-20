@@ -298,7 +298,7 @@
                     "format": "file-path",
                     "pattern": "^\\S+\\.bed$",
                     "mimetype": "text/plain",
-                    "default": "/home/torossee/projects/nf-cmgg-exomecnv_references/Homo_sapiens.GRCh38.105.chr_protein_coding_basic_sorted_merged_autosomal.bed"
+                    "default": null
                 },
                 "roi_chrx": {
                     "type": "string",
@@ -306,7 +306,7 @@
                     "format": "file-path",
                     "pattern": "^\\S+\\.bed$",
                     "mimetype": "text/plain",
-                    "default": "/home/torossee/projects/nf-cmgg-exomecnv_references/Homo_sapiens.GRCh38.105.chrX_protein_coding_basic_sorted_merged.bed"
+                    "default": null
                 }
             },
             "required": ["roi_auto", "roi_chrx"]

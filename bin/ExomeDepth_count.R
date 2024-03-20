@@ -5,7 +5,7 @@
 ############################################################################################
 
 ### load libs ###
-# library("optparse") 
+# library("optparse")
 library("methods") # to load the function "as"
 library("ExomeDepth")
 ExomeDepthVersion <- packageDescription("ExomeDepth")$Version
@@ -15,11 +15,11 @@ print(paste0("...loaded ExomeDepth version: ", ExomeDepthVersion))
 ## pass options ###
 args = commandArgs(trailingOnly = TRUE)
 print_usage <- function() {
-  cat("Usage: ExomeDepth_count.R <samplename> <bamfile> <baifile> <exon_target> <prefix>\n")
+    cat("Usage: ExomeDepth_count.R <samplename> <bamfile> <baifile> <exon_target> <prefix>\n")
 }
 if (length(commandArgs(trailingOnly = TRUE)) != 5) {
-  print_usage()
-  q("no", status = 1) # Terminate the script with an error status
+    print_usage()
+    q("no", status = 1) # Terminate the script with an error status
 }
 
 cat("samplename: ", args[1], "\n")
@@ -61,12 +61,12 @@ ExomeCount <- getBamCounts(bed.frame = exons,
 cat("\nCounting done...\n")
 colnames(ExomeCount)
 ## convert GRanges class (S4 object) into a data.frame, which is the input format for ExomeDepth
-ExomeCount.dafr <- as(ExomeCount[,  colnames(ExomeCount)], 'data.frame') 
+ExomeCount.dafr <- as(ExomeCount[,  colnames(ExomeCount)], 'data.frame')
 cat("\nConversion done...\n")
 print(head(ExomeCount.dafr))
 ## remove the annoying chr letters
 ExomeCount.dafr$chromosome <- gsub(as.character(ExomeCount.dafr$chromosome),
-                                        pattern = 'chr', 
+                                        pattern = 'chr',
                                         replacement = '')
 cat("\nChr's removed...\n")
 ## rename sample names in colnames
@@ -79,7 +79,7 @@ cat("Successfully calculated counts.\n")
 ###  save counts as a text file and rda object ###
 cat("Saving the counts \n")
 countspath = paste("counts_",sampleName,"_",args[5],".txt",sep="")
-write.table(ExomeCount.dafr,countspath,sep="\t",col.names=TRUE,row.names=FALSE,quote=FALSE)  
+write.table(ExomeCount.dafr,countspath,sep="\t",col.names=TRUE,row.names=FALSE,quote=FALSE)
 
 cat("\n\n---Finished---\n")
 
