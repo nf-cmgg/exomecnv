@@ -78,7 +78,7 @@ cat("Successfully calculated counts.\n")
 
 ###  save counts as a text file and rda object ###
 cat("Saving the counts \n")
-countspath = paste("counts_",sampleName,"_",args[5],".txt",sep="")
+countspath = paste(sampleName,"_",args[5],".txt",sep="")
 write.table(ExomeCount.dafr,countspath,sep="\t",col.names=TRUE,row.names=FALSE,quote=FALSE)
 
 cat("\n\n---Finished---\n")
