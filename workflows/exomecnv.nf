@@ -12,7 +12,9 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_exom
 
 // local
 include { CRAM_PREPARE    } from '../subworkflows/local/cram_prepare/main'
-include { EXOMEDEPTH_COUNT    } from '../subworkflows/local/exomedepth_count/main'
+include { EXOMEDEPTH_COUNT as COUNT_X   } from '../subworkflows/local/exomedepth_count/main'
+include { EXOMEDEPTH_COUNT as COUNT_AUTO  } from '../subworkflows/local/exomedepth_count/main'
+
 // include { BAM_VARIANT_CALLING_EXOMEDEPTH } from '../subworkflows/local/bam_variant_calling_exomedepth/main'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -49,6 +51,8 @@ workflow EXOMECNV {
     ch_roi_auto     = Channel.fromPath(params.roi_auto).map{ [[id:"autosomal"], it]}.collect()
     ch_roi_x        = Channel.fromPath(params.roi_chrx).map{ [[id:"chrX"], it]}.collect()
 
+    // ch_fasta.view()
+    // ch_fai.view()
     // ch_roi_auto.view()
     // ch_roi_auto.view()
 
@@ -56,17 +60,24 @@ workflow EXOMECNV {
     CRAM_PREPARE (
         ch_input_prepare.CRAM, ch_fasta, ch_fai
     )
+    // ch_input_prepare.BAM.view{ "BAM: $it" }
+    // CRAM_PREPARE.out.bai.view{ "samtools: $it" }
+    CRAM_PREPARE.out.bam
+                .join(CRAM_PREPARE.out.bai)
+                .set{ ch_cram_prepare }
 
     ch_input_prepare.BAM
-                    .mix(CRAM_PREPARE.out.bam)
-                    .join(CRAM_PREPARE.out.bai)
+                    .mix(ch_cram_prepare)
                     .set{ ch_input_bam }
 
     // ch_input_bam.view()
-
-    EXOMEDEPTH_COUNT (
+    COUNT_AUTO (
         ch_input_bam, ch_roi_auto
     )
+    COUNT_X (
+        ch_input_bam, ch_roi_x
+    )
+
     //
     // Collate and save software versions
     //
