@@ -15,7 +15,7 @@ include { CRAM_PREPARE                               } from '../subworkflows/loc
 include { EXOMEDEPTH_COUNT as COUNT_X                } from '../subworkflows/local/exomedepth_count/main'
 include { EXOMEDEPTH_COUNT as COUNT_AUTO             } from '../subworkflows/local/exomedepth_count/main'
 include { EXOMEDEPTH_COUNT_MERGE as COUNT_MERGE_AUTO } from '../modules/local/exomedepth/merge_count/main'
-include { EXOMEDEPTH_COUNT_MERGE as COUNT_MERGE_X    } from '../modules/local/exomedepth/merge_count/main'                      
+include { EXOMEDEPTH_COUNT_MERGE as COUNT_MERGE_X    } from '../modules/local/exomedepth/merge_count/main'
 
 
 // include { BAM_VARIANT_CALLING_EXOMEDEPTH } from '../subworkflows/local/bam_variant_calling_exomedepth/main'
@@ -45,7 +45,7 @@ workflow EXOMECNV {
                 BAM: cram.extension == "bam"
             }
             .set{ ch_input_prepare }
-    
+
 
    //ch_input_prepare.BAM.view { "BAM: $it" }
    //ch_input_prepare.CRAM.view { "CRAM: $it" }
@@ -79,7 +79,7 @@ workflow EXOMECNV {
     COUNT_AUTO (
         ch_input_bam, ch_roi_auto
     )
-    
+
     grouped_counts_auto = COUNT_AUTO.out.count
         .map { meta, txt ->
             def new_meta = [id:meta.pool,chr:"autosomal"]
@@ -88,14 +88,14 @@ workflow EXOMECNV {
     .groupTuple()
 
     COUNT_MERGE_AUTO (
-       grouped_counts_auto
-     )
-    
+    grouped_counts_auto
+    )
+
     COUNT_X (
         ch_input_bam, ch_roi_x
     )
-   
-   grouped_counts_X = COUNT_X.out.count
+
+    grouped_counts_X = COUNT_X.out.count
         .map { meta, txt ->
             def new_meta = [id:meta.pool,chr:"chrX"]
             [new_meta, txt]
@@ -103,7 +103,7 @@ workflow EXOMECNV {
     .groupTuple()
 
     COUNT_MERGE_X (
-       grouped_counts_X
+        grouped_counts_X
     )
     //
     // Collate and save software versions
