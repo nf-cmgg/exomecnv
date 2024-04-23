@@ -12,10 +12,10 @@ process EXOMEDEPTH_COUNT_MERGE {
     """
     for file in $files; do
         if [ -f ${meta.id}_${meta.chr}.txt ]; then
-		paste ${meta.id}_${meta.chr}.txt <(awk '{print \$5}' \$file) > temp_auto.txt
-		mv temp_auto.txt ${meta.id}_${meta.chr}.txt
-		else
-		cp \$file ${meta.id}_${meta.chr}.txt
+            paste ${meta.id}_${meta.chr}.txt <(awk '{print \$5}' \$file) > temp_auto.txt
+            mv temp_auto.txt ${meta.id}_${meta.chr}.txt
+            else
+            cp \$file ${meta.id}_${meta.chr}.txt
         fi
     done
     """
