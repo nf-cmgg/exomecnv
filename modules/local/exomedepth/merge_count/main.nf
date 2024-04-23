@@ -6,16 +6,17 @@ process EXOMEDEPTH_COUNT_MERGE {
     tuple val(meta), path(files)
 
     output:
-    tuple val(meta), path("${meta.id}_${meta.chr}.txt")
+    tuple val(meta), path("${prefix}.txt")
 
     script:
+    prefix = task.ext.prefix ?: "${meta.id}_${meta.chr}"
     """
     for file in $files; do
-        if [ -f ${meta.id}_${meta.chr}.txt ]; then
-            paste ${meta.id}_${meta.chr}.txt <(awk '{print \$5}' \$file) > temp_auto.txt
-            mv temp_auto.txt ${meta.id}_${meta.chr}.txt
+        if [ -f ${prefix}.txt ]; then
+            paste ${prefix}.txt <(awk '{print \$5}' \$file) > temp_auto.txt
+            mv temp_auto.txt ${prefix}.txt
             else
-            cp \$file ${meta.id}_${meta.chr}.txt
+            cp \$file ${prefix}.txt
         fi
     done
     """
