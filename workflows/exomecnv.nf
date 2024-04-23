@@ -88,7 +88,7 @@ workflow EXOMECNV {
     .groupTuple()
 
     COUNT_MERGE_AUTO (
-    grouped_counts_auto
+        grouped_counts_auto
     )
 
     COUNT_X (
