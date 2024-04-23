@@ -47,8 +47,8 @@ workflow EXOMECNV {
             .set{ ch_input_prepare }
 
 
-   //ch_input_prepare.BAM.view { "BAM: $it" }
-   //ch_input_prepare.CRAM.view { "CRAM: $it" }
+    //ch_input_prepare.BAM.view { "BAM: $it" }
+    //ch_input_prepare.CRAM.view { "CRAM: $it" }
 
 
     ch_fasta        = Channel.fromPath(params.fasta).map{ [[id:"reference"], it]}.collect()
