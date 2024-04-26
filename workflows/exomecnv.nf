@@ -11,13 +11,13 @@ include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pi
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
 // local
-include { CRAM_PREPARE                               } from '../subworkflows/local/cram_prepare/main'
-include { EXOMEDEPTH_COUNT as COUNT_X                } from '../subworkflows/local/exomedepth_count/main'
-include { EXOMEDEPTH_COUNT as COUNT_AUTO             } from '../subworkflows/local/exomedepth_count/main'
-include { EXOMEDEPTH_COUNT_MERGE as COUNT_MERGE_AUTO } from '../modules/local/exomedepth/merge_count/main'
-include { EXOMEDEPTH_COUNT_MERGE as COUNT_MERGE_X    } from '../modules/local/exomedepth/merge_count/main'
-include { EXOMEDEPTH_CNV as CNV_CALL_AUTO            } from '../subworkflows/local/exomedepth_cnv_call/main'
-include { EXOMEDEPTH_CNV as CNV_CALL_X               } from '../subworkflows/local/exomedepth_cnv_call/main'
+include { CRAM_PREPARE                      } from '../subworkflows/local/cram_prepare/main'
+include { COUNT as COUNT_X                  } from '../modules/local/exomedepth/count/main'
+include { COUNT as COUNT_AUTO               } from '../modules/local/exomedepth/count/main'
+include { COUNT_MERGE as COUNT_MERGE_AUTO   } from '../modules/local/exomedepth/merge_count/main'
+include { COUNT_MERGE as COUNT_MERGE_X      } from '../modules/local/exomedepth/merge_count/main'
+include { CNV_CALL as CNV_CALL_AUTO         } from '../modules/local/exomedepth/cnv_call/main'
+include { CNV_CALL as CNV_CALL_X            } from '../modules/local/exomedepth/cnv_call/main'
 
 // include { BAM_VARIANT_CALLING_EXOMEDEPTH } from '../subworkflows/local/bam_variant_calling_exomedepth/main'
 /*
@@ -81,7 +81,7 @@ workflow EXOMECNV {
     )
     ch_versions = ch_versions.mix(COUNT_AUTO.out.versions)
 
-    grouped_counts_auto = COUNT_AUTO.out.count
+    grouped_counts_auto = COUNT_AUTO.out.counts
         .map { meta, txt ->
             def new_meta = [id:meta.pool]
             [new_meta, meta.sample, meta.family, txt]
@@ -111,7 +111,7 @@ workflow EXOMECNV {
         ch_input_bam, ch_roi_x
     )
 
-    grouped_counts_X = COUNT_X.out.count
+    grouped_counts_X = COUNT_X.out.counts
         .map { meta, txt ->
             def new_meta = [id:meta.pool]
             [new_meta, meta.sample, meta.family, txt]

@@ -9,7 +9,6 @@ workflow EXOMEDEPTH_COUNT {
     exon_target   // channel: [mandatory] [ val(meta2), path(bed) ]
 
     main:
-
     ch_versions = Channel.empty()
 
     //
