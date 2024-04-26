@@ -1,5 +1,5 @@
 // MERGE COUNT FILES
-process EXOMEDEPTH_COUNT_MERGE {
+process COUNT_MERGE {
     publishDir "$params.outdir/exomedepth/counts", mode: 'copy'
 
     input:
