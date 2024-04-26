@@ -16,7 +16,8 @@ include { EXOMEDEPTH_COUNT as COUNT_X                } from '../subworkflows/loc
 include { EXOMEDEPTH_COUNT as COUNT_AUTO             } from '../subworkflows/local/exomedepth_count/main'
 include { EXOMEDEPTH_COUNT_MERGE as COUNT_MERGE_AUTO } from '../modules/local/exomedepth/merge_count/main'
 include { EXOMEDEPTH_COUNT_MERGE as COUNT_MERGE_X    } from '../modules/local/exomedepth/merge_count/main'
-
+include { EXOMEDEPTH_CNV as CNV_CALL_AUTO            } from '../subworkflows/local/exomedepth_cnv_call/main'
+include { EXOMEDEPTH_CNV as CNV_CALL_X               } from '../subworkflows/local/exomedepth_cnv_call/main'
 
 // include { BAM_VARIANT_CALLING_EXOMEDEPTH } from '../subworkflows/local/bam_variant_calling_exomedepth/main'
 /*
@@ -31,7 +32,6 @@ workflow EXOMECNV {
     ch_samplesheet // channel: samplesheet read in from --input
 
     main:
-
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
@@ -75,21 +75,37 @@ workflow EXOMECNV {
                     .mix(ch_cram_prepare)
                     .set{ ch_input_bam }
 
-    // ch_input_bam.view()
+    //ch_input_bam.view()
     COUNT_AUTO (
         ch_input_bam, ch_roi_auto
     )
+    ch_versions = ch_versions.mix(COUNT_AUTO.out.versions)
 
     grouped_counts_auto = COUNT_AUTO.out.count
         .map { meta, txt ->
-            def new_meta = [id:meta.pool,chr:"autosomal"]
+            def new_meta = [id:meta.pool]
+            [new_meta, meta.sample, meta.family, txt]
+            }
+        .groupTuple()
+        .map { meta, samples, families, txt ->
+            def new_meta = [id:meta.id, chr:"autosomal", sam:samples, fam: families]
             [new_meta, txt]
-    }
-    .groupTuple()
+        }
 
     COUNT_MERGE_AUTO (
         grouped_counts_auto
     )
+
+    cnv_auto_ch = COUNT_MERGE_AUTO.out
+        .map { meta, txt ->
+            [meta, meta.sam, txt]
+            }
+        .transpose(by:1)
+
+    CNV_CALL_AUTO(
+        ch_roi_auto, cnv_auto_ch
+    )
+    ch_versions = ch_versions.mix(CNV_CALL_AUTO.out.versions)
 
     COUNT_X (
         ch_input_bam, ch_roi_x
@@ -97,14 +113,29 @@ workflow EXOMECNV {
 
     grouped_counts_X = COUNT_X.out.count
         .map { meta, txt ->
-            def new_meta = [id:meta.pool,chr:"chrX"]
+            def new_meta = [id:meta.pool]
+            [new_meta, meta.sample, meta.family, txt]
+            }
+        .groupTuple()
+        .map { meta, samples, families, txt ->
+            def new_meta = [id:meta.id, chr:"chrX", sam:samples, fam: families]
             [new_meta, txt]
-    }
-    .groupTuple()
+        }
 
     COUNT_MERGE_X (
         grouped_counts_X
     )
+
+    cnv_chrx_ch = COUNT_MERGE_X.out
+        .map { meta, txt ->
+            [meta, meta.sam, txt]
+            }
+        .transpose(by:1)
+
+    CNV_CALL_X(
+        ch_roi_auto, cnv_chrx_ch
+    )
+
     //
     // Collate and save software versions
     //
