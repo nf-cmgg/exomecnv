@@ -1,5 +1,6 @@
 process CNV_CALL {
     tag "$sample $meta2.chr"
+    label 'process_low'
 
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/r-exomedepth:1.1.16--r43hfb3cda0_3' :
@@ -12,7 +13,7 @@ process CNV_CALL {
     tuple val(meta2), val(sample), path(countfile) // meta:id, chr, sam, fam, sample
 
     output:
-    tuple val(meta2), path("*.txt"), emit: cnvcall
+    tuple val(meta2), val (sample), path("*.txt"), emit: cnvcall
     path "versions.yml", emit:versions
 
     script:

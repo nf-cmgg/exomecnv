@@ -1,5 +1,7 @@
 // MERGE COUNT FILES
 process COUNT_MERGE {
+    tag "$meta.id $meta.chr"
+
     publishDir "$params.outdir/exomedepth/counts", mode: 'copy'
 
     input:
