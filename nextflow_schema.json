@@ -290,8 +290,7 @@
                 },
                 "yamlconfig": {
                     "type": "string",
-                    "description": "YAML config file to use in BEDGOVCF module",
-                    "default": "/home/bertg/exomecnv/assets/exomedepth.yaml"
+                    "description": "YAML config file to use in BEDGOVCF module"
                 }
             }
         },
