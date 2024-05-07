@@ -41,6 +41,7 @@ process COUNT {
     """
 
     stub:
+    def VERSION = '1.1.16'
     """
     touch ${meta.id}_${meta2.id}.txt
 

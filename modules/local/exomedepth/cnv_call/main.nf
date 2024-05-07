@@ -37,7 +37,8 @@ process CNV_CALL {
     """
 
     stub:
-    def prefix = task.ext.prefix ?: "${sample}_CNVs_ExomeDepth_${meta.id}"
+    def prefix = task.ext.prefix ?: "${sample}_CNVs_ExomeDepth_${meta2.chr}"
+    def VERSION = '1.1.16'
     """
     touch ${prefix}.txt
 

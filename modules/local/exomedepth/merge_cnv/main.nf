@@ -8,7 +8,7 @@ process CNV_MERGE {
     tuple val(meta), path(auto), path(chrx)
 
     output:
-    tuple val(meta), path("${prefix}.txt")
+    tuple val(meta), path("*.txt")
 
     script:
     prefix = task.ext.prefix ?: "${meta}_CNVs_ExomeDepth"
