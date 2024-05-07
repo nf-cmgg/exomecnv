@@ -7,7 +7,12 @@
                 "nf-core": {
                     "bedgovcf": {
                         "branch": "master",
-                        "git_sha": "338a5572efbda56110cea2f657615920d8dce58c",
+                        "git_sha": "71a96063a7e09be7ea48f069d134a56ce86c9ba6",
+                        "installed_by": ["modules"]
+                    },
+                    "ensemblvep/vep": {
+                        "branch": "master",
+                        "git_sha": "b42fec6f7c6e5d0716685cabb825ef6bf6e386b5",
                         "installed_by": ["modules"]
                     },
                     "multiqc": {
@@ -17,7 +22,7 @@
                     },
                     "samtools/convert": {
                         "branch": "master",
-                        "git_sha": "1b93e06140e6807cc408519759f68bd26da63a00",
+                        "git_sha": "b42fec6f7c6e5d0716685cabb825ef6bf6e386b5",
                         "installed_by": ["modules"]
                     }
                 }
@@ -31,7 +36,7 @@
                     },
                     "utils_nfcore_pipeline": {
                         "branch": "master",
-                        "git_sha": "5caf7640a9ef1d18d765d55339be751bb0969dfa",
+                        "git_sha": "92de218a329bfc9a9033116eb5f65fd270e72ba3",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfvalidation_plugin": {
