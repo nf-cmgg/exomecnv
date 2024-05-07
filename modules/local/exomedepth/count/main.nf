@@ -39,4 +39,15 @@ process COUNT {
     END_VERSIONS
 
     """
+
+    stub:
+    """
+    touch ${meta.id}_${meta2.id}.txt
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        ExomeDepth: ${VERSION}
+        R: \$(Rscript --version | sed 's/R scripting front-end //g')
+    END_VERSIONS
+    """
 }

@@ -17,4 +17,9 @@ process CNV_MERGE {
     tail +2 $chrx >> "${prefix}.txt"
     """
 
+    stub:
+    def prefix = task.ext.prefix ?: "${meta}_CNVs_ExomeDepth"
+    """
+    touch ${prefix}.txt
+    """
 }

@@ -22,4 +22,10 @@ process COUNT_MERGE {
         fi
     done
     """
+
+    stub:
+    def prefix = task.ext.prefix ?: "${meta.id}_${meta.chr}"
+    """
+    touch ${prefix}.txt
+    """
 }

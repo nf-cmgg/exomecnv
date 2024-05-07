@@ -287,10 +287,6 @@
                     "description": "Validation of parameters in lenient more.",
                     "hidden": true,
                     "help_text": "Allows string values that are parseable as numbers or booleans. For further information see [JSONSchema docs](https://github.com/everit-org/json-schema#lenient-mode)."
-                },
-                "yamlconfig": {
-                    "type": "string",
-                    "description": "YAML config file to use in BEDGOVCF module"
                 }
             }
         },
@@ -300,6 +296,10 @@
             "description": "Options specific for the ExomeDepth execution",
             "default": "",
             "properties": {
+                "yamlconfig": {
+                    "type": "string",
+                    "description": "YAML config file to use in BEDGOVCF module"
+                },
                 "roi_auto": {
                     "type": "string",
                     "description": "Path to the default ROI (regions of interest) BED file of autosomal (merged) regions to be used for CNV analysis",
