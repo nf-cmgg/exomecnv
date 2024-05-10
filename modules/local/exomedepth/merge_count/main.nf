@@ -38,5 +38,12 @@ process COUNT_MERGE {
     prefix = task.ext.prefix ?: "${meta.id}_${meta.chr}"
     """
     touch ${prefix}.txt
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        paste:\$(paste --version | sed '1!d; s/paste//')
+        mv:\$(mv --version | sed '1!d; s/mv//')
+        cp:\$(cp --version | sed '1!d; s/cp//')
+    END_VERSIONS
     """
 }

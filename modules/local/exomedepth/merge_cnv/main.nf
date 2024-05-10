@@ -31,5 +31,11 @@ process CNV_MERGE {
     def prefix = task.ext.prefix ?: "${meta}_CNVs_ExomeDepth"
     """
     touch ${prefix}.txt
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        tail:\$(tail --version | sed '1!d; s/tail//')
+        cp:\$(cp --version | sed '1!d; s/cp//')
+    END_VERSIONS
     """
 }
