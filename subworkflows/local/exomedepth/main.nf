@@ -80,10 +80,11 @@ workflow EXOMEDEPTH {
     COUNT_MERGE_AUTO (
         grouped_counts_auto
     )
+    ch_versions = ch_versions.mix(COUNT_MERGE_AUTO.out.versions)
 
     //MODULE: Autosomal CNV call per sample (file for each sample)
 
-    cnv_auto_ch = COUNT_MERGE_AUTO.out
+    cnv_auto_ch = COUNT_MERGE_AUTO.out.merge
         .map { meta, txt ->
             [meta, meta.sam, txt]
             }
@@ -119,7 +120,7 @@ workflow EXOMEDEPTH {
 
     //MODULE: ChrX CNV call per sample (file for each sample)
 
-    cnv_chrx_ch = COUNT_MERGE_X.out
+    cnv_chrx_ch = COUNT_MERGE_X.out.merge
         .map { meta, txt ->
             [meta, meta.sam, txt]
             }
@@ -138,10 +139,11 @@ workflow EXOMEDEPTH {
                 }
 
     CNV_MERGE(cnv_merge_ch)
+    ch_versions = ch_versions.mix(CNV_MERGE.out.versions)
 
     //MODULE: Convert file to VCF according to a YAML config
 
-    bedgovcf_input = CNV_MERGE.out
+    bedgovcf_input = CNV_MERGE.out.merge
                 .map{ meta, bed ->
                     def new_meta = [id:meta]
                     [new_meta, bed, params.yamlconfig]

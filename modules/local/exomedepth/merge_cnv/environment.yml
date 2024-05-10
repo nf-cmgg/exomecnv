@@ -1,0 +1,7 @@
+name: coreutils
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - anaconda::coreutils=9.3

@@ -2,6 +2,7 @@ process CNV_CALL {
     tag "$sample $meta2.chr"
     label 'process_low'
 
+    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/r-exomedepth:1.1.16--r43hfb3cda0_3' :
         'biocontainers/r-exomedepth:1.1.16--r43hfb3cda0_3' }"

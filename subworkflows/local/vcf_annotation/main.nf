@@ -36,4 +36,5 @@ workflow ENSEMBLVEP {
 
     emit:
     vcfs = VEP.out.vcf
+    versions = VEP.out.versions
 }

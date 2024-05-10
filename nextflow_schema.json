@@ -298,21 +298,25 @@
             "properties": {
                 "yamlconfig": {
                     "type": "string",
-                    "description": "YAML config file to use in BEDGOVCF module"
+                    "description": "YAML config file to use in BEDGOVCF module",
+                    "exists": true,
+                    "format": "file-path"
                 },
                 "roi_auto": {
                     "type": "string",
                     "description": "Path to the default ROI (regions of interest) BED file of autosomal (merged) regions to be used for CNV analysis",
                     "format": "file-path",
                     "pattern": "^\\S+\\.bed$",
-                    "mimetype": "text/plain"
+                    "mimetype": "text/plain",
+                    "exists": true
                 },
                 "roi_chrx": {
                     "type": "string",
                     "description": "Path to the default ROI (regions of interest) BED file of chrX (merged) regions to be used for CNV analysis",
                     "format": "file-path",
                     "pattern": "^\\S+\\.bed$",
-                    "mimetype": "text/plain"
+                    "mimetype": "text/plain",
+                    "exists": true
                 }
             },
             "required": ["roi_auto", "roi_chrx"]
@@ -335,11 +339,12 @@
                 },
                 "vep_cache": {
                     "type": "string",
+                    "format": "directory-path",
                     "description": "Path to the VEP cache"
                 },
                 "annotate": {
                     "type": "string",
-                    "description": "Path to VCF file to run VEP on"
+                    "description": "Path to samplesheet with VCF files to run VEP on"
                 },
                 "vep_assembly": {
                     "type": "string",

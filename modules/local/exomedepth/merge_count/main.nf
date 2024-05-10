@@ -2,16 +2,20 @@
 process COUNT_MERGE {
     tag "$meta.id $meta.chr"
 
+    container "quay.io/biocontainers/coreutils:9.3"
+    conda "${moduleDir}/environment.yml"
+
     publishDir "$params.outdir/exomedepth/counts", mode: 'copy'
 
     input:
     tuple val(meta), path(files)
 
     output:
-    tuple val(meta), path("${prefix}.txt")
+    tuple val(meta), path("*.txt"), emit:merge
+    path "versions.yml", emit:versions
 
     script:
-    prefix = task.ext.prefix ?: "${meta.id}_${meta.chr}"
+    def prefix = task.ext.prefix ?: "${meta.id}_${meta.chr}"
     """
     for file in $files; do
         if [ -f ${prefix}.txt ]; then
@@ -21,6 +25,13 @@ process COUNT_MERGE {
             cp \$file ${prefix}.txt
         fi
     done
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        paste:\$(paste --version | sed '1!d; s/paste//')
+        mv:\$(mv --version | sed '1!d; s/mv//')
+        cp:\$(cp --version | sed '1!d; s/cp//')
+    END_VERSIONS
     """
 
     stub:
