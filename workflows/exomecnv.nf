@@ -52,10 +52,9 @@ workflow EXOMECNV {
         .map { meta, path ->
             [meta, path, ch_empty]}
     ENSEMBLVEP ( ch_exomedepth_vcf, ch_fasta, ch_vep_cache )
-    }
     ch_versions = ch_versions.mix(ENSEMBLVEP.out.versions)
     }
-
+    }
 
     // EnsemblVEP on VCF input file
 
