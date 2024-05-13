@@ -343,8 +343,8 @@
                     "description": "Path to the VEP cache"
                 },
                 "annotate": {
-                    "type": "string",
-                    "description": "Path to samplesheet with VCF files to run VEP on"
+                    "type": "boolean",
+                    "description": "Option to annotate on vcf input"
                 },
                 "vep_assembly": {
                     "type": "string",

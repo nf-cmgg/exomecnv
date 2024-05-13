@@ -2,7 +2,9 @@
 process CNV_MERGE {
     tag "$meta"
 
-    container "quay.io/biocontainers/coreutils:9.3"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/coreutils:9.3' :
+        'biocontainers/coreutils:9.3' }"
     conda "${moduleDir}/environment.yml"
 
     publishDir "$params.outdir/exomedepth/cnv_call", mode: 'copy'
@@ -22,8 +24,8 @@ process CNV_MERGE {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        tail:\$(tail --version | sed '1!d; s/tail//')
-        cp:\$(cp --version | sed '1!d; s/cp//')
+        tail: \$(tail --version | sed '1!d; s/tail (GNU coreutils) //')
+        cp: \$(cp --version | sed '1!d; s/cp (GNU coreutils) //')
     END_VERSIONS
     """
 
@@ -34,8 +36,8 @@ process CNV_MERGE {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        tail:\$(tail --version | sed '1!d; s/tail//')
-        cp:\$(cp --version | sed '1!d; s/cp//')
+        tail: \$(tail --version | sed '1!d; s/tail (GNU coreutils) //')
+        cp: \$(cp --version | sed '1!d; s/cp (GNU coreutils) //')
     END_VERSIONS
     """
 }

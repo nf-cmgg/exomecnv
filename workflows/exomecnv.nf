@@ -60,14 +60,12 @@ workflow EXOMECNV {
 
     else {
     ch_empty = []
-    ch_vcf = Channel.fromPath(params.annotate)
-        .splitCsv( header:true)
-        .map { row ->
-                [[id:row.sample], row.vcf, ch_empty]}
-        .collect()
+    ch_vcf = ch_samplesheet
+        .map { meta,bam,bai,vcf ->
+                [[id:meta.id], vcf, ch_empty]}
 
     ENSEMBLVEP (
-            ch_vcf, ch_fasta, ch_vep_cache
+        ch_vcf, ch_fasta, ch_vep_cache
     )
     ch_versions = ENSEMBLVEP.out.versions
     }
