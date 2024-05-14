@@ -41,8 +41,15 @@
             },
             "vcf": {
                 "type": "string",
-                "pattern": "^\\S+\\.vcf$",
+                "pattern": "^\\S+\\.(vcf|vcf.gz)$",
                 "errorMessage": "VCF is optional but must be provided when only annotating",
+                "format": "file-path",
+                "exists": true
+            },
+            "tbi": {
+                "type": "string",
+                "pattern": "^\\S+\\.(vcf.gz.tbi)$",
+                "errorMessage": "index of VCF file is optional but must be provided when only annotating",
                 "format": "file-path",
                 "exists": true
             }

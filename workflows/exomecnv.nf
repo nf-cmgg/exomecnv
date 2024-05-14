@@ -11,8 +11,9 @@ include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pi
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
 // local
-include { EXOMEDEPTH  } from '../subworkflows/local/exomedepth/main'
-include { ENSEMBLVEP  } from '../subworkflows/local/vcf_annotation/main'
+include { EXOMEDEPTH            } from '../subworkflows/local/exomedepth/main'
+include { ENSEMBLVEP            } from '../subworkflows/local/vcf_annotation/main'
+include { TABIX_TABIX as TABIX  } from '../modules/nf-core/tabix/tabix/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -46,11 +47,14 @@ workflow EXOMECNV {
     EXOMEDEPTH (ch_samplesheet)
     ch_versions = EXOMEDEPTH.out.versions
 
-    // EnsemblVEP after ExomeDepth
-    ch_empty = []
+    // Index files for VCF
+
+    TABIX ( EXOMEDEPTH.out.vcf )
     ch_exomedepth_vcf = EXOMEDEPTH.out.vcf
-        .map { meta, path ->
-            [meta, path, ch_empty]}
+        .join(TABIX.out.tbi)
+
+    // EnsemblVEP after ExomeDepth
+
     ENSEMBLVEP ( ch_exomedepth_vcf, ch_fasta, ch_vep_cache )
     ch_versions = ch_versions.mix(ENSEMBLVEP.out.versions)
     }
@@ -59,10 +63,9 @@ workflow EXOMECNV {
     // EnsemblVEP on VCF input file
 
     else {
-    ch_empty = []
     ch_vcf = ch_samplesheet
-        .map { meta,bam,bai,vcf ->
-                [[id:meta.id], vcf, ch_empty]}
+        .map { meta,bam,bai,vcf,tbi ->
+                [[id:meta.id], vcf, tbi]}
 
     ENSEMBLVEP (
         ch_vcf, ch_fasta, ch_vep_cache
