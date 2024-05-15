@@ -38,6 +38,20 @@
                 "errorMessage": "index of CRAM or BAM file must be provided, cannot contain spaces and must have extension '.crai' or '.bai' or '.csi'",
                 "format": "file-path",
                 "exists": true
+            },
+            "vcf": {
+                "type": "string",
+                "pattern": "^\\S+\\.(vcf|vcf.gz)$",
+                "errorMessage": "VCF is optional but must be provided when only annotating",
+                "format": "file-path",
+                "exists": true
+            },
+            "tbi": {
+                "type": "string",
+                "pattern": "^\\S+\\.(vcf.gz.tbi)$",
+                "errorMessage": "index of VCF file is optional but must be provided when only annotating",
+                "format": "file-path",
+                "exists": true
             }
         },
         "required": ["sample", "pool", "family", "cram"]

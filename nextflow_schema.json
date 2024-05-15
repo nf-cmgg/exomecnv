@@ -40,6 +40,10 @@
                     "type": "string",
                     "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
                     "fa_icon": "fas fa-file-signature"
+                },
+                "exomedepth": {
+                    "type": "boolean",
+                    "description": "Option to execute the ExomeDepth tool"
                 }
             }
         },
@@ -292,13 +296,19 @@
             "description": "Options specific for the ExomeDepth execution",
             "default": "",
             "properties": {
+                "yamlconfig": {
+                    "type": "string",
+                    "description": "YAML config file to use in BEDGOVCF module",
+                    "exists": true,
+                    "format": "file-path"
+                },
                 "roi_auto": {
                     "type": "string",
                     "description": "Path to the default ROI (regions of interest) BED file of autosomal (merged) regions to be used for CNV analysis",
                     "format": "file-path",
                     "pattern": "^\\S+\\.bed$",
                     "mimetype": "text/plain",
-                    "default": null
+                    "exists": true
                 },
                 "roi_chrx": {
                     "type": "string",
@@ -306,10 +316,43 @@
                     "format": "file-path",
                     "pattern": "^\\S+\\.bed$",
                     "mimetype": "text/plain",
-                    "default": null
+                    "exists": true
                 }
             },
             "required": ["roi_auto", "roi_chrx"]
+        },
+        "vep_parameters": {
+            "title": "VEP parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "vep_cache_version": {
+                    "type": "integer",
+                    "description": "Cache version",
+                    "default": 105
+                },
+                "species": {
+                    "type": "string",
+                    "description": "Species",
+                    "default": "homo_sapiens"
+                },
+                "vep_cache": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "Path to the VEP cache"
+                },
+                "annotate": {
+                    "type": "boolean",
+                    "description": "Option to annotate on vcf input"
+                },
+                "vep_assembly": {
+                    "type": "string",
+                    "description": "Genome",
+                    "default": "GRCh38"
+                }
+            },
+            "required": ["vep_cache"]
         }
     },
     "allOf": [
@@ -330,6 +373,9 @@
         },
         {
             "$ref": "#/definitions/exomedepth_parameters"
+        },
+        {
+            "$ref": "#/definitions/vep_parameters"
         }
     ]
 }
