@@ -31,9 +31,7 @@ workflow EXOMEDEPTH {
     // Importing and convert the input files passed through the parameters to channels
     // Branch into CRAM and BAM files
 
-    ch_samplesheet.map { meta, cram, crai, vcf, tbi ->
-                        [meta, cram, crai]}
-                .branch { meta, cram, crai ->
+    ch_samplesheet.branch { meta, cram, crai ->
                     CRAM: cram.extension == "cram"
                     BAM: cram.extension == "bam"
                 }

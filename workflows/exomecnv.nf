@@ -11,9 +11,10 @@ include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pi
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
 // local
-include { EXOMEDEPTH            } from '../subworkflows/local/exomedepth/main'
-include { ENSEMBLVEP            } from '../subworkflows/local/vcf_annotation/main'
-include { TABIX_TABIX as TABIX  } from '../modules/nf-core/tabix/tabix/main'
+include { EXOMEDEPTH                                } from '../subworkflows/local/exomedepth/main'
+include { VCF_ANNOTATION as ANNOTATION_FROM_CRAM    } from '../subworkflows/local/vcf_annotation/main'
+include { VCF_ANNOTATION as ANNOTATION_FROM_VCF     } from '../subworkflows/local/vcf_annotation/main'
+include { TABIX_TABIX as TABIX                      } from '../modules/nf-core/tabix/tabix/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -39,12 +40,17 @@ workflow EXOMECNV {
 
     ch_vep_cache = Channel.fromPath(params.vep_cache).collect()
 
-    if (!params.annotate){
+    ch_samplesheet.branch { meta, cram, crai, vcf, tbi ->
+                vcf: vcf
+                    return [ meta, cram, crai, vcf, tbi]
+                no_vcf: !vcf
+                    return [ meta, cram, crai]}
+                .set{ ch_input }
 
     // ExomeDepth
-
+    if (ch_input.no_vcf) {
     if (params.exomedepth) {
-    EXOMEDEPTH (ch_samplesheet)
+    EXOMEDEPTH (ch_input.no_vcf)
     ch_versions = EXOMEDEPTH.out.versions
 
     // Index files for VCF
@@ -55,22 +61,25 @@ workflow EXOMECNV {
 
     // EnsemblVEP after ExomeDepth
 
-    ENSEMBLVEP ( ch_exomedepth_vcf, ch_fasta, ch_vep_cache )
-    ch_versions = ch_versions.mix(ENSEMBLVEP.out.versions)
+    if (params.annotate) {
+
+    ANNOTATION_FROM_CRAM ( ch_exomedepth_vcf, ch_fasta, ch_vep_cache )
+    ch_versions = ch_versions.mix(ANNOTATION_FROM_CRAM.out.versions)
+    }
     }
     }
 
     // EnsemblVEP on VCF input file
 
-    else {
-    ch_vcf = ch_samplesheet
+    if (ch_input.vcf) {
+    ch_vcf = ch_input.vcf
         .map { meta,bam,bai,vcf,tbi ->
                 [[id:meta.id], vcf, tbi]}
 
-    ENSEMBLVEP (
+    ANNOTATION_FROM_VCF (
         ch_vcf, ch_fasta, ch_vep_cache
     )
-    ch_versions = ENSEMBLVEP.out.versions
+    ch_versions = ANNOTATION_FROM_VCF.out.versions
     }
 
     // Collate and save software versions
