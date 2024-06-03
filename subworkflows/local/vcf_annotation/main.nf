@@ -12,7 +12,7 @@ include { ENSEMBLVEP_VEP as         VEP           } from '../../../modules/nf-co
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-workflow ENSEMBLVEP {
+workflow VCF_ANNOTATION {
 
     take:
 

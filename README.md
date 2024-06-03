@@ -1,4 +1,5 @@
-![nf-core/exomecnv](docs/images/nfcore-exomecnv_logo.png)
+<img src="docs/images/nfcore-exomecnv_logo.png" width="500">
+
 [![GitHub Actions CI Status](https://github.com/nf-cmgg/exomecnv/actions/workflows/ci.yml/badge.svg)](https://github.com/nf-cmgg/exomecnv/actions/workflows/ci.yml)
 [![GitHub Actions Linting Status](https://github.com/nf-cmgg/exomecnv/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-cmgg/exomecnv/actions/workflows/linting.yml)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)
 [![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)
@@ -11,59 +12,57 @@
 
 ## Introduction
 
-**nf-cmgg/exomecnv** is a bioinformatics pipeline that ...
-
-<!-- TODO nf-core:
-   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
-   major pipeline sections and the types of output it produces. You're giving an overview to someone new
-   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction
--->
-
-<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
-     workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
+**nf-cmgg/exomecnv** is a bioinformatics pipeline that can be used to call copy number variations (CNVs) from exome sequencing data with ExomeDepth and annotate these with EnsemblVEP. It takes a samplesheet with cram or bam files and their index files as input, generates read count data, calls CNVs and ends with an annotation. It is also possible to take a samplesheet with VCF files and their index files as input and only execute the annotation.
 
 ## Pipeline Summary
 
-1. CRAM -> BAM
-2. ExomeDepth counting per sample
-3. Create count file for all samples per pool
-4. ExomeDepth CNV calling per sample
-5. Convert BED to VCF
-6. Annotation per sample (VEP + custom annotation) => make it possible to run from here (from VCF file)
-7. Output as XLSX file
+1. Convert CRAM to BAM if CRAM files are provided (optional)
+2. ExomeDepth counting per sample (autosomal and chrX separated)
+3. Merge count files per pool (autosomal and chrX stay separated)
+4. ExomeDepth CNV calling per sample (autosomal and chrX stay separated)
+5. Merge CNV calling files per sample (autosomal and chrX are merged)
+6. Convert merged files to VCF
+7. Generate index files for these VCF files
+6. Annotate VCF files with EnsemblVEP
+
+<img src="Exomedepth2.png" width="500">
 
 ## Usage
 
 > [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
 
-<!-- TODO nf-core: Describe the minimum required steps to execute the pipeline, e.g. how to prepare samplesheets.
-     Explain what rows and columns represent. For instance (please edit as appropriate):
-
 First, prepare a samplesheet with your input data that looks as follows:
 
 `samplesheet.csv`:
-
 ```csv
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
+sample,pool,family,cram,crai,vcf,tbi
+sample1,poolM,Fam1,/path/to/sample1.cram,/path/to/sample1.crai
+sample2,poolF,Fam2,/path/to/sample2.cram,/path/to/sample2.crai,/path/to/sample2.vcf,/path/to/sample2.vcf.tbi
 ```
-
-Each row represents a fastq file (single-end) or a pair of fastq files (paired end).
-
--->
+Each row represents a sample with the associated pool and family, followed by the optional paths to the CRAM/CRAI or VCF/TBI files, depending on which tasks should be executed.
 
 Now, you can run the pipeline using:
 
-<!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->
-
 ```bash
 nextflow run nf-cmgg/exomecnv \
-   -profile <docker/singularity/.../institute> \
-   --input samplesheet.csv \
-   --outdir <OUTDIR>
+   -profile <docker/conda> \
+   --input /path/to/samplesheet.csv \
+   --outdir /path/to/outdir \
+   --vep_cache /path/to/vep_cache \
+   --exomedepth \
+   --annotate
 ```
+to execute the ExomeDepth workflow, followed by an EnsemblVEP annotation on CRAM/CRAI (or BAM/BAI) files provided in the samplesheet. The --annotate parameter is optional. If not provided, only the ExomeDepth workflow will be executed.
+It is also possible to run the pipeline using:
+```bash
+nextflow run nf-cmgg/exomecnv \
+   -profile <docker/conda> \
+   --input /path/to/samplesheet.csv \
+   --outdir /path/to/outdir \
+   --vep_cache /path/to/vep_cache
+```
+to skip the ExomeDepth workflow and only execute the EnsemblVEP annotation on VCF/TBI files provided in the samplesheet.
 
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_;
