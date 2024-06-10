@@ -12,18 +12,19 @@
 
 ## Introduction
 
-**nf-cmgg/exomecnv** is a bioinformatics pipeline that can be used to call copy number variations (CNVs) from exome sequencing data with ExomeDepth and annotate these with EnsemblVEP. It takes a samplesheet with cram or bam files and their index files as input, generates read count data, calls CNVs and ends with an annotation. It is also possible to take a samplesheet with VCF files and their index files as input and only execute the annotation.
+**nf-cmgg/exomecnv** is a bioinformatics pipeline that can be used to call copy number variations (CNVs) from exome sequencing data with ExomeDepth and annotate these with EnsemblVEP. It takes a samplesheet with CRAM or BAM files and their index files as input, generates read count data, calls CNVs and ends with an annotation. It is also possible to take a samplesheet with VCF files and their index files as input and only execute the annotation.
 
 ## Pipeline Summary
 
-1. Convert CRAM to BAM if CRAM files are provided (optional)
-2. ExomeDepth counting per sample (autosomal and chrX separated)
-3. Merge count files per pool (autosomal and chrX stay separated)
-4. ExomeDepth CNV calling per sample (autosomal and chrX stay separated)
-5. Merge CNV calling files per sample (autosomal and chrX are merged)
-6. Convert merged files to VCF
-7. Generate index files for these VCF files
-6. Annotate VCF files with EnsemblVEP
+1. Input samplesheet check
+2. Convert CRAM to BAM if CRAM files are provided (optional)
+3. ExomeDepth counting per sample (autosomal and chrX are separated)
+4. Merge count files per pool (autosomal and chrX remain separated)
+5. ExomeDepth CNV calling per sample (autosomal and chrX remain separated)
+6. Merge CNV calling files per sample (autosomal and chrX are merged)
+7. Convert merged files to VCF
+8. Generate index files for these VCF files
+9. Annotate VCF files with EnsemblVEP
 
 <img src="Exomedepth2.png" width="500">
 
@@ -40,7 +41,7 @@ sample,pool,family,cram,crai,vcf,tbi
 sample1,poolM,Fam1,/path/to/sample1.cram,/path/to/sample1.crai
 sample2,poolF,Fam2,/path/to/sample2.cram,/path/to/sample2.crai,/path/to/sample2.vcf,/path/to/sample2.vcf.tbi
 ```
-Each row represents a sample with the associated pool and family, followed by the optional paths to the CRAM/CRAI or VCF/TBI files, depending on which tasks should be executed.
+Each row represents a sample with the associated pool and family, followed by the optional paths to the CRAM/CRAI and/or VCF/TBI files, depending on which tasks should be executed.
 
 Now, you can run the pipeline using:
 
@@ -70,9 +71,9 @@ to skip the ExomeDepth workflow and only execute the EnsemblVEP annotation on VC
 
 ## Credits
 
-nf-cmgg/exomecnv was originally written by nvnieuwk.
+nf-cmgg/exomecnv was originally written by [BertGalle](.https://github.com/BertGalle) and [Toros](.https://github.com/ToonRosseel).
 
-We thank the following people for their extensive assistance in the development of this pipeline:
+We thank the following people for their extensive assistance in the development of this pipeline: [nvnieuwk](.https://github.com/nvnieuwk)
 
 <!-- TODO nf-core: If applicable, make list of people who have also contributed -->
 
