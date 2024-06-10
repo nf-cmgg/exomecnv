@@ -1,0 +1,7 @@
+name: ngs-env
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - ngs-bits=2023_02

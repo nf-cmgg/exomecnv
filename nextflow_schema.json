@@ -44,6 +44,10 @@
                 "exomedepth": {
                     "type": "boolean",
                     "description": "Option to execute the ExomeDepth tool"
+                },
+                "clincnv": {
+                    "type": "boolean",
+                    "description": "Option to execute the ClinCNV tool"
                 }
             }
         },
@@ -92,9 +96,13 @@
                     "default": "/conf/",
                     "description": "The config base path for the cmgg configs",
                     "format": "directory-path"
+                },
+                "roi_merged": {
+                    "type": "string",
+                    "description": "Path to the default ROI (regions of interest) BED file of autosomal and chrX merged regions to be used for CNV analysis"
                 }
             },
-            "required": ["fasta", "fai"]
+            "required": ["fasta", "fai", "roi_merged"]
         },
         "institutional_config_options": {
             "title": "Institutional config options",

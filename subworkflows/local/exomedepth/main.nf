@@ -4,7 +4,6 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { SAMTOOLS_CONVERT as CRAM_PREPARE  } from '../../../modules/nf-core/samtools/convert/main'
 include { COUNT as COUNT_X                  } from '../../../modules/local/exomedepth/count/main'
 include { COUNT as COUNT_AUTO               } from '../../../modules/local/exomedepth/count/main'
 include { COUNT_MERGE as COUNT_MERGE_AUTO   } from '../../../modules/local/exomedepth/merge_count/main'
@@ -24,43 +23,20 @@ workflow EXOMEDEPTH {
 
     take:
     ch_samplesheet
+    ch_fai
 
     main:
     ch_versions = Channel.empty()
 
     // Importing and convert the input files passed through the parameters to channels
-    // Branch into CRAM and BAM files
 
-    ch_samplesheet.branch { meta, cram, crai ->
-                    CRAM: cram.extension == "cram"
-                    BAM: cram.extension == "bam"
-                }
-                .set{ ch_input_prepare }
-
-    ch_fasta        = Channel.fromPath(params.fasta).map{ [[id:"reference"], it]}.collect()
-    ch_fai          = params.fai ? Channel.fromPath(params.fai).map{ [[id:"reference"], it]}.collect() : null
     ch_roi_auto     = Channel.fromPath(params.roi_auto).map{ [[id:"autosomal"], it]}.collect()
     ch_roi_x        = Channel.fromPath(params.roi_chrx).map{ [[id:"chrX"], it]}.collect()
-
-    // SUBWORKFLOW: Convert CRAM to BAM if no BAM file was provided
-
-    CRAM_PREPARE (
-        ch_input_prepare.CRAM, ch_fasta, ch_fai
-    )
-    ch_versions = ch_versions.mix(CRAM_PREPARE.out.versions)
-
-    CRAM_PREPARE.out.bam
-                .join(CRAM_PREPARE.out.bai)
-                .set{ ch_cram_prepare }
-
-    ch_input_prepare.BAM
-                    .mix(ch_cram_prepare)
-                    .set{ ch_input_bam }
 
     //MODULE: Count autosomal reads per sample (count file for each sample)
 
     COUNT_AUTO (
-        ch_input_bam, ch_roi_auto
+        ch_samplesheet, ch_roi_auto
     )
     ch_versions = ch_versions.mix(COUNT_AUTO.out.versions)
 
@@ -98,7 +74,7 @@ workflow EXOMEDEPTH {
     //MODULE: Count chrX reads per sample (count file for each sample)
 
     COUNT_X (
-        ch_input_bam, ch_roi_x
+        ch_samplesheet, ch_roi_x
     )
 
     //MODULE: Group chrX counts per pool (count file for each pool)
