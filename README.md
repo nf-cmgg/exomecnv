@@ -71,9 +71,9 @@ to skip the ExomeDepth workflow and only execute the EnsemblVEP annotation on VC
 
 ## Credits
 
-nf-cmgg/exomecnv was originally written by [BertGalle](.https://github.com/BertGalle) and [Toros](.https://github.com/ToonRosseel).
+nf-cmgg/exomecnv was originally written by [BertGalle](https://github.com/BertGalle) and [Toros](https://github.com/ToonRosseel).
 
-We thank the following people for their extensive assistance in the development of this pipeline: [nvnieuwk](.https://github.com/nvnieuwk)
+We thank the following people for their extensive assistance in the development of this pipeline: [nvnieuwk](https://github.com/nvnieuwk)
 
 <!-- TODO nf-core: If applicable, make list of people who have also contributed -->
 
