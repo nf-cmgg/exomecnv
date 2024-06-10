@@ -31,7 +31,6 @@ If CRAM/CRAI files were provided in the samplesheet, they will be converted into
 
 - `cram/`
   - `<sample>.bam`: BAM file
-- `cram/`
   - `<sample>.bam.bai`: BAI index file
 </details>
 
