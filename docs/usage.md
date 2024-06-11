@@ -26,17 +26,18 @@ Sample5,poolF,Fam4,/path/to/cram/Sample5,/path/to/crai/Sample5,/path/to/vcf/Samp
 Sample6,poolF,Fam5,/path/to/cram/Sample6,/path/to/crai/Sample6,/path/to/vcf/Sample6,/path/to/tbi/Sample6
 
 ```
+
 ### All samplesheet options
 
-| Column    | Description                                                                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. Cannot contain spaces and has to be unique. |
-| `pool` | Pool name for the current sample. Samples sharing the same pool will be analysed together since CNV calling in the ExomeDepth workflow is executed per pool.  It's recommended to put the (genetically speaking) female and male samples in seperate pools. The samples in the same pool should be enriched with the same library prep kit. An optimized aggregated reference set is chosen from the samples of the pool. Cannot contain spaces.                                              |
-| `family` | Family name for the current sample. Samples sharing this family name will be excluded from the aggregate reference set to ensure that common CNVs to this family will be detected. ExomeDepth assumes that the CNV of interest is absent from the aggregate reference set. Cannot contain spaces.
-| `cram`  | Path to the CRAM (or BAM) file to be used by the pipeline for the current sample.|
-| `crai`  | Path to the CRAM (or BAI) index file.|
-| `vcf`  | Path to the VCF file to be used by the pipeline for the current sample. When this is provided, the pipeline will skip to the annotation. |
-| `tbi`  | Path to the TBI index file. |                                                     |
+| Column   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| `sample` | Custom sample name. Cannot contain spaces and has to be unique.                                                                                                                                                                                                                                                                                                                                                                                 |
+| `pool`   | Pool name for the current sample. Samples sharing the same pool will be analysed together since CNV calling in the ExomeDepth workflow is executed per pool. It's recommended to put the (genetically speaking) female and male samples in seperate pools. The samples in the same pool should be enriched with the same library prep kit. An optimized aggregated reference set is chosen from the samples of the pool. Cannot contain spaces. |
+| `family` | Family name for the current sample. Samples sharing this family name will be excluded from the aggregate reference set to ensure that common CNVs to this family will be detected. ExomeDepth assumes that the CNV of interest is absent from the aggregate reference set. Cannot contain spaces.                                                                                                                                               |
+| `cram`   | Path to the CRAM (or BAM) file to be used by the pipeline for the current sample.                                                                                                                                                                                                                                                                                                                                                               |
+| `crai`   | Path to the CRAM (or BAI) index file.                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `vcf`    | Path to the VCF file to be used by the pipeline for the current sample. When this is provided, the pipeline will skip to the annotation.                                                                                                                                                                                                                                                                                                        |
+| `tbi`    | Path to the TBI index file.                                                                                                                                                                                                                                                                                                                                                                                                                     |     |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -70,8 +71,7 @@ If you wish to repeatedly use the same parameters for multiple runs, rather than
 Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <file>`.
 
 > **_WARNING:_**
-Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
-
+> Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
 
 The above pipeline run specified with a params file in yaml format:
 
@@ -111,13 +111,12 @@ This version number will be logged in reports when you run the pipeline, so that
 To further assist in reproducbility, you can use share and re-use [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
 
 > **_NOTE:_**
-If you wish to share such profile (such as upload as supplementary material for academic publications), make sure to NOT include cluster specific paths to files, nor institutional specific profiles.
+> If you wish to share such profile (such as upload as supplementary material for academic publications), make sure to NOT include cluster specific paths to files, nor institutional specific profiles.
 
 ## Core Nextflow arguments
 
 > **_NOTE:_**
-These options are part of Nextflow and use a _single_ hyphen (pipeline parameters use a double-hyphen).
-
+> These options are part of Nextflow and use a _single_ hyphen (pipeline parameters use a double-hyphen).
 
 ### `-profile`
 
@@ -126,7 +125,7 @@ Use this parameter to choose a configuration profile. Profiles can give configur
 Several generic profiles are bundled with the pipeline which instruct the pipeline to use software packaged using different methods (Docker, Singularity, Podman, Shifter, Charliecloud, Apptainer, Conda) - see below.
 
 > **_NOTE:_**
-We highly recommend the use of Docker or Singularity containers for full pipeline reproducibility, however when this is not possible, Conda is also supported.
+> We highly recommend the use of Docker or Singularity containers for full pipeline reproducibility, however when this is not possible, Conda is also supported.
 
 The pipeline also dynamically loads configurations from [https://github.com/nf-core/configs](https://github.com/nf-core/configs) when it runs, making multiple config profiles for various institutional clusters available at run time. For more information and to see if your system is available in these configs please see the [nf-core/configs documentation](https://github.com/nf-core/configs#documentation).
 

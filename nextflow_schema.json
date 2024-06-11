@@ -340,8 +340,7 @@
                 "vep_cache": {
                     "type": "string",
                     "format": "directory-path",
-                    "description": "Path to the VEP cache",
-                    "exists": true
+                    "description": "Path to the VEP cache"
                 },
                 "annotate": {
                     "type": "boolean",

@@ -36,11 +36,13 @@
 First, prepare a samplesheet with your input data that looks as follows:
 
 `samplesheet.csv`:
+
 ```csv
 sample,pool,family,cram,crai,vcf,tbi
 sample1,poolM,Fam1,/path/to/sample1.cram,/path/to/sample1.crai
 sample2,poolF,Fam2,/path/to/sample2.cram,/path/to/sample2.crai,/path/to/sample2.vcf,/path/to/sample2.vcf.tbi
 ```
+
 Each row represents a sample with the associated pool and family, followed by the optional paths to the CRAM/CRAI and/or VCF/TBI files, depending on which tasks should be executed.
 
 Now, you can run the pipeline using:
@@ -54,8 +56,10 @@ nextflow run nf-cmgg/exomecnv \
    --exomedepth \
    --annotate
 ```
+
 to execute the ExomeDepth workflow, followed by an EnsemblVEP annotation on CRAM/CRAI (or BAM/BAI) files provided in the samplesheet. The --annotate parameter is optional. If not provided, only the ExomeDepth workflow will be executed.
 It is also possible to run the pipeline using:
+
 ```bash
 nextflow run nf-cmgg/exomecnv \
    -profile <docker/conda> \
@@ -63,6 +67,7 @@ nextflow run nf-cmgg/exomecnv \
    --outdir /path/to/outdir \
    --vep_cache /path/to/vep_cache
 ```
+
 to skip the ExomeDepth workflow and only execute the EnsemblVEP annotation on VCF/TBI files provided in the samplesheet.
 
 > [!WARNING]
