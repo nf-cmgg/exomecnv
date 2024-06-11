@@ -51,11 +51,12 @@ workflow EXOMECNV {
     if (ch_input.no_vcf) {
     if (params.exomedepth) {
     EXOMEDEPTH (ch_input.no_vcf)
-    ch_versions = EXOMEDEPTH.out.versions
+    ch_versions = ch_versions.mix(EXOMEDEPTH.out.versions)
 
     // Index files for VCF
 
     TABIX ( EXOMEDEPTH.out.vcf )
+    ch_versions = ch_versions.mix(TABIX.out.versions)
     ch_exomedepth_vcf = EXOMEDEPTH.out.vcf
         .join(TABIX.out.tbi)
 
@@ -65,6 +66,7 @@ workflow EXOMECNV {
 
     ANNOTATION_FROM_CRAM ( ch_exomedepth_vcf, ch_fasta, ch_vep_cache )
     ch_versions = ch_versions.mix(ANNOTATION_FROM_CRAM.out.versions)
+
     }
     }
     }
@@ -79,7 +81,7 @@ workflow EXOMECNV {
     ANNOTATION_FROM_VCF (
         ch_vcf, ch_fasta, ch_vep_cache
     )
-    ch_versions = ANNOTATION_FROM_VCF.out.versions
+    ch_versions = ch_versions.mix(ANNOTATION_FROM_VCF.out.versions)
     }
 
     // Collate and save software versions
