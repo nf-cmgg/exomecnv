@@ -33,7 +33,6 @@ process COUNT_MERGE {
         paste: \$(paste --version | sed '1!d; s/paste (GNU coreutils) //')
         mv: \$(mv --version | sed '1!d; s/mv (GNU coreutils) //')
         cp: \$(cp --version | sed '1!d; s/cp (GNU coreutils) //')
-        awk: \$(awk -version 2>&1 | sed '1!d; s/(.*//')
     END_VERSIONS
     """
 
@@ -47,7 +46,6 @@ process COUNT_MERGE {
         paste: \$(paste --version | sed '1!d; s/paste (GNU coreutils) //')
         mv: \$(mv --version | sed '1!d; s/mv (GNU coreutils) //')
         cp: \$(cp --version | sed '1!d; s/cp (GNU coreutils) //')
-        awk: \$(awk -version 2>&1 | sed '1!d; s/(.*//')
     END_VERSIONS
     """
 }
