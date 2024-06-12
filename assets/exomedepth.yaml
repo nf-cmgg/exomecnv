@@ -1,0 +1,53 @@
+# Use --skip 1 with this config
+chrom:
+  value: $6
+
+pos:
+  value: $4
+
+id:
+  value: $7
+
+ref:
+  value: "."
+
+alt:
+  value: ~if $2 == deletion <DEL> <DUP>
+
+filter:
+  value: "."
+
+info:
+  - name: SVTYPE
+    value: ~if $2 == deletion DEL DUP
+    number: 1
+    type: string
+    description: Type of structural variant
+  - name: END
+    value: $5
+    type: integer
+    description: End position of structural variant
+  - name: BF
+    value: $8
+    type: float
+    description: Bayes factor
+  - name: NEXONS
+    value: $3
+    type: integer
+    description: Number of exons
+  - name: READSEXP
+    value: $9
+    type: integer
+    description: Expected reads
+  - name: READSOBS
+    value: $10
+    type: integer
+    description: Observed reads
+  - name: READRATIO
+    value: $11
+    type: float
+    description: Ratio observed/expected reads
+  - name: EXONSENS
+    value: $12
+    type: string
+    description: Exons
