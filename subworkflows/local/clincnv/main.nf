@@ -5,7 +5,7 @@
 */
 
 include { BEDCOVERAGE    } from '../../../modules/local/clincnv/bedcoverage/main'
-include { COUNT_MERGE    } from '../../../modules/local/clincnv/merge_count/main'
+include { COVERAGE_MERGE } from '../../../modules/local/clincnv/merge_coverage/main'
 include { PATHFILE       } from '../../../modules/local/clincnv/pathfile/main'
 include { BEDANNOTATEGC  } from '../../../modules/local/clincnv/bedannotategc/main'
 include { GERMLINE       } from '../../../modules/local/clincnv/germline/main'
@@ -39,13 +39,13 @@ workflow CLINCNV {
 
     PATHFILE(grouped_counts)
 
-    COUNT_MERGE(PATHFILE.out.counts)
-    ch_versions = ch_versions.mix(COUNT_MERGE.out.versions)
+    COVERAGE_MERGE(PATHFILE.out.counts)
+    ch_versions = ch_versions.mix(COVERAGE_MERGE.out.versions)
 
     BEDANNOTATEGC(ch_roi_merged, ch_fasta, ch_fai)
     ch_versions = ch_versions.mix(BEDANNOTATEGC.out.versions)
 
-    ch_clincnv = COUNT_MERGE.out.merge.transpose(by:1)
+    ch_clincnv = COVERAGE_MERGE.out.merge.transpose(by:1)
 
     // GERMLINE(ch_clincnv,BEDANNOTATEGC.out.annotatedbed)
     // ch_versions = ch_versions.mix(GERMLINE.out.versions)
