@@ -1,5 +1,5 @@
 // MERGE COUNT FILES
-process COUNT_MERGE {
+process COVERAGE_MERGE {
     tag "$meta.id"
 
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
