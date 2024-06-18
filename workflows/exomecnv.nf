@@ -11,11 +11,13 @@ include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pi
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
 // local
+include { INPUT_PREPARE as PREPARE                  } from '../subworkflows/local/input_prepare/main'
 include { EXOMEDEPTH                                } from '../subworkflows/local/exomedepth/main'
 include { VCF_ANNOTATION as ANNOTATION_FROM_CRAM    } from '../subworkflows/local/vcf_annotation/main'
 include { VCF_ANNOTATION as ANNOTATION_FROM_VCF     } from '../subworkflows/local/vcf_annotation/main'
 include { TABIX_TABIX as TABIX                      } from '../modules/nf-core/tabix/tabix/main'
-
+include { CLINCNV                                   } from '../subworkflows/local/clincnv/main'
+include { SAMTOOLS_CONVERT as CRAM_PREPARE          } from '../modules/nf-core/samtools/convert/main'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -38,6 +40,8 @@ workflow EXOMECNV {
         }
         .collect()
 
+    ch_fai = params.fai ? Channel.fromPath(params.fai).map{ [[id:"reference"], it]}.collect() : null
+
     ch_vep_cache = Channel.fromPath(params.vep_cache).collect()
 
     ch_samplesheet.branch { meta, cram, crai, vcf, tbi ->
@@ -47,41 +51,55 @@ workflow EXOMECNV {
                     return [ meta, cram, crai]}
                 .set{ ch_input }
 
-    // ExomeDepth
     if (ch_input.no_vcf) {
+
+    // Convert CRAM to BAM if needed
+    if(params.clincnv || params.exomedepth){
+        PREPARE(ch_input.no_vcf)
+        ch_versions = ch_versions.mix(PREPARE.out.versions)
+    }
+
+    // ClinCNV
+
+    if (params.clincnv) {
+        CLINCNV(PREPARE.out.bam, ch_fasta, ch_fai)
+        ch_versions = ch_versions.mix(CLINCNV.out.versions)
+    }
+
+    // ExomeDepth
+
     if (params.exomedepth) {
-    EXOMEDEPTH (ch_input.no_vcf)
-    ch_versions = ch_versions.mix(EXOMEDEPTH.out.versions)
+        EXOMEDEPTH (PREPARE.out.bam,ch_fai)
+        ch_versions = ch_versions.mix(EXOMEDEPTH.out.versions)
 
-    // Index files for VCF
+        // Index files for VCF
 
-    TABIX ( EXOMEDEPTH.out.vcf )
-    ch_versions = ch_versions.mix(TABIX.out.versions)
-    ch_exomedepth_vcf = EXOMEDEPTH.out.vcf
-        .join(TABIX.out.tbi)
+        TABIX ( EXOMEDEPTH.out.vcf )
+        ch_versions = ch_versions.mix(TABIX.out.versions)
+        ch_exomedepth_vcf = EXOMEDEPTH.out.vcf
+            .join(TABIX.out.tbi)
 
-    // EnsemblVEP after ExomeDepth
+        // EnsemblVEP after ExomeDepth
 
-    if (params.annotate) {
+        if (params.annotate) {
 
-    ANNOTATION_FROM_CRAM ( ch_exomedepth_vcf, ch_fasta, ch_vep_cache )
-    ch_versions = ch_versions.mix(ANNOTATION_FROM_CRAM.out.versions)
-
-    }
-    }
+        ANNOTATION_FROM_CRAM ( ch_exomedepth_vcf, ch_fasta, ch_vep_cache )
+        ch_versions = ch_versions.mix(ANNOTATION_FROM_CRAM.out.versions)
+        }
+        }
     }
 
     // EnsemblVEP on VCF input file
 
     if (ch_input.vcf) {
-    ch_vcf = ch_input.vcf
-        .map { meta,bam,bai,vcf,tbi ->
-                [[id:meta.id], vcf, tbi]}
+        ch_vcf = ch_input.vcf
+            .map { meta,bam,bai,vcf,tbi ->
+                    [[id:meta.id], vcf, tbi]}
 
-    ANNOTATION_FROM_VCF (
-        ch_vcf, ch_fasta, ch_vep_cache
-    )
-    ch_versions = ch_versions.mix(ANNOTATION_FROM_VCF.out.versions)
+        ANNOTATION_FROM_VCF (
+            ch_vcf, ch_fasta, ch_vep_cache
+        )
+        ch_versions = ch_versions.mix(ANNOTATION_FROM_VCF.out.versions)
     }
 
     // Collate and save software versions

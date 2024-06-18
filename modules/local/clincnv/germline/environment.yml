@@ -1,0 +1,20 @@
+name: clincnv
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - r-base=4.2.3
+  - r-rcpp=1.0.11
+  - r-optparse=1.7.5
+  - r-robustbase=0.95_1
+  - r-data.table=1.14.8
+  - r-foreach=1.5.2
+  - r-doparallel=1.0.17
+  - r-mclust=6.0.0
+  - r-r.utils=2.12.2
+  - r-rcolorbrewer=1.1_3
+  - r-party=1.3_13
+  - r-dbscan=1.1_11
+  - r-umap=0.2.10.0
+  - r-mass=7.3_60
