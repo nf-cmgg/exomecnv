@@ -5,6 +5,5 @@ channels:
   - defaults
 
 dependencies:
-  - r=3.6=r36_1003
-  - r-optparse=1.6.4=r36h6115d3f_0
-  - r-exomedepth:1.1.16--r43hfb3cda0_3
+  - conda-forge::r-base=4.3.1
+  - bioconda::r-exomedepth=1.1.16

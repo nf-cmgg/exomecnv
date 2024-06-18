@@ -69,7 +69,7 @@ workflow EXOMECNV {
     // ExomeDepth
 
     if (params.exomedepth) {
-        EXOMEDEPTH (PREPARE.out.bam,ch_fai)
+        EXOMEDEPTH (ch_input.no_vcf)
         ch_versions = ch_versions.mix(EXOMEDEPTH.out.versions)
 
         // Index files for VCF

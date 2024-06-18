@@ -22,7 +22,7 @@ process CNV_CALL {
     def VERSION = '1.1.16'
 
     """
-    CNV_ExomeDepth_call.R \\
+    ExomeDepth_cnv_calling.R \\
         $sample \\
         $countfile \\
         $exon_target \\
