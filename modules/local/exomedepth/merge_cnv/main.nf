@@ -1,4 +1,4 @@
-//MERGE CNV CALL FILES
+//MERGE AND SORT (ON GENOMIC POSITION) EXOMEDEPTH CNV CALL FILES
 process CNV_MERGE {
     tag "$meta"
 
@@ -19,13 +19,15 @@ process CNV_MERGE {
     script:
     def prefix = task.ext.prefix ?: "${meta}_CNVs_ExomeDepth"
     """
-    cp $auto "${prefix}.txt"
-    tail +2 $chrx >> "${prefix}.txt"
+    { head -n 1 $auto && \
+    { tail -n +2 $auto && tail -n +2 $chrx ; } | \
+    sort -k7,7V -k5,5n -k6,6n ; } > "${prefix}.txt"
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
+        head: \$(head --version | sed '1!d; s/head (GNU coreutils) //')
         tail: \$(tail --version | sed '1!d; s/tail (GNU coreutils) //')
-        cp: \$(cp --version | sed '1!d; s/cp (GNU coreutils) //')
+        sort: \$(sort --version | sed '1!d; s/sort (GNU coreutils) //')
     END_VERSIONS
     """
 
