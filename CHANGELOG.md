@@ -11,8 +11,14 @@ Initial release of nf-cmgg/exomecnv, created with the [nf-core](https://nf-co.re
 
 - First release of the pipeline - CNV calling using [ExomeDepth](https://github.com/vplagnol/ExomeDepth)
 
-## v1.0.1 - [2024-06-19]
+## v1.0.1 - Lightning Lukaku [2024-06-19]
+
+### `Improvements`
+
+- Index the VEP annotated VCF with TABIX
+- Do not copy output of SAMTOOLS_CONVERT module (BAM files) to the `publishDir`
 
 ### `Fixes`
 
 - Sort file of merged CNV calls to fix an issue with TABIX (needs sorted VCF files)
+

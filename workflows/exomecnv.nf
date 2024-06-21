@@ -65,7 +65,7 @@ workflow EXOMECNV {
     if (params.annotate) {
 
     ANNOTATION_FROM_CRAM ( ch_exomedepth_vcf, ch_fasta, ch_vep_cache )
-    ch_versions = ch_versions.mix(ANNOTATION_FROM_CRAM.out.versions)
+    ch_versions = ch_versions.mix(ANNOTATION_FROM_CRAM.out.versionsvep)
 
     }
     }
@@ -81,7 +81,8 @@ workflow EXOMECNV {
     ANNOTATION_FROM_VCF (
         ch_vcf, ch_fasta, ch_vep_cache
     )
-    ch_versions = ch_versions.mix(ANNOTATION_FROM_VCF.out.versions)
+    ch_versions = ch_versions.mix(ANNOTATION_FROM_VCF.out.versionsvep)
+    ch_versions = ch_versions.mix(ANNOTATION_FROM_VCF.out.versionstbi)
     }
 
     // Collate and save software versions

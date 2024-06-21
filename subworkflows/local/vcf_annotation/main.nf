@@ -5,7 +5,7 @@
 */
 
 include { ENSEMBLVEP_VEP as         VEP           } from '../../../modules/nf-core/ensemblvep/vep/main'
-
+include { TABIX_TABIX as TABIX                      } from '../../../modules/nf-core/tabix/tabix/main'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN ENSEMBLE VEP WORKFLOW
@@ -34,7 +34,13 @@ workflow VCF_ANNOTATION {
         ch_vep_extra_files
     )
 
+    // Index VCF file
+
+    TABIX ( VEP.out.vcf )
+
     emit:
     vcfs = VEP.out.vcf
-    versions = VEP.out.versions
+    tbi = TABIX.out.tbi
+    versionsvep = VEP.out.versions
+    versionstbi = TABIX.out.versions
 }
