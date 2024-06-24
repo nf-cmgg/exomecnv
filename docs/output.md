@@ -120,9 +120,10 @@ A TBI index file is generated for each VCF file. While these TBI index files are
 <details markdown="1">
 <summary>Output files</summary>
 
-- `vep/`
-  - `<sample>.vep.vcf.gz`: VEP annotated file
-  - `<sample>.vep.vcf.gz.tbi`: index of VEP annotated file
+- `exomedepth/`
+  - `cnv_call_vep/`
+    - `<sample>.vep.vcf.gz`: VEP annotated file
+    - `<sample>.vep.vcf.gz.tbi`: index of VEP annotated file
 
 </details>
 

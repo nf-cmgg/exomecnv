@@ -42,5 +42,5 @@ workflow VCF_ANNOTATION {
     vcfs = VEP.out.vcf
     tbi = TABIX_VEP.out.tbi
     versionsvep = VEP.out.versions
-    versionstbi = TABIX.out.versions
+    versionstbi = TABIX_VEP.out.versions
 }
