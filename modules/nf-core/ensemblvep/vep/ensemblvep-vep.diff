@@ -1,0 +1,13 @@
+Changes in module 'nf-core/ensemblvep/vep'
+--- modules/nf-core/ensemblvep/vep/main.nf
++++ modules/nf-core/ensemblvep/vep/main.nf
+@@ -1,6 +1,6 @@
+ process ENSEMBLVEP_VEP {
+     tag "$meta.id"
+-    label 'process_medium'
++    label 'process_low'
+ 
+     conda "${moduleDir}/environment.yml"
+     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+
+************************************************************
