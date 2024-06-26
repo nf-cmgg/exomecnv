@@ -17,6 +17,8 @@ Initial release of nf-cmgg/exomecnv, created with the [nf-core](https://nf-co.re
 
 - Index the VEP annotated VCF with TABIX
 - Do not copy output of SAMTOOLS_CONVERT module (BAM files) to the `publishDir`
+- update versions of multiqc and samtools_convert modules
+- optimize module resources
 
 ### `Fixes`
 
