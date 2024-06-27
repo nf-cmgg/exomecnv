@@ -23,6 +23,7 @@ workflow VCF_ANNOTATION {
     main:
 
     ch_vep_extra_files = []
+    ch_versions     = Channel.empty()
 
     VEP (
         ch_vcfs,
@@ -33,14 +34,14 @@ workflow VCF_ANNOTATION {
         fasta,
         ch_vep_extra_files
     )
-
+    ch_versions = ch_versions.mix(VEP.out.versions)
     // Index VCF file
 
     TABIX_VEP ( VEP.out.vcf )
+    ch_versions = ch_versions.mix(TABIX_VEP.out.versions)
 
     emit:
     vcfs = VEP.out.vcf
     tbi = TABIX_VEP.out.tbi
-    versionsvep = VEP.out.versions
-    versionstbi = TABIX_VEP.out.versions
+    versions = ch_versions
 }
