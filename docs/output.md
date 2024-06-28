@@ -24,7 +24,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 ### Cram Prepare
 
-If CRAM/CRAI files were provided in the samplesheet, they will be converted into BAM/BAI first before continuing with the pipeline.
+If CRAM/CRAI files were provided in the samplesheet, they will be converted into BAM/BAI first before continuing with the pipeline. If the directive `publishDir` option `enabled` is set to `true` (default: `false`) , the BAM/BAI are in the output folder.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -120,8 +120,10 @@ A TBI index file is generated for each VCF file. While these TBI index files are
 <details markdown="1">
 <summary>Output files</summary>
 
-- `vep/`
-  - `<sample>.vep.vcf.gz`: VEP annotated file
+- `exomedepth/`
+  - `cnv_call_vep/`
+    - `<sample>.vep.vcf.gz`: VEP annotated file
+    - `<sample>.vep.vcf.gz.tbi`: index of VEP annotated file
 
 </details>
 
