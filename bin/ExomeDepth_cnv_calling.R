@@ -47,7 +47,7 @@ exons.GRanges <- GenomicRanges::GRanges(seqnames = exons$chromosome,
 
 # ### read counts ###
 cat("\nRead counting matrix\n")
-ExomeCount.dafr <- read.table(file=countfile,sep="\t",header = TRUE)
+ExomeCount.dafr <- read.table(file=countfile,sep="\t",header = TRUE,check.names = FALSE)
 # print(head(ExomeCount.dafr))
 # colnames(ExomeCount.dafr)
 
