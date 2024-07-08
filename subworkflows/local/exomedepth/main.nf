@@ -127,7 +127,7 @@ workflow EXOMEDEPTH {
         .transpose(by:1)
 
     CNV_CALL_X(
-        ch_roi_auto, cnv_chrx_ch
+        ch_roi_x, cnv_chrx_ch
     )
 
     //MODULE: Group autosomal and chrX CNV per sample (one file for each sample)
