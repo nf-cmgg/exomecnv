@@ -23,3 +23,5 @@ Initial release of nf-cmgg/exomecnv, created with the [nf-core](https://nf-co.re
 ### `Fixes`
 
 - Sort file of merged CNV calls to fix an issue with TABIX (needs sorted VCF files)
+- `CNV_CALL_X`: fix input channel to "roi_chrx"
+- allow sample numbers as sample names
