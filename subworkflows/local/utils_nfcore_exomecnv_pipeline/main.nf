@@ -84,6 +84,9 @@ workflow PIPELINE_INITIALISATION {
         .fromSamplesheet("input")
         .set { ch_samplesheet }
 
+    // Output the samplesheet
+    file(input).copyTo("${outdir}/samplesheet.csv")
+
     emit:
     samplesheet = ch_samplesheet
     versions    = ch_versions
