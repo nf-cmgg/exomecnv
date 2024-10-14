@@ -1,4 +1,6 @@
 Changes in module 'nf-core/ensemblvep/vep'
+'modules/nf-core/ensemblvep/vep/meta.yml' is unchanged
+Changes in 'ensemblvep/vep/main.nf':
 --- modules/nf-core/ensemblvep/vep/main.nf
 +++ modules/nf-core/ensemblvep/vep/main.nf
 @@ -1,6 +1,6 @@
@@ -10,4 +12,11 @@ Changes in module 'nf-core/ensemblvep/vep'
      conda "${moduleDir}/environment.yml"
      container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
 
+'modules/nf-core/ensemblvep/vep/environment.yml' is unchanged
+'modules/nf-core/ensemblvep/vep/tests/vcf.config' is unchanged
+'modules/nf-core/ensemblvep/vep/tests/main.nf.test' is unchanged
+'modules/nf-core/ensemblvep/vep/tests/main.nf.test.snap' is unchanged
+'modules/nf-core/ensemblvep/vep/tests/nextflow.config' is unchanged
+'modules/nf-core/ensemblvep/vep/tests/tab.gz.config' is unchanged
+'modules/nf-core/ensemblvep/vep/tests/tags.yml' is unchanged
 ************************************************************
