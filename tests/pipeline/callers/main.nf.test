@@ -1,0 +1,88 @@
+nextflow_pipeline {
+
+    name "Test Workflow main.nf"
+    script "main.nf"
+
+    tag "pipeline"
+    tag "pipeline_callers"
+    tag "pipeline_annotate"
+
+    test("pipeline - exomedepth (CRAM input)") {
+
+        when {
+            params {
+                outdir = "${outputDir}"
+                exomedepth = true
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    workflow.stdout,
+                    path("${outputDir}")
+                        .list()
+                        .findAll { !it.toString().endsWith("pipeline_info") }
+                        .collect { getRecursiveFileNames(it, "${outputDir}") }
+                        .flatten()
+                ).match("exomedepth_cram") }
+            )
+        }
+    }
+    test("pipeline - exomedepth (CRAM input) + annotate") {
+
+        when {
+            params {
+                outdir = "${outputDir}"
+                exomedepth = true
+                annotate = true
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    workflow.stdout,
+                    path("${outputDir}")
+                        .list()
+                        .findAll { !it.toString().endsWith("pipeline_info") }
+                        .collect { getRecursiveFileNames(it, "${outputDir}") }
+                        .flatten()
+                ).match("exomedepth_cram + annotate") }
+            )
+        }
+    }
+    test("pipeline - exomedepth (BAM input)") {
+
+        when {
+            params {
+                input  = "${projectDir}/tests/inputs/samplesheet_bam.csv"
+                outdir = "${outputDir}"
+                exomedepth = true
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    workflow.stdout,
+                    path("${outputDir}")
+                        .list()
+                        .findAll { !it.toString().endsWith("pipeline_info") }
+                        .collect { getRecursiveFileNames(it, "${outputDir}") }
+                        .flatten()
+                ).match("exomedepth_bam") }
+            )
+        }
+    }
+}
+
+def getRecursiveFileNames(fileOrDir, outputDir) {
+    if(file(fileOrDir.toString()).isDirectory()) {
+        return fileOrDir.list().collect { getRecursiveFileNames(it, outputDir) }
+    }
+    return fileOrDir.toString().replace("${outputDir}/", "")
+}
