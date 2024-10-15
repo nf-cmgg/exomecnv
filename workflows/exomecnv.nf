@@ -49,39 +49,39 @@ workflow EXOMECNV {
 
     // ExomeDepth
     if (ch_input.no_vcf) {
-    if (params.exomedepth) {
-    EXOMEDEPTH (ch_input.no_vcf)
-    ch_versions = ch_versions.mix(EXOMEDEPTH.out.versions)
+        if (params.exomedepth) {
+            EXOMEDEPTH (ch_input.no_vcf)
+            ch_versions = ch_versions.mix(EXOMEDEPTH.out.versions)
 
-    // Index files for VCF
+            // Index files for VCF
 
-    TABIX ( EXOMEDEPTH.out.vcf )
-    ch_versions = ch_versions.mix(TABIX.out.versions)
-    ch_exomedepth_vcf = EXOMEDEPTH.out.vcf
-        .join(TABIX.out.tbi)
+            TABIX ( EXOMEDEPTH.out.vcf )
+            ch_versions = ch_versions.mix(TABIX.out.versions)
+            ch_exomedepth_vcf = EXOMEDEPTH.out.vcf
+                .join(TABIX.out.tbi)
 
-    // EnsemblVEP after ExomeDepth
+            // EnsemblVEP after ExomeDepth
 
-    if (params.annotate) {
+            if (params.annotate) {
 
-    ANNOTATION_FROM_CRAM ( ch_exomedepth_vcf, ch_fasta, ch_vep_cache )
-    ch_versions = ch_versions.mix(ANNOTATION_FROM_CRAM.out.versions)
+            ANNOTATION_FROM_CRAM ( ch_exomedepth_vcf, ch_fasta, ch_vep_cache )
+            ch_versions = ch_versions.mix(ANNOTATION_FROM_CRAM.out.versions)
 
-    }
-    }
+            }
+        }
     }
 
     // EnsemblVEP on VCF input file
 
     if (ch_input.vcf) {
-    ch_vcf = ch_input.vcf
-        .map { meta,bam,bai,vcf,tbi ->
-                [[id:meta.id], vcf, tbi]}
+        ch_vcf = ch_input.vcf
+            .map { meta,bam,bai,vcf,tbi ->
+                    [[id:meta.id], vcf, tbi]}
 
-    ANNOTATION_FROM_VCF (
-        ch_vcf, ch_fasta, ch_vep_cache
-    )
-    ch_versions = ch_versions.mix(ANNOTATION_FROM_VCF.out.versions)
+        ANNOTATION_FROM_VCF (
+            ch_vcf, ch_fasta, ch_vep_cache
+        )
+        ch_versions = ch_versions.mix(ANNOTATION_FROM_VCF.out.versions)
     }
 
     // Collate and save software versions
