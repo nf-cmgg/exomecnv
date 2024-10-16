@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - add pipeline testing with nf-test
 
 ### `Updates`
+
 - Bumped modules `bedgovcf`, `ensemblvep/vep`, `multiqc`, `tabix/tabix`and `samtools/convert` to the newest versions
 - Upgraded to `nf-core` to v3.0.2 template
 
