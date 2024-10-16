@@ -3,6 +3,18 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.1.0 [2024-MM-DD]
+
+### `Improvements`
+
+- `SAMTOOLS_CONVERT`: add optional output path for BAM files
+- copy `samplesheet.csv` to output dir
+- add pipeline testing with nf-test
+
+### `Updates`
+- Bumped modules `bedgovcf`, `ensemblvep/vep`, `multiqc`, `tabix/tabix`and `samtools/convert` to the newest versions
+- Upgraded to `nf-core` to v3.0.2 template
+
 ## v1.0.2 - Youthful Yamal [2024-07-10]
 
 ### `Fixes`
