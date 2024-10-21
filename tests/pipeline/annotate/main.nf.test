@@ -1,0 +1,46 @@
+nextflow_pipeline {
+
+    name "Test pipeline - VEP annotation"
+    script "main.nf"
+
+    tag "pipeline"
+    tag "pipeline_annotate"
+
+    options "-stub"
+
+    test("pipeline - exomedepth (CRAM input) + annotate") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+                exomedepth = true
+                annotate = true
+            }
+        }
+
+        then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, includeDir: true, include: ['*', '**/*'], ignore: ['pipeline_info/*.{html,json,txt}'])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, includeDir: false, include: ['*', '**/*'], ignore: ['exomedepth/cnv_call_vep/*vep*'], ignoreFile: 'tests/.nftignore')
+            // stable_path: VEP VCF files
+            def stable_path_vcf = getAllFilesFromDir(params.outdir, includeDir: false, include: ['exomedepth/cnv_call_vep/*vep.vcf.gz}'], ignore: ['*', '**/*'])
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we tests pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml"),
+                    // All stable path name, with a relative path
+                    getRelativePath(stable_name, outputDir),
+                    // All files with stable contents
+                    stable_path,
+                    // VCF files with stable contents
+                    stable_path_vcf.collect { ["VCF_annotated", path(it.toString()).vcf.variantsMD5] }
+
+                ).match("exomedepth_cram + annotate") }
+            )
+        }
+    }
+}

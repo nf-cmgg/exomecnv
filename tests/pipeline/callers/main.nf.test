@@ -1,56 +1,37 @@
 nextflow_pipeline {
 
-    name "Test Workflow main.nf"
+    name "Test pipeline - CNV callers"
     script "main.nf"
 
     tag "pipeline"
     tag "pipeline_callers"
-    tag "pipeline_annotate"
 
     test("pipeline - exomedepth (CRAM input)") {
 
         when {
             params {
-                outdir = "${outputDir}"
+                outdir = "$outputDir"
                 exomedepth = true
             }
         }
 
         then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, includeDir: true, include: ['*', '**/*'], ignore: ['pipeline_info/*.{html,json,txt}'])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, includeDir: false, include: ['*', '**/*'], ignoreFile: 'tests/.nftignore')
             assertAll(
                 { assert workflow.success},
                 { assert snapshot(
-                    workflow.stdout,
-                    path("${outputDir}")
-                        .list()
-                        .findAll { !it.toString().endsWith("pipeline_info") }
-                        .collect { getRecursiveFileNames(it, "${outputDir}") }
-                        .flatten()
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we tests pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml"),
+                    // All stable path name, with a relative path
+                    getRelativePath(stable_name, outputDir),
+                    // All files with stable contents
+                    stable_path
                 ).match("exomedepth_cram") }
-            )
-        }
-    }
-    test("pipeline - exomedepth (CRAM input) + annotate") {
-
-        when {
-            params {
-                outdir = "${outputDir}"
-                exomedepth = true
-                annotate = true
-            }
-        }
-
-        then {
-            assertAll(
-                { assert workflow.success},
-                { assert snapshot(
-                    workflow.stdout,
-                    path("${outputDir}")
-                        .list()
-                        .findAll { !it.toString().endsWith("pipeline_info") }
-                        .collect { getRecursiveFileNames(it, "${outputDir}") }
-                        .flatten()
-                ).match("exomedepth_cram + annotate") }
             )
         }
     }
@@ -58,31 +39,30 @@ nextflow_pipeline {
 
         when {
             params {
-                input  = "${projectDir}/tests/inputs/samplesheet_bam.csv"
-                outdir = "${outputDir}"
+                input  = "$projectDir/tests/inputs/samplesheet_bam.csv"
+                outdir = "$outputDir"
                 exomedepth = true
             }
         }
 
         then {
+            // stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name = getAllFilesFromDir(params.outdir, includeDir: true, include: ['*', '**/*'], ignore: ['pipeline_info/*.{html,json,txt}'])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path = getAllFilesFromDir(params.outdir, includeDir: false, include: ['*', '**/*'], ignoreFile: 'tests/.nftignore')
             assertAll(
                 { assert workflow.success},
                 { assert snapshot(
-                    workflow.stdout,
-                    path("${outputDir}")
-                        .list()
-                        .findAll { !it.toString().endsWith("pipeline_info") }
-                        .collect { getRecursiveFileNames(it, "${outputDir}") }
-                        .flatten()
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we tests pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_pipeline_software_mqc_versions.yml"),
+                    // All stable path name, with a relative path
+                    getRelativePath(stable_name, outputDir),
+                    // All files with stable contents
+                    stable_path,
                 ).match("exomedepth_bam") }
             )
         }
     }
-}
-
-def getRecursiveFileNames(fileOrDir, outputDir) {
-    if(file(fileOrDir.toString()).isDirectory()) {
-        return fileOrDir.list().collect { getRecursiveFileNames(it, outputDir) }
-    }
-    return fileOrDir.toString().replace("${outputDir}/", "")
 }
