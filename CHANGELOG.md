@@ -3,6 +3,22 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.1.0 - Amazing Alderweireld [2024-11-19]
+
+### `Improvements`
+
+- `SAMTOOLS_CONVERT`: add optional output path for BAM files
+- copy `samplesheet.csv` to output dir
+- add pipeline testing with `nf-test`
+- `bedgovcf` module config: add format field
+- `exomedepth/merge_count` module: sort columns in summary file by sample names
+
+### `Updates`
+
+- Bumped modules `utils_nextflow_pipeline`, `bedgovcf`, `ensemblvep/vep`, `multiqc`, `tabix/tabix`and `samtools/convert` to the newest versions
+- Upgraded `nf-core` to v3.0.2 template
+- Upgraded `nextflow` version to 24.10.0
+
 ## v1.0.2 - Youthful Yamal [2024-07-10]
 
 ### `Fixes`
