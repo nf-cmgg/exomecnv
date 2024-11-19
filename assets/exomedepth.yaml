@@ -51,3 +51,7 @@ info:
     value: $12
     type: string
     description: Exons
+
+format:
+  - name: CN
+    value: "."

@@ -19,7 +19,11 @@ process COUNT_MERGE {
     script:
     def prefix = task.ext.prefix ?: "${meta.id}_${meta.chr}"
     """
-    for file in $files; do
+    # Sort
+    sorted_files=\$(echo $files | tr ' ' '\\n' | sort -V | tr '\\n' ' ')
+    # Remove trailing space
+    sorted_files=\$(echo \$sorted_files | sed 's/ *\$//')
+    for file in \$sorted_files; do
         if [ -f ${prefix}.txt ]; then
             paste ${prefix}.txt <(awk '{print \$5}' \$file) > temp_auto.txt
             mv temp_auto.txt ${prefix}.txt
