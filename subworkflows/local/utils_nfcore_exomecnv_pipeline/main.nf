@@ -76,6 +76,8 @@ workflow PIPELINE_INITIALISATION {
         .fromList(samplesheetToList(input, "${projectDir}/assets/schema_input.json"))
         .set { ch_samplesheet }
 
+    file(input).copyTo("${outdir}/samplesheet.csv")
+
     emit:
     samplesheet = ch_samplesheet
     versions    = ch_versions
