@@ -24,9 +24,8 @@ lint:
   multiqc_config:
     - report_comment
   nextflow_config:
-      - manifest.name
-      - manifest.homePage
-  actions_ci: false
+    - manifest.name
+    - manifest.homePage
 nf_core_version: 3.0.2
 org_path: null
 repository_type: pipeline
