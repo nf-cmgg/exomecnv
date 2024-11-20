@@ -17,7 +17,7 @@
                         "size": "Large",
                         "weight": "Bolder",
                         "color": "<% if (success) { %>Good<% } else { %>Attention<%} %>",
-                        "text": "CenterForMedicalGeneticsGhent/nf-cmgg-exomecnv v${version} - ${runName}",
+                        "text": "nf-cmgg/exomecnv v${version} - ${runName}",
                         "wrap": true
                     },
                     {
