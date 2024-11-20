@@ -4,7 +4,7 @@ nextflow_process {
     script "../main.nf"
     process "CNV_MERGE"
 
-    test("homo_sapiens - bam, bai, roi") {
+    test("homo_sapiens - cnv_auto, cnv_chrx") {
 
         when {
             process {
@@ -25,7 +25,7 @@ nextflow_process {
 
     }
 
-    test("homo_sapiens - bam, bai, roi - stub") {
+    test("homo_sapiens - cnv_auto, cnv_chrx - stub") {
 
         options "-stub"
 
