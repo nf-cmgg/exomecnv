@@ -91,7 +91,7 @@ workflow EXOMEDEPTH {
         .transpose(by:1)
 
     CNV_CALL_AUTO(
-        ch_roi_auto, cnv_auto_ch.view()
+        ch_roi_auto, cnv_auto_ch
     )
     ch_versions = ch_versions.mix(CNV_CALL_AUTO.out.versions)
 
