@@ -1,0 +1,132 @@
+{
+    "homo_sapiens - bed, merged_counts": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "autosomal",
+                            "sam": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "fam": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ]
+                        },
+                        "Sample1",
+                        "Sample1_CNVs_ExomeDepth_autosomal.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,1c8782fc3a89ec689cfdce0b3f91de85"
+                ],
+                "cnvcall": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "autosomal",
+                            "sam": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "fam": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ]
+                        },
+                        "Sample1",
+                        "Sample1_CNVs_ExomeDepth_autosomal.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,1c8782fc3a89ec689cfdce0b3f91de85"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-19T16:56:15.218505508"
+    },
+    "homo_sapiens - bed, merged_counts - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "autosomal",
+                            "sam": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "fam": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ]
+                        },
+                        "Sample1",
+                        "Sample1_CNVs_ExomeDepth_autosomal.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,1c8782fc3a89ec689cfdce0b3f91de85"
+                ],
+                "cnvcall": [
+                    [
+                        {
+                            "id": "test",
+                            "chr": "autosomal",
+                            "sam": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "fam": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ]
+                        },
+                        "Sample1",
+                        "Sample1_CNVs_ExomeDepth_autosomal.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,1c8782fc3a89ec689cfdce0b3f91de85"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-19T16:56:23.450090975"
+    }
+}

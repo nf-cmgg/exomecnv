@@ -24,6 +24,7 @@ lint:
   nextflow_config:
     - manifest.name
     - manifest.homePage
+  actions_ci: false
 repository_type: pipeline
 template:
   author: nvnieuwk

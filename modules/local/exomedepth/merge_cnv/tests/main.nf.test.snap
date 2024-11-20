@@ -1,0 +1,128 @@
+{
+    "homo_sapiens - cnv_auto, cnv_chrx": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "Sample1",
+                            "chr": "autosomal",
+                            "sam": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "fam": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ]
+                        },
+                        "[id:Sample1, chr:autosomal, sam:[Sample1, Sample2, Sample3, Sample4, Sample5], fam:[Fam1, Fam2, Fam3, Fam4, Fam5]]_CNVs_ExomeDepth.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,ce1a599ac7cf70d2997578484a4f4645"
+                ],
+                "merge": [
+                    [
+                        {
+                            "id": "Sample1",
+                            "chr": "autosomal",
+                            "sam": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "fam": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ]
+                        },
+                        "[id:Sample1, chr:autosomal, sam:[Sample1, Sample2, Sample3, Sample4, Sample5], fam:[Fam1, Fam2, Fam3, Fam4, Fam5]]_CNVs_ExomeDepth.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,ce1a599ac7cf70d2997578484a4f4645"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-20T13:08:25.353313066"
+    },
+    "homo_sapiens - cnv_auto, cnv_chrx - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "Sample1",
+                            "chr": "autosomal",
+                            "sam": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "fam": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ]
+                        },
+                        "Fam5]]_CNVs_ExomeDepth.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,4425066ae908aabce62e256293297377"
+                ],
+                "merge": [
+                    [
+                        {
+                            "id": "Sample1",
+                            "chr": "autosomal",
+                            "sam": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "fam": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ]
+                        },
+                        "Fam5]]_CNVs_ExomeDepth.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,4425066ae908aabce62e256293297377"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-20T13:08:35.486908993"
+    }
+}

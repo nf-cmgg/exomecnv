@@ -1,0 +1,128 @@
+{
+    "homo_sapiens - bam, bai, roi": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "Sample1",
+                            "chr": "autosomal",
+                            "sam": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "fam": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ]
+                        },
+                        "Sample1_exon.txt:md5,38b5cbbe36f1561d05e9318c972f947a"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,aa3132f64e2e05283f1e8d6113ccaa9e"
+                ],
+                "counts": [
+                    [
+                        {
+                            "id": "Sample1",
+                            "chr": "autosomal",
+                            "sam": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "fam": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ]
+                        },
+                        "Sample1_exon.txt:md5,38b5cbbe36f1561d05e9318c972f947a"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,aa3132f64e2e05283f1e8d6113ccaa9e"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-20T12:56:52.764127749"
+    },
+    "homo_sapiens - bam, bai, roi - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "Sample1",
+                            "chr": "autosomal",
+                            "sam": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "fam": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ]
+                        },
+                        "Sample1_exon.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,aa3132f64e2e05283f1e8d6113ccaa9e"
+                ],
+                "counts": [
+                    [
+                        {
+                            "id": "Sample1",
+                            "chr": "autosomal",
+                            "sam": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "fam": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ]
+                        },
+                        "Sample1_exon.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,aa3132f64e2e05283f1e8d6113ccaa9e"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.0"
+        },
+        "timestamp": "2024-11-20T13:00:02.923784879"
+    }
+}
