@@ -1,5 +1,5 @@
 {
-    "$schema": "https://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-cmgg/exomecnv/master/nextflow_schema.json",
     "title": "nf-cmgg/exomecnv pipeline parameters",
     "description": "A nextflow pipeline for calling exome CNVs",
@@ -16,7 +16,6 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
-                    "schema": "assets/schema_input.json",
                     "schema": "assets/schema_input.json",
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
@@ -319,13 +318,13 @@
             "$ref": "#/$defs/institutional_config_options"
         },
         {
-            "$ref": "#/definitions/generic_options"
+            "$ref": "#/$defs/generic_options"
         },
         {
-            "$ref": "#/definitions/exomedepth_parameters"
+            "$ref": "#/$defs/exomedepth_parameters"
         },
         {
-            "$ref": "#/definitions/vep_parameters"
+            "$ref": "#/$defs/vep_parameters"
         }
     ]
 }
