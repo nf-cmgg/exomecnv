@@ -22,13 +22,13 @@
                                 "Fam5"
                             ]
                         },
-                        "Sample1_exon.txt:md5,38b5cbbe36f1561d05e9318c972f947a"
+                        "[id:Sample1, chr:autosomal, sam:[Sample1, Sample2, Sample3, Sample4, Sample5], fam:[Fam1, Fam2, Fam3, Fam4, Fam5]]_CNVs_ExomeDepth.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,aa3132f64e2e05283f1e8d6113ccaa9e"
+                    "versions.yml:md5,ce1a599ac7cf70d2997578484a4f4645"
                 ],
-                "counts": [
+                "merge": [
                     [
                         {
                             "id": "Sample1",
@@ -48,11 +48,11 @@
                                 "Fam5"
                             ]
                         },
-                        "Sample1_exon.txt:md5,38b5cbbe36f1561d05e9318c972f947a"
+                        "[id:Sample1, chr:autosomal, sam:[Sample1, Sample2, Sample3, Sample4, Sample5], fam:[Fam1, Fam2, Fam3, Fam4, Fam5]]_CNVs_ExomeDepth.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,aa3132f64e2e05283f1e8d6113ccaa9e"
+                    "versions.yml:md5,ce1a599ac7cf70d2997578484a4f4645"
                 ]
             }
         ],
@@ -60,7 +60,7 @@
             "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-20T12:56:52.764127749"
+        "timestamp": "2024-11-20T13:04:50.037457512"
     },
     "homo_sapiens - bam, bai, roi - stub": {
         "content": [
@@ -85,13 +85,13 @@
                                 "Fam5"
                             ]
                         },
-                        "Sample1_exon.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "Fam5]]_CNVs_ExomeDepth.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,aa3132f64e2e05283f1e8d6113ccaa9e"
+                    "versions.yml:md5,4425066ae908aabce62e256293297377"
                 ],
-                "counts": [
+                "merge": [
                     [
                         {
                             "id": "Sample1",
@@ -111,11 +111,11 @@
                                 "Fam5"
                             ]
                         },
-                        "Sample1_exon.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "Fam5]]_CNVs_ExomeDepth.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,aa3132f64e2e05283f1e8d6113ccaa9e"
+                    "versions.yml:md5,4425066ae908aabce62e256293297377"
                 ]
             }
         ],
@@ -123,6 +123,6 @@
             "nf-test": "0.9.1",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-20T13:00:02.923784879"
+        "timestamp": "2024-11-20T13:04:58.244422188"
     }
 }
