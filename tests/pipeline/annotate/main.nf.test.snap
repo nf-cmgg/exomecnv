@@ -36,7 +36,7 @@
                     "ensemblvep": 113.0
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v1.0.2"
+                    "nf-cmgg/exomecnv": "v1.1.0"
                 }
             },
             [
