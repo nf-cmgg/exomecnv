@@ -1,4 +1,6 @@
+bump_version: null
 lint:
+  actions_ci: false
   files_exist:
     - CODE_OF_CONDUCT.md
     - assets/nf-core-exomecnv_logo_light.png
@@ -22,12 +24,20 @@ lint:
   multiqc_config:
     - report_comment
   nextflow_config:
-    - manifest.name
-    - manifest.homePage
+      - manifest.name
+      - manifest.homePage
   actions_ci: false
+nf_core_version: 3.0.2
+org_path: null
 repository_type: pipeline
 template:
   author: nvnieuwk
   description: A nextflow pipeline for calling exome CNVs
+  force: false
+  is_nfcore: false
   name: exomecnv
-  prefix: nf-cmgg
+  org: nf-cmgg
+  outdir: .
+  skip_features: null
+  version: 1.1.0
+update: null

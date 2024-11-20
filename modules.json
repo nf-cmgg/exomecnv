@@ -1,6 +1,8 @@
 {
     "name": "nf-cmgg/exomecnv",
     "homePage": "https://github.com/nf-cmgg/exomecnv",
+    "name": "nf-cmgg/exomecnv",
+    "homePage": "https://github.com/nf-cmgg/exomecnv",
     "repos": {
         "https://github.com/nf-core/modules.git": {
             "modules": {
