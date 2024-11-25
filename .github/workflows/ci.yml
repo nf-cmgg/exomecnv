@@ -16,9 +16,9 @@ env:
   NXF_SINGULARITY_CACHEDIR: ${{ github.workspace }}/.singularity
   NXF_SINGULARITY_LIBRARYDIR: ${{ github.workspace }}/.singularity
 
-concurrency:
-  group: "${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}"
-  cancel-in-progress: true
+# concurrency:
+#   group: "${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}"
+#   cancel-in-progress: true
 
 jobs:
   test_all:
