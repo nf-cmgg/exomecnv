@@ -20,7 +20,7 @@ include { BEDGOVCF                          } from '../../../modules/nf-core/bed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-workflow EXOMEDEPTH {
+workflow CRAM_CNV_EXOMEDEPTH {
 
     take:
     ch_samplesheet

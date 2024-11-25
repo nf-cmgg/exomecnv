@@ -12,7 +12,7 @@ include { TABIX_TABIX as TABIX_VEP  } from '../../../modules/nf-core/tabix/tabix
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-workflow VCF_ANNOTATION {
+workflow VCF_ANNOTATE_VEP {
 
     take:
     ch_vcfs

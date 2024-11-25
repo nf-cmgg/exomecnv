@@ -11,10 +11,9 @@ include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pi
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
 // local
-include { EXOMEDEPTH                                } from '../subworkflows/local/exomedepth/main'
-include { VCF_ANNOTATION as ANNOTATION_FROM_CRAM    } from '../subworkflows/local/vcf_annotation/main'
-include { VCF_ANNOTATION as ANNOTATION_FROM_VCF     } from '../subworkflows/local/vcf_annotation/main'
-include { TABIX_TABIX as TABIX                      } from '../modules/nf-core/tabix/tabix/main'
+include { CRAM_CNV_EXOMEDEPTH   } from '../subworkflows/local/cram_cnv_exomedepth/main'
+include { VCF_ANNOTATE_VEP      } from '../subworkflows/local/vcf_annotate_vep/main'
+include { TABIX_TABIX as TABIX  } from '../modules/nf-core/tabix/tabix/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -42,50 +41,34 @@ workflow EXOMECNV {
 
     ch_samplesheet.branch { meta, cram, crai, vcf, tbi ->
             vcf: vcf
-                return [ meta, cram, crai, vcf, tbi]
+                return [ meta, vcf, tbi]
             no_vcf: !vcf
                 return [ meta, cram, crai]
         }
         .set{ ch_input }
 
     // ExomeDepth
+    def ch_exomedepth_vcf = Channel.empty()
     if (params.exomedepth) {
-        EXOMEDEPTH(ch_input.no_vcf)
-        ch_versions = ch_versions.mix(EXOMEDEPTH.out.versions)
+        CRAM_CNV_EXOMEDEPTH(ch_input.no_vcf)
+        ch_versions = ch_versions.mix(CRAM_CNV_EXOMEDEPTH.out.versions)
 
         // Index files for VCF
 
-        TABIX(EXOMEDEPTH.out.vcf)
+        TABIX(CRAM_CNV_EXOMEDEPTH.out.vcf)
         ch_versions = ch_versions.mix(TABIX.out.versions)
-        def ch_exomedepth_vcf = EXOMEDEPTH.out.vcf
+        ch_exomedepth_vcf = CRAM_CNV_EXOMEDEPTH.out.vcf
             .join(TABIX.out.tbi, failOnMismatch:true, failOnDuplicate:true)
-
-        // EnsemblVEP after ExomeDepth
-
-        if (params.annotate) {
-            ANNOTATION_FROM_CRAM(
-                ch_exomedepth_vcf,
-                ch_fasta,
-                ch_vep_cache
-            )
-            ch_versions = ch_versions.mix(ANNOTATION_FROM_CRAM.out.versions)
-        }
     }
 
-    // EnsemblVEP on VCF input file
-
-    if (ch_input.vcf) {
-        def ch_vcf = ch_input.vcf
-            .map { meta, _bam, _bai, vcf, tbi ->
-                [[id:meta.id], vcf, tbi]
-            }
-
-        ANNOTATION_FROM_VCF(
-            ch_vcf,
+    // Annotate exomedepth VCFs and input VCFs
+    def ch_annotate_input = ch_exomedepth_vcf.mix(ch_input.vcf)
+    if(params.annotate) {
+        VCF_ANNOTATE_VEP(
+            ch_annotate_input,
             ch_fasta,
             ch_vep_cache
         )
-        ch_versions = ch_versions.mix(ANNOTATION_FROM_VCF.out.versions)
     }
 
     // Collate and save software versions
