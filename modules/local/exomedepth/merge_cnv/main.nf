@@ -7,8 +7,6 @@ process CNV_MERGE {
         'biocontainers/coreutils:9.3' }"
     conda "${moduleDir}/environment.yml"
 
-    publishDir "$params.outdir/exomedepth/cnv_call", mode: 'copy'
-
     input:
     tuple val(meta), path(auto), path(chrx)
 

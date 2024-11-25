@@ -7,8 +7,6 @@ process COUNT_MERGE {
         'biocontainers/coreutils:9.3' }"
     conda "${moduleDir}/environment.yml"
 
-    publishDir "$params.outdir/exomedepth/counts", mode: 'copy'
-
     input:
     tuple val(meta), path(files)
 
