@@ -1,4 +1,4 @@
-process CNV_CALL {
+process EXOMEDEPTH_CALL {
     tag "$sample $meta2.chr"
     label 'process_low'
 
@@ -6,8 +6,6 @@ process CNV_CALL {
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/r-exomedepth:1.1.16--r43hfb3cda0_3' :
         'biocontainers/r-exomedepth:1.1.16--r43hfb3cda0_3' }"
-
-    publishDir "$params.outdir/exomedepth/cnv_call", mode: 'copy'
 
     input:
     tuple val(meta), path(exon_target) // meta.id=chrx/autosomal

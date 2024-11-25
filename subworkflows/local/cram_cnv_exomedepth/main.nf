@@ -4,15 +4,15 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { SAMTOOLS_CONVERT as CRAM_PREPARE  } from '../../../modules/nf-core/samtools/convert/main'
-include { COUNT as COUNT_X                  } from '../../../modules/local/exomedepth/count/main'
-include { COUNT as COUNT_AUTO               } from '../../../modules/local/exomedepth/count/main'
-include { COUNT_MERGE as COUNT_MERGE_AUTO   } from '../../../modules/local/exomedepth/merge_count/main'
-include { COUNT_MERGE as COUNT_MERGE_X      } from '../../../modules/local/exomedepth/merge_count/main'
-include { CNV_CALL as CNV_CALL_AUTO         } from '../../../modules/local/exomedepth/cnv_call/main'
-include { CNV_CALL as CNV_CALL_X            } from '../../../modules/local/exomedepth/cnv_call/main'
-include { CNV_MERGE                         } from '../../../modules/local/exomedepth/merge_cnv/main'
-include { BEDGOVCF                          } from '../../../modules/nf-core/bedgovcf/main'
+include { SAMTOOLS_CONVERT as CRAM_PREPARE              } from '../../../modules/nf-core/samtools/convert/main'
+include { EXOMEDEPTH_COUNT as EXOMEDEPTH_COUNT_X        } from '../../../modules/local/exomedepth/count/main'
+include { EXOMEDEPTH_COUNT as EXOMEDEPTH_COUNT_AUTO     } from '../../../modules/local/exomedepth/count/main'
+include { CUSTOM_MERGECOUNTS as CUSTOM_MERGECOUNTS_AUTO } from '../../../modules/local/custom/mergecounts/main'
+include { CUSTOM_MERGECOUNTS as CUSTOM_MERGECOUNTS_X    } from '../../../modules/local/custom/mergecounts/main'
+include { EXOMEDEPTH_CALL as EXOMEDEPTH_CALL_AUTO       } from '../../../modules/local/exomedepth/call/main'
+include { EXOMEDEPTH_CALL as EXOMEDEPTH_CALL_X          } from '../../../modules/local/exomedepth/call/main'
+include { CUSTOM_MERGECNV                               } from '../../../modules/local/custom/mergecnv/main'
+include { BEDGOVCF                                      } from '../../../modules/nf-core/bedgovcf/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -58,15 +58,15 @@ workflow CRAM_CNV_EXOMEDEPTH {
 
     //MODULE: Count autosomal reads per sample (count file for each sample)
 
-    COUNT_AUTO (
+    EXOMEDEPTH_COUNT_AUTO (
         ch_input_bam,
         ch_roi_auto
     )
-    ch_versions = ch_versions.mix(COUNT_AUTO.out.versions.first())
+    ch_versions = ch_versions.mix(EXOMEDEPTH_COUNT_AUTO.out.versions.first())
 
     //MODULE: Group autosomal counts per pool (count file for each pool)
 
-    def grouped_counts_auto = COUNT_AUTO.out.counts
+    def grouped_counts_auto = EXOMEDEPTH_COUNT_AUTO.out.counts
         .map { meta, txt ->
             def new_meta = [id:meta.pool]
             [new_meta, meta.sample, meta.family, txt]
@@ -77,35 +77,36 @@ workflow CRAM_CNV_EXOMEDEPTH {
             [new_meta, txt]
         }
 
-    COUNT_MERGE_AUTO (
+    CUSTOM_MERGECOUNTS_AUTO (
         grouped_counts_auto
     )
-    ch_versions = ch_versions.mix(COUNT_MERGE_AUTO.out.versions.first())
+    ch_versions = ch_versions.mix(CUSTOM_MERGECOUNTS_AUTO.out.versions.first())
 
     //MODULE: Autosomal CNV call per sample (file for each sample)
 
-    def cnv_auto_ch = COUNT_MERGE_AUTO.out.merge
+    def cnv_auto_ch = CUSTOM_MERGECOUNTS_AUTO.out.merge
         .map { meta, txt ->
             [meta, meta.sam, txt]
         }
         .transpose(by:1)
 
-    CNV_CALL_AUTO(
+    EXOMEDEPTH_CALL_AUTO(
         ch_roi_auto,
         cnv_auto_ch
     )
-    ch_versions = ch_versions.mix(CNV_CALL_AUTO.out.versions.first())
+    ch_versions = ch_versions.mix(EXOMEDEPTH_CALL_AUTO.out.versions.first())
 
     //MODULE: Count chrX reads per sample (count file for each sample)
 
-    COUNT_X (
+    EXOMEDEPTH_COUNT_X(
         ch_input_bam,
         ch_roi_x
     )
+    ch_versions = ch_versions.mix(EXOMEDEPTH_COUNT_X.out.versions.first())
 
     //MODULE: Group chrX counts per pool (count file for each pool)
 
-    def grouped_counts_X = COUNT_X.out.counts
+    def grouped_counts_X = EXOMEDEPTH_COUNT_X.out.counts
         .map { meta, txt ->
             def new_meta = [id:meta.pool]
             [new_meta, meta.sample, meta.family, txt]
@@ -116,37 +117,39 @@ workflow CRAM_CNV_EXOMEDEPTH {
             [new_meta, txt]
         }
 
-    COUNT_MERGE_X (
+    CUSTOM_MERGECOUNTS_X (
         grouped_counts_X
     )
+    ch_versions = ch_versions.mix(CUSTOM_MERGECOUNTS_X.out.versions.first())
 
     //MODULE: ChrX CNV call per sample (file for each sample)
 
-    def cnv_chrx_ch = COUNT_MERGE_X.out.merge
+    def cnv_chrx_ch = CUSTOM_MERGECOUNTS_X.out.merge
         .map { meta, txt ->
             [meta, meta.sam, txt]
         }
         .transpose(by:1)
 
-    CNV_CALL_X(
+    EXOMEDEPTH_CALL_X(
         ch_roi_x,
         cnv_chrx_ch
     )
+    ch_versions = ch_versions.mix(EXOMEDEPTH_CALL_X.out.versions.first())
 
     //MODULE: Group autosomal and chrX CNV per sample (one file for each sample)
 
-    def cnv_merge_ch = CNV_CALL_AUTO.out.cnvcall
-        .combine(CNV_CALL_X.out.cnvcall, by:1)
+    def cnv_merge_ch = EXOMEDEPTH_CALL_AUTO.out.cnvcall
+        .combine(EXOMEDEPTH_CALL_X.out.cnvcall, by:1)
         .map{ sample, _meta, auto, _meta2, x ->
             [sample, auto, x]
         }
 
-    CNV_MERGE(cnv_merge_ch)
-    ch_versions = ch_versions.mix(CNV_MERGE.out.versions.first())
+    CUSTOM_MERGECNV(cnv_merge_ch)
+    ch_versions = ch_versions.mix(CUSTOM_MERGECNV.out.versions.first())
 
     //MODULE: Convert file to VCF according to a YAML config
 
-    def bedgovcf_input = CNV_MERGE.out.merge
+    def bedgovcf_input = CUSTOM_MERGECNV.out.merge
         .map{ meta, bed ->
             def new_meta = [id:meta]
             [new_meta, bed, params.yamlconfig]

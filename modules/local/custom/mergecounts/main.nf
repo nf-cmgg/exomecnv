@@ -1,5 +1,5 @@
 // MERGE COUNT FILES
-process COUNT_MERGE {
+process CUSTOM_MERGECOUNTS {
     tag "$meta.id $meta.chr"
 
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
@@ -39,7 +39,7 @@ process COUNT_MERGE {
     """
 
     stub:
-    prefix = task.ext.prefix ?: "${meta.id}_${meta.chr}"
+    def prefix = task.ext.prefix ?: "${meta.id}_${meta.chr}"
     """
     touch ${prefix}.txt
 

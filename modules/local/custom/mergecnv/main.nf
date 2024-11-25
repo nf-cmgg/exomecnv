@@ -1,5 +1,5 @@
 //MERGE AND SORT (ON GENOMIC POSITION) EXOMEDEPTH CNV CALL FILES
-process CNV_MERGE {
+process CUSTOM_MERGECNV {
     tag "$meta"
 
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?

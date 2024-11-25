@@ -1,4 +1,4 @@
-process COUNT {
+process EXOMEDEPTH_COUNT {
     tag "$meta.id $meta2.id"
     label 'process_low'
 
