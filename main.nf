@@ -25,7 +25,7 @@ params.fai   = getGenomeAttribute('fai')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { EXOMECNV  } from './workflows/exomecnv'
+include { EXOMECNV                } from './workflows/exomecnv'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_exomecnv_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
@@ -39,7 +39,7 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_exom
 //
 // WORKFLOW: Run main analysis pipeline depending on type of input
 //
-workflow NFCMGG_EXOMECNV {
+workflow {
 
     //
     // SUBWORKFLOW: Run initialisation tasks
@@ -78,9 +78,6 @@ workflow NFCMGG_EXOMECNV {
     //
 
 
-}
-workflow  {
-    NFCMGG_EXOMECNV()
 }
 
 /*
