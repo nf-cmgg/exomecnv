@@ -5,22 +5,7 @@
                 "0": [
                     [
                         {
-                            "id": "Sample1",
-                            "chr": "autosomal",
-                            "sam": [
-                                "Sample1",
-                                "Sample2",
-                                "Sample3",
-                                "Sample4",
-                                "Sample5"
-                            ],
-                            "fam": [
-                                "Fam1",
-                                "Fam2",
-                                "Fam3",
-                                "Fam4",
-                                "Fam5"
-                            ]
+                            "id": "Sample1"
                         },
                         "Sample1_exon.txt:md5,38b5cbbe36f1561d05e9318c972f947a"
                     ]
@@ -31,22 +16,7 @@
                 "counts": [
                     [
                         {
-                            "id": "Sample1",
-                            "chr": "autosomal",
-                            "sam": [
-                                "Sample1",
-                                "Sample2",
-                                "Sample3",
-                                "Sample4",
-                                "Sample5"
-                            ],
-                            "fam": [
-                                "Fam1",
-                                "Fam2",
-                                "Fam3",
-                                "Fam4",
-                                "Fam5"
-                            ]
+                            "id": "Sample1"
                         },
                         "Sample1_exon.txt:md5,38b5cbbe36f1561d05e9318c972f947a"
                     ]
@@ -68,22 +38,7 @@
                 "0": [
                     [
                         {
-                            "id": "Sample1",
-                            "chr": "autosomal",
-                            "sam": [
-                                "Sample1",
-                                "Sample2",
-                                "Sample3",
-                                "Sample4",
-                                "Sample5"
-                            ],
-                            "fam": [
-                                "Fam1",
-                                "Fam2",
-                                "Fam3",
-                                "Fam4",
-                                "Fam5"
-                            ]
+                            "id": "Sample1"
                         },
                         "Sample1_exon.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
@@ -94,22 +49,7 @@
                 "counts": [
                     [
                         {
-                            "id": "Sample1",
-                            "chr": "autosomal",
-                            "sam": [
-                                "Sample1",
-                                "Sample2",
-                                "Sample3",
-                                "Sample4",
-                                "Sample5"
-                            ],
-                            "fam": [
-                                "Fam1",
-                                "Fam2",
-                                "Fam3",
-                                "Fam4",
-                                "Fam5"
-                            ]
+                            "id": "Sample1"
                         },
                         "Sample1_exon.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]

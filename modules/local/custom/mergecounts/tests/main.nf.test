@@ -1,8 +1,8 @@
 nextflow_process {
 
-    name "Test Process COUNT_MERGE"
+    name "Test Process CUSTOM_MERGECOUNTS"
     script "../main.nf"
-    process "COUNT_MERGE"
+    process "CUSTOM_MERGECOUNTS"
 
     test("homo_sapiens - counts") {
 

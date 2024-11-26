@@ -1,23 +1,26 @@
 nextflow_process {
 
-    name "Test Process CNV_CALL"
+    name "Test Process EXOMEDEPTH_CALL"
     script "../main.nf"
-    process "CNV_CALL"
+    process "EXOMEDEPTH_CALL"
 
     test("homo_sapiens - bed, merged_counts") {
 
         when {
             process {
                 """
-                input[0] = Channel.value([
+                input[0] = Channel.of([
+                    [ id: 'test' ],
+                    "Sample1",
+                    file(params.merged_counts, checkIfExists:true),
+                    "Sample1,Sample2,Sample3,Sample4,Sample5",
+                    "Fam1,Fam2,Fam3,Fam4,Fam5"
+                ])
+                input[1] = Channel.value([
                     [ id:'exon' ],
                     file(params.roi_auto)
                 ])
-                input[1] = Channel.of([
-                    [ id: 'test', chr:"autosomal", sam:["Sample1", "Sample2", "Sample3", "Sample4", "Sample5"], fam:["Fam1", "Fam2", "Fam3", "Fam4", "Fam5"] ],
-                    "Sample1",
-                    file(params.merged_counts, checkIfExists:true)
-                ])
+                input[2] = "autosomal"
                 """
             }
         }
@@ -36,15 +39,18 @@ nextflow_process {
         when {
             process {
                 """
-                input[0] = Channel.value([
+                input[0] = Channel.of([
+                    [ id: 'test' ],
+                    "Sample1",
+                    file(params.merged_counts, checkIfExists:true),
+                    "Sample1,Sample2,Sample3,Sample4,Sample5",
+                    "Fam1,Fam2,Fam3,Fam4,Fam5"
+                ])
+                input[1] = Channel.value([
                     [ id:'exon' ],
                     file(params.roi_auto)
                 ])
-                input[1] = Channel.of([
-                    [ id: 'test', chr:"autosomal", sam:["Sample1", "Sample2", "Sample3", "Sample4", "Sample5"], fam:["Fam1", "Fam2", "Fam3", "Fam4", "Fam5"] ],
-                    "Sample1",
-                    file(params.merged_counts, checkIfExists:true)
-                ])
+                input[2] = "autosomal"
                 """
             }
         }

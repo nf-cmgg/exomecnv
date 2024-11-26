@@ -5,24 +5,8 @@
                 "0": [
                     [
                         {
-                            "id": "test",
-                            "chr": "autosomal",
-                            "sam": [
-                                "Sample1",
-                                "Sample2",
-                                "Sample3",
-                                "Sample4",
-                                "Sample5"
-                            ],
-                            "fam": [
-                                "Fam1",
-                                "Fam2",
-                                "Fam3",
-                                "Fam4",
-                                "Fam5"
-                            ]
+                            "id": "test"
                         },
-                        "Sample1",
                         "Sample1_CNVs_ExomeDepth_autosomal.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
                     ]
                 ],
@@ -32,24 +16,8 @@
                 "cnvcall": [
                     [
                         {
-                            "id": "test",
-                            "chr": "autosomal",
-                            "sam": [
-                                "Sample1",
-                                "Sample2",
-                                "Sample3",
-                                "Sample4",
-                                "Sample5"
-                            ],
-                            "fam": [
-                                "Fam1",
-                                "Fam2",
-                                "Fam3",
-                                "Fam4",
-                                "Fam5"
-                            ]
+                            "id": "test"
                         },
-                        "Sample1",
                         "Sample1_CNVs_ExomeDepth_autosomal.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
                     ]
                 ],
@@ -70,24 +38,8 @@
                 "0": [
                     [
                         {
-                            "id": "test",
-                            "chr": "autosomal",
-                            "sam": [
-                                "Sample1",
-                                "Sample2",
-                                "Sample3",
-                                "Sample4",
-                                "Sample5"
-                            ],
-                            "fam": [
-                                "Fam1",
-                                "Fam2",
-                                "Fam3",
-                                "Fam4",
-                                "Fam5"
-                            ]
+                            "id": "test"
                         },
-                        "Sample1",
                         "Sample1_CNVs_ExomeDepth_autosomal.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
@@ -97,24 +49,8 @@
                 "cnvcall": [
                     [
                         {
-                            "id": "test",
-                            "chr": "autosomal",
-                            "sam": [
-                                "Sample1",
-                                "Sample2",
-                                "Sample3",
-                                "Sample4",
-                                "Sample5"
-                            ],
-                            "fam": [
-                                "Fam1",
-                                "Fam2",
-                                "Fam3",
-                                "Fam4",
-                                "Fam5"
-                            ]
+                            "id": "test"
                         },
-                        "Sample1",
                         "Sample1_CNVs_ExomeDepth_autosomal.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],

@@ -90,7 +90,7 @@ workflow PIPELINE_INITIALISATION {
 
         pools[pool].families.add(meta.family)
     }
-    
+
     Channel
         .fromList(inputList)
         .map { meta, cram, crai, vcf, tbi ->
@@ -98,7 +98,7 @@ workflow PIPELINE_INITIALISATION {
                 return [ meta, cram, crai, vcf, tbi ]
             } else {
                 def new_meta = meta + [
-                    samples:pools[meta.pool].samples.join(","), 
+                    samples:pools[meta.pool].samples.join(","),
                     families:pools[meta.pool].families.join(",")
                 ]
                 return [ new_meta, cram, crai, vcf, tbi ]
