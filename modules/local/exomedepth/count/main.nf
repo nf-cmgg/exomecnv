@@ -10,14 +10,13 @@ process EXOMEDEPTH_COUNT {
     input:
     tuple val(meta), path(bam), path(bai), val(sample)
     tuple val(meta2), path(exon_target)
-    val(chromosome)
 
     output:
     tuple val(meta), path("*.txt"), emit: counts
     path "versions.yml", emit: versions
 
     script: // This script is bundled with the pipeline, in nf-cmgg/exomecnv/bin/
-
+    def prefix = task.ext.prefix ?: "${meta.id}"
     def VERSION = '1.1.16'
 
     """
@@ -26,7 +25,7 @@ process EXOMEDEPTH_COUNT {
         $bam \\
         $bai \\
         $exon_target \\
-        $chromosome
+        $prefix
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -37,9 +36,10 @@ process EXOMEDEPTH_COUNT {
     """
 
     stub:
+    def prefix = task.ext.prefix ?: "${meta.id}"
     def VERSION = '1.1.16'
     """
-    touch ${sample}_${chromosome}.txt
+    touch ${prefix}.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

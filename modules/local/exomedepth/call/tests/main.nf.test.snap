@@ -5,9 +5,10 @@
                 "0": [
                     [
                         {
-                            "id": "test"
+                            "id": "test",
+                            "chromosome": "chrX"
                         },
-                        "Sample1_CNVs_ExomeDepth_autosomal.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
+                        "test.chrX.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
                     ]
                 ],
                 "1": [
@@ -16,9 +17,10 @@
                 "cnvcall": [
                     [
                         {
-                            "id": "test"
+                            "id": "test",
+                            "chromosome": "chrX"
                         },
-                        "Sample1_CNVs_ExomeDepth_autosomal.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
+                        "test.chrX.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
                     ]
                 ],
                 "versions": [
@@ -30,7 +32,7 @@
             "nf-test": "0.9.1",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-26T12:27:22.177728161"
+        "timestamp": "2024-11-26T13:20:56.428817743"
     },
     "homo_sapiens - bed, merged_counts - stub": {
         "content": [
@@ -38,9 +40,10 @@
                 "0": [
                     [
                         {
-                            "id": "test"
+                            "id": "test",
+                            "chromosome": "chrX"
                         },
-                        "test.autosomal.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.chrX.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
@@ -49,9 +52,10 @@
                 "cnvcall": [
                     [
                         {
-                            "id": "test"
+                            "id": "test",
+                            "chromosome": "chrX"
                         },
-                        "test.autosomal.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.chrX.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
@@ -63,6 +67,6 @@
             "nf-test": "0.9.1",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-26T12:27:29.219396791"
+        "timestamp": "2024-11-26T13:21:04.456697604"
     }
 }

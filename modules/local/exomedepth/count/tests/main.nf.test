@@ -10,7 +10,7 @@ nextflow_process {
             process {
                 """
                 input[0] = Channel.of([
-                    [ id: 'Sample1' ],
+                    [ id: 'Sample1', chromosome: 'chrX' ],
                     file(params.bam1, checkIfExists:true),
                     file(params.bai1, checkIfExists:true),
                     "Sample1"
@@ -19,7 +19,6 @@ nextflow_process {
                     [ id:'exon' ],
                     file(params.roi_auto)
                 ])
-                input[2] = "autosomal"
                 """
             }
         }
@@ -39,7 +38,7 @@ nextflow_process {
             process {
                 """
                 input[0] = Channel.of([
-                    [ id: 'Sample1' ],
+                    [ id: 'Sample1', chromosome: 'chrX' ],
                     file(params.bam1, checkIfExists:true),
                     file(params.bai1, checkIfExists:true),
                     "Sample1"
@@ -48,7 +47,6 @@ nextflow_process {
                     [ id:'exon' ],
                     file(params.roi_auto)
                 ])
-                input[2] = "autosomal"
                 """
             }
         }

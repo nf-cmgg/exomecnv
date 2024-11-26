@@ -31,12 +31,13 @@ workflow CRAM_CNV_EXOMEDEPTH {
 
     def ch_count_input = ch_bams
         .map { meta, bam, bai ->
-            [ meta, bam, bai, meta.id ]
+            def new_meta = meta + [chromosome:chromosome]
+            [ new_meta, bam, bai, meta.id ]
         }
+
     EXOMEDEPTH_COUNT (
         ch_count_input,
-        ch_bed,
-        chromosome
+        ch_bed
     )
     ch_versions = ch_versions.mix(EXOMEDEPTH_COUNT.out.versions.first())
 
@@ -68,13 +69,18 @@ workflow CRAM_CNV_EXOMEDEPTH {
 
     EXOMEDEPTH_CALL(
         ch_counts,
-        ch_bed,
-        chromosome
+        ch_bed
     )
     ch_versions = ch_versions.mix(EXOMEDEPTH_CALL.out.versions.first())
 
+    def ch_cnv_out = EXOMEDEPTH_CALL.out.cnvcall
+        .map { meta, txt ->
+            def new_meta = meta - meta.subMap("chromosome")
+            [ new_meta, txt ]
+        }
+
     emit:
     versions = ch_versions
-    cnv = EXOMEDEPTH_CALL.out.cnvcall
+    cnv = ch_cnv_out
 }
 

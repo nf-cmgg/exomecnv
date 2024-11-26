@@ -6,7 +6,7 @@
                     [
                         {
                             "id": "Sample1",
-                            "chr": "test",
+                            "chromosome": "test",
                             "sam": [
                                 "Sample1",
                                 "Sample2",
@@ -22,7 +22,7 @@
                                 "Fam5"
                             ]
                         },
-                        "Sample1.txt:md5,911202604c02c755cdd6ac4b0bccfd79"
+                        "Sample1.test.txt:md5,911202604c02c755cdd6ac4b0bccfd79"
                     ]
                 ],
                 "1": [
@@ -32,7 +32,7 @@
                     [
                         {
                             "id": "Sample1",
-                            "chr": "test",
+                            "chromosome": "test",
                             "sam": [
                                 "Sample1",
                                 "Sample2",
@@ -48,7 +48,7 @@
                                 "Fam5"
                             ]
                         },
-                        "Sample1.txt:md5,911202604c02c755cdd6ac4b0bccfd79"
+                        "Sample1.test.txt:md5,911202604c02c755cdd6ac4b0bccfd79"
                     ]
                 ],
                 "versions": [
@@ -60,7 +60,7 @@
             "nf-test": "0.9.1",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-26T12:15:53.161117769"
+        "timestamp": "2024-11-26T13:20:32.229071491"
     },
     "homo_sapiens - counts - stub": {
         "content": [
@@ -69,7 +69,7 @@
                     [
                         {
                             "id": "Sample1",
-                            "chr": "test",
+                            "chromosome": "test",
                             "sam": [
                                 "Sample1",
                                 "Sample2",
@@ -85,7 +85,7 @@
                                 "Fam5"
                             ]
                         },
-                        "Sample1.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "Sample1.test.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
@@ -95,7 +95,7 @@
                     [
                         {
                             "id": "Sample1",
-                            "chr": "test",
+                            "chromosome": "test",
                             "sam": [
                                 "Sample1",
                                 "Sample2",
@@ -111,7 +111,7 @@
                                 "Fam5"
                             ]
                         },
-                        "Sample1.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "Sample1.test.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
@@ -123,6 +123,6 @@
             "nf-test": "0.9.1",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-26T12:16:01.766643478"
+        "timestamp": "2024-11-26T13:20:40.723101561"
     }
 }

@@ -10,14 +10,13 @@ process EXOMEDEPTH_CALL {
     input:
     tuple val(meta), path(countfile), val(sample), val(samples), val(families) // meta:id, chr, sam, fam, sample
     tuple val(meta2), path(exon_target) // meta.id=chrx/autosomal
-    val(chromosome)
 
     output:
     tuple val(meta), path("*.txt"), emit: cnvcall
     path "versions.yml", emit:versions
 
     script:
-
+    def prefix = task.ext.prefix ?: "${meta.id}"
     def VERSION = '1.1.16'
 
     """
@@ -25,7 +24,7 @@ process EXOMEDEPTH_CALL {
         $sample \\
         $countfile \\
         $exon_target \\
-        $chromosome \\
+        $prefix \\
         $samples \\
         $families
 
@@ -37,7 +36,7 @@ process EXOMEDEPTH_CALL {
     """
 
     stub:
-    def prefix = task.ext.prefix ?: "${sample}_CNVs_ExomeDepth_${meta2.chr}"
+    def prefix = task.ext.prefix ?: "${meta.id}"
     def VERSION = '1.1.16'
     """
     touch ${prefix}.txt
