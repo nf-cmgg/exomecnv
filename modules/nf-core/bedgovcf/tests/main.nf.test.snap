@@ -7,7 +7,7 @@
                         {
                             "id": "test"
                         },
-                        "test_CNVs_ExomeDepth.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                        "test.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
                     ]
                 ],
                 "1": [
@@ -18,7 +18,7 @@
                         {
                             "id": "test"
                         },
-                        "test_CNVs_ExomeDepth.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                        "test.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
                     ]
                 ],
                 "versions": [
@@ -30,7 +30,7 @@
             "nf-test": "0.9.1",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-25T16:10:57.182115049"
+        "timestamp": "2024-11-26T13:46:53.347280318"
     },
     "homo_sapiens - [bed, config] - fai": {
         "content": [
@@ -40,7 +40,7 @@
                         {
                             "id": "test"
                         },
-                        "test_CNVs_ExomeDepth.vcf.gz:md5,3ddedac7fc0c0f8e8eda0d16e091f0bd"
+                        "test.vcf.gz:md5,3ddedac7fc0c0f8e8eda0d16e091f0bd"
                     ]
                 ],
                 "1": [
@@ -51,7 +51,7 @@
                         {
                             "id": "test"
                         },
-                        "test_CNVs_ExomeDepth.vcf.gz:md5,3ddedac7fc0c0f8e8eda0d16e091f0bd"
+                        "test.vcf.gz:md5,3ddedac7fc0c0f8e8eda0d16e091f0bd"
                     ]
                 ],
                 "versions": [
@@ -63,6 +63,6 @@
             "nf-test": "0.9.1",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-25T16:10:49.77369503"
+        "timestamp": "2024-11-26T13:46:45.198935817"
     }
 }

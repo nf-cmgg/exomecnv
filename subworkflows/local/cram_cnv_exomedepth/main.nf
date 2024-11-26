@@ -83,4 +83,3 @@ workflow CRAM_CNV_EXOMEDEPTH {
     versions = ch_versions
     cnv = ch_cnv_out
 }
-

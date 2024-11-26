@@ -1,0 +1,55 @@
+Changes in module 'nf-core/bedgovcf'
+'modules/nf-core/bedgovcf/main.nf' is unchanged
+'modules/nf-core/bedgovcf/environment.yml' is unchanged
+'modules/nf-core/bedgovcf/meta.yml' is unchanged
+'modules/nf-core/bedgovcf/tests/tags.yml' is unchanged
+'modules/nf-core/bedgovcf/tests/main.nf.test' is unchanged
+Changes in 'bedgovcf/tests/main.nf.test.snap':
+--- modules/nf-core/bedgovcf/tests/main.nf.test.snap
++++ modules/nf-core/bedgovcf/tests/main.nf.test.snap
+@@ -27,10 +27,10 @@
+             }
+         ],
+         "meta": {
+-            "nf-test": "0.8.4",
+-            "nextflow": "24.02.0"
++            "nf-test": "0.9.1",
++            "nextflow": "24.10.1"
+         },
+-        "timestamp": "2024-05-02T10:51:08.632383757"
++        "timestamp": "2024-11-26T13:46:53.347280318"
+     },
+     "homo_sapiens - [bed, config] - fai": {
+         "content": [
+@@ -40,7 +40,7 @@
+                         {
+                             "id": "test"
+                         },
+-                        "test.vcf.gz:md5,49f3bd11396cb17cba8f97005b22384c"
++                        "test.vcf.gz:md5,3ddedac7fc0c0f8e8eda0d16e091f0bd"
+                     ]
+                 ],
+                 "1": [
+@@ -51,7 +51,7 @@
+                         {
+                             "id": "test"
+                         },
+-                        "test.vcf.gz:md5,49f3bd11396cb17cba8f97005b22384c"
++                        "test.vcf.gz:md5,3ddedac7fc0c0f8e8eda0d16e091f0bd"
+                     ]
+                 ],
+                 "versions": [
+@@ -60,9 +60,9 @@
+             }
+         ],
+         "meta": {
+-            "nf-test": "0.8.4",
+-            "nextflow": "24.02.0"
++            "nf-test": "0.9.1",
++            "nextflow": "24.10.1"
+         },
+-        "timestamp": "2024-05-02T10:50:05.709267287"
++        "timestamp": "2024-11-26T13:46:45.198935817"
+     }
+ }
+************************************************************
