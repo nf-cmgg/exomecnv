@@ -1,5 +1,5 @@
 process EXOMEDEPTH_COUNT {
-    tag "$meta.id $meta2.id"
+    tag "$meta.id"
     label 'process_low'
 
     conda "${moduleDir}/environment.yml"
@@ -8,8 +8,9 @@ process EXOMEDEPTH_COUNT {
         'biocontainers/r-exomedepth:1.1.16--r43hfb3cda0_3' }"
 
     input:
-    tuple val(meta), path(bam), path(bai)
+    tuple val(meta), path(bam), path(bai), val(sample)
     tuple val(meta2), path(exon_target)
+    val(chromosome)
 
     output:
     tuple val(meta), path("*.txt"), emit: counts
@@ -21,11 +22,11 @@ process EXOMEDEPTH_COUNT {
 
     """
     ExomeDepth_count.R \\
-        $meta.id \\
+        $sample \\
         $bam \\
         $bai \\
         $exon_target \\
-        $meta2.id
+        $chromosome
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -38,7 +39,7 @@ process EXOMEDEPTH_COUNT {
     stub:
     def VERSION = '1.1.16'
     """
-    touch ${meta.id}_${meta2.id}.txt
+    touch ${sample}_${chromosome}.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

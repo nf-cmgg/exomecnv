@@ -72,8 +72,41 @@ workflow PIPELINE_INITIALISATION {
     // Create channel from input file provided through params.input
     //
 
+    def pools = [:]
+    def inputList = samplesheetToList(input, "${projectDir}/assets/schema_input.json")
+    inputList.each { meta, _cram, _crai, vcf, _tbi ->
+        // Don't account for inputs that have a VCF file
+        if (vcf) { return }
+
+        def pool = meta.pool
+        if (!pools.containsKey(pool)) {
+            pools[pool] = [samples:[], families:[]]
+        }
+
+        def sample = meta.id
+        if (!pools[pool].samples.contains(sample)) {
+            pools[pool].samples.add(sample)
+        }
+
+        def family = meta.family
+        if (!pools[pool].families.contains(family)) {
+            pools[pool].families.add(family)
+        }
+    }
+    
     Channel
-        .fromList(samplesheetToList(input, "${projectDir}/assets/schema_input.json"))
+        .fromList(inputList)
+        .map { meta, cram, crai, vcf, tbi ->
+            if (vcf) {
+                return [ meta, cram, crai, vcf, tbi ]
+            } else {
+                def new_meta = meta + [
+                    samples:pools[meta.pool].samples.sort().join(","), 
+                    families:pools[meta.pool].families.sort().join(",")
+                ]
+                return [ new_meta, cram, crai, vcf, tbi ]
+            }
+        }
         .set { ch_samplesheet }
 
     file(input).copyTo("${outdir}/samplesheet.csv")

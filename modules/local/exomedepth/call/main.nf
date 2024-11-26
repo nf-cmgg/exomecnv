@@ -1,5 +1,5 @@
 process EXOMEDEPTH_CALL {
-    tag "$sample $meta2.chr"
+    tag "$sample"
     label 'process_low'
 
     conda "${moduleDir}/environment.yml"
@@ -8,11 +8,12 @@ process EXOMEDEPTH_CALL {
         'biocontainers/r-exomedepth:1.1.16--r43hfb3cda0_3' }"
 
     input:
-    tuple val(meta), path(exon_target) // meta.id=chrx/autosomal
-    tuple val(meta2), val(sample), path(countfile) // meta:id, chr, sam, fam, sample
+    tuple val(meta), path(countfile), val(sample), val(samples), val(families) // meta:id, chr, sam, fam, sample
+    tuple val(meta2), path(exon_target) // meta.id=chrx/autosomal
+    val(chromosome)
 
     output:
-    tuple val(meta2), val (sample), path("*.txt"), emit: cnvcall
+    tuple val(meta), path("*.txt"), emit: cnvcall
     path "versions.yml", emit:versions
 
     script:
@@ -24,9 +25,9 @@ process EXOMEDEPTH_CALL {
         $sample \\
         $countfile \\
         $exon_target \\
-        $meta2.chr \\
-        ${meta2.sam.join(',')} \\
-        ${meta2.fam.join(',')} \\
+        $chromosome \\
+        $samples \\
+        $families
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -1,6 +1,6 @@
 // MERGE COUNT FILES
 process CUSTOM_MERGECOUNTS {
-    tag "$meta.id $meta.chr"
+    tag "$meta.id"
 
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/coreutils:9.3' :
@@ -15,7 +15,7 @@ process CUSTOM_MERGECOUNTS {
     path "versions.yml", emit:versions
 
     script:
-    def prefix = task.ext.prefix ?: "${meta.id}_${meta.chr}"
+    def prefix = task.ext.prefix ?: "${meta.id}"
     """
     # Sort
     sorted_files=\$(echo $files | tr ' ' '\\n' | sort -V | tr '\\n' ' ')
@@ -39,7 +39,7 @@ process CUSTOM_MERGECOUNTS {
     """
 
     stub:
-    def prefix = task.ext.prefix ?: "${meta.id}_${meta.chr}"
+    def prefix = task.ext.prefix ?: "${meta.id}"
     """
     touch ${prefix}.txt
 
