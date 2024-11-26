@@ -88,10 +88,7 @@ workflow PIPELINE_INITIALISATION {
             pools[pool].samples.add(sample)
         }
 
-        def family = meta.family
-        if (!pools[pool].families.contains(family)) {
-            pools[pool].families.add(family)
-        }
+        pools[pool].families.add(meta.family)
     }
     
     Channel
@@ -101,8 +98,8 @@ workflow PIPELINE_INITIALISATION {
                 return [ meta, cram, crai, vcf, tbi ]
             } else {
                 def new_meta = meta + [
-                    samples:pools[meta.pool].samples.sort().join(","), 
-                    families:pools[meta.pool].families.sort().join(",")
+                    samples:pools[meta.pool].samples.join(","), 
+                    families:pools[meta.pool].families.join(",")
                 ]
                 return [ new_meta, cram, crai, vcf, tbi ]
             }

@@ -58,7 +58,29 @@ workflow {
     //
 
     EXOMECNV (
-        PIPELINE_INITIALISATION.out.samplesheet
+        // file inputs
+        PIPELINE_INITIALISATION.out.samplesheet,
+        params.outdir,
+        params.fasta,
+        params.fai,
+        params.roi_auto,
+        params.roi_chrx,
+        params.vep_cache,
+        params.yamlconfig,
+        params.multiqc_config,
+        params.multiqc_logo,
+        params.multiqc_methods_description,
+
+        // booleans
+        params.exomedepth,
+        params.annotate,
+
+        // strings
+        params.vep_assembly,
+        params.species,
+
+        // integers
+        params.vep_cache_version
     )
 
     //

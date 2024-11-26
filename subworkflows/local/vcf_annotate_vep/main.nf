@@ -18,6 +18,9 @@ workflow VCF_ANNOTATE_VEP {
     ch_vcfs
     fasta
     vep_cache
+    vep_assembly
+    species
+    vep_cache_version
 
     main:
     def ch_vep_extra_files  = []
@@ -25,9 +28,9 @@ workflow VCF_ANNOTATE_VEP {
 
     VEP(
         ch_vcfs,
-        params.vep_assembly,
-        params.species,
-        params.vep_cache_version,
+        vep_assembly,
+        species,
+        vep_cache_version,
         vep_cache,
         fasta,
         ch_vep_extra_files
