@@ -1,13 +1,11 @@
 //MERGE AND SORT (ON GENOMIC POSITION) EXOMEDEPTH CNV CALL FILES
-process CNV_MERGE {
-    tag "$meta"
+process CUSTOM_MERGECNV {
+    tag "$meta.id"
 
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/coreutils:9.3' :
         'biocontainers/coreutils:9.3' }"
     conda "${moduleDir}/environment.yml"
-
-    publishDir "$params.outdir/exomedepth/cnv_call", mode: 'copy'
 
     input:
     tuple val(meta), path(auto), path(chrx)
@@ -17,7 +15,7 @@ process CNV_MERGE {
     path "versions.yml", emit:versions
 
     script:
-    def prefix = task.ext.prefix ?: "${meta}_CNVs_ExomeDepth"
+    def prefix = task.ext.prefix ?: "${meta.id}"
     """
     { head -n 1 $auto && \
     { tail -n +2 $auto && tail -n +2 $chrx ; } | \
@@ -32,7 +30,7 @@ process CNV_MERGE {
     """
 
     stub:
-    def prefix = task.ext.prefix ?: "${meta}_CNVs_ExomeDepth"
+    def prefix = task.ext.prefix ?: "${meta.id}"
     """
     touch ${prefix}.txt
 

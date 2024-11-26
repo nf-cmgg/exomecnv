@@ -1,8 +1,8 @@
 nextflow_process {
 
-    name "Test Process COUNT_MERGE"
+    name "Test Process CUSTOM_MERGECOUNTS"
     script "../main.nf"
-    process "COUNT_MERGE"
+    process "CUSTOM_MERGECOUNTS"
 
     test("homo_sapiens - counts") {
 
@@ -10,7 +10,7 @@ nextflow_process {
             process {
                 """
                 input[0] = Channel.of([
-                    [ id: 'Sample1', chr:"test", sam:["Sample1", "Sample2", "Sample3", "Sample4", "Sample5"], fam:["Fam1", "Fam2", "Fam3", "Fam4", "Fam5"] ],
+                    [ id: 'Sample1', chromosome:"test", sam:["Sample1", "Sample2", "Sample3", "Sample4", "Sample5"], fam:["Fam1", "Fam2", "Fam3", "Fam4", "Fam5"] ],
                     [
                         file(params.counts1, checkIfExists:true),
                         file(params.counts2, checkIfExists:true)
@@ -35,7 +35,7 @@ nextflow_process {
             process {
                 """
                 input[0] = Channel.of([
-                    [ id: 'Sample1', chr:"test", sam:["Sample1", "Sample2", "Sample3", "Sample4", "Sample5"], fam:["Fam1", "Fam2", "Fam3", "Fam4", "Fam5"] ],
+                    [ id: 'Sample1', chromosome:"test", sam:["Sample1", "Sample2", "Sample3", "Sample4", "Sample5"], fam:["Fam1", "Fam2", "Fam3", "Fam4", "Fam5"] ],
                     [
                         file(params.counts1, checkIfExists:true),
                         file(params.counts2, checkIfExists:true)

@@ -1,8 +1,8 @@
 nextflow_process {
 
-    name "Test Process COUNT"
+    name "Test Process EXOMEDEPTH_COUNT"
     script "../main.nf"
-    process "COUNT"
+    process "EXOMEDEPTH_COUNT"
 
     test("homo_sapiens - bam, bai, roi") {
 
@@ -10,9 +10,10 @@ nextflow_process {
             process {
                 """
                 input[0] = Channel.of([
-                    [ id: 'Sample1', chr:"autosomal", sam:["Sample1", "Sample2", "Sample3", "Sample4", "Sample5"], fam:["Fam1", "Fam2", "Fam3", "Fam4", "Fam5"] ],
+                    [ id: 'Sample1', chromosome: 'chrX' ],
                     file(params.bam1, checkIfExists:true),
-                    file(params.bai1, checkIfExists:true)
+                    file(params.bai1, checkIfExists:true),
+                    "Sample1"
                 ])
                 input[1] = Channel.value([
                     [ id:'exon' ],
@@ -37,9 +38,10 @@ nextflow_process {
             process {
                 """
                 input[0] = Channel.of([
-                    [ id: 'Sample1', chr:"autosomal", sam:["Sample1", "Sample2", "Sample3", "Sample4", "Sample5"], fam:["Fam1", "Fam2", "Fam3", "Fam4", "Fam5"] ],
+                    [ id: 'Sample1', chromosome: 'chrX' ],
                     file(params.bam1, checkIfExists:true),
-                    file(params.bai1, checkIfExists:true)
+                    file(params.bai1, checkIfExists:true),
+                    "Sample1"
                 ])
                 input[1] = Channel.value([
                     [ id:'exon' ],

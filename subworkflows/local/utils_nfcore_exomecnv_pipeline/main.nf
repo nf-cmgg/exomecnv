@@ -35,7 +35,7 @@ workflow PIPELINE_INITIALISATION {
 
     main:
 
-    ch_versions = Channel.empty()
+    def ch_versions = Channel.empty()
 
     //
     // Print version and exit if required and dump pipeline parameters to JSON file
@@ -72,8 +72,38 @@ workflow PIPELINE_INITIALISATION {
     // Create channel from input file provided through params.input
     //
 
+    def pools = [:]
+    def inputList = samplesheetToList(input, "${projectDir}/assets/schema_input.json")
+    inputList.each { meta, _cram, _crai, vcf, _tbi ->
+        // Don't account for inputs that have a VCF file
+        if (vcf) { return }
+
+        def pool = meta.pool
+        if (!pools.containsKey(pool)) {
+            pools[pool] = [samples:[], families:[]]
+        }
+
+        def sample = meta.id
+        if (!pools[pool].samples.contains(sample)) {
+            pools[pool].samples.add(sample)
+        }
+
+        pools[pool].families.add(meta.family)
+    }
+
     Channel
-        .fromList(samplesheetToList(input, "${projectDir}/assets/schema_input.json"))
+        .fromList(inputList)
+        .map { meta, cram, crai, vcf, tbi ->
+            if (vcf) {
+                return [ meta, cram, crai, vcf, tbi ]
+            } else {
+                def new_meta = meta + [
+                    samples:pools[meta.pool].samples.join(","),
+                    families:pools[meta.pool].families.join(",")
+                ]
+                return [ new_meta, cram, crai, vcf, tbi ]
+            }
+        }
         .set { ch_samplesheet }
 
     file(input).copyTo("${outdir}/samplesheet.csv")
@@ -101,7 +131,7 @@ workflow PIPELINE_COMPLETION {
     multiqc_report  //  string: Path to MultiQC report
 
     main:
-    summary_params = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
+    def summary_params = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
 
     //
     // Completion email and summary

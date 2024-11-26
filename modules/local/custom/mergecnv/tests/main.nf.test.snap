@@ -1,11 +1,11 @@
 {
-    "homo_sapiens - bed, merged_counts": {
+    "homo_sapiens - cnv_auto, cnv_chrx": {
         "content": [
             {
                 "0": [
                     [
                         {
-                            "id": "test",
+                            "id": "Sample1",
                             "chr": "autosomal",
                             "sam": [
                                 "Sample1",
@@ -22,17 +22,16 @@
                                 "Fam5"
                             ]
                         },
-                        "Sample1",
-                        "Sample1_CNVs_ExomeDepth_autosomal.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
+                        "Sample1.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,1c8782fc3a89ec689cfdce0b3f91de85"
+                    "versions.yml:md5,b318789ed32522a7e1c3eb55f4aa5c3e"
                 ],
-                "cnvcall": [
+                "merge": [
                     [
                         {
-                            "id": "test",
+                            "id": "Sample1",
                             "chr": "autosomal",
                             "sam": [
                                 "Sample1",
@@ -49,28 +48,27 @@
                                 "Fam5"
                             ]
                         },
-                        "Sample1",
-                        "Sample1_CNVs_ExomeDepth_autosomal.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
+                        "Sample1.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,1c8782fc3a89ec689cfdce0b3f91de85"
+                    "versions.yml:md5,b318789ed32522a7e1c3eb55f4aa5c3e"
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.9.1",
-            "nextflow": "24.10.0"
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-19T16:56:15.218505508"
+        "timestamp": "2024-11-26T13:14:53.599093771"
     },
-    "homo_sapiens - bed, merged_counts - stub": {
+    "homo_sapiens - cnv_auto, cnv_chrx - stub": {
         "content": [
             {
                 "0": [
                     [
                         {
-                            "id": "test",
+                            "id": "Sample1",
                             "chr": "autosomal",
                             "sam": [
                                 "Sample1",
@@ -87,17 +85,16 @@
                                 "Fam5"
                             ]
                         },
-                        "Sample1",
-                        "Sample1_CNVs_ExomeDepth_autosomal.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "Sample1.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,1c8782fc3a89ec689cfdce0b3f91de85"
+                    "versions.yml:md5,4208993fcbca7b639df1108e0a4c7563"
                 ],
-                "cnvcall": [
+                "merge": [
                     [
                         {
-                            "id": "test",
+                            "id": "Sample1",
                             "chr": "autosomal",
                             "sam": [
                                 "Sample1",
@@ -114,19 +111,18 @@
                                 "Fam5"
                             ]
                         },
-                        "Sample1",
-                        "Sample1_CNVs_ExomeDepth_autosomal.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "Sample1.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,1c8782fc3a89ec689cfdce0b3f91de85"
+                    "versions.yml:md5,4208993fcbca7b639df1108e0a4c7563"
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.9.1",
-            "nextflow": "24.10.0"
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-19T16:56:23.450090975"
+        "timestamp": "2024-11-26T13:15:01.538217863"
     }
 }

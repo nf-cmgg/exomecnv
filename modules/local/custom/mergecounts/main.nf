@@ -1,13 +1,11 @@
 // MERGE COUNT FILES
-process COUNT_MERGE {
-    tag "$meta.id $meta.chr"
+process CUSTOM_MERGECOUNTS {
+    tag "$meta.id"
 
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/coreutils:9.3' :
         'biocontainers/coreutils:9.3' }"
     conda "${moduleDir}/environment.yml"
-
-    publishDir "$params.outdir/exomedepth/counts", mode: 'copy'
 
     input:
     tuple val(meta), path(files)
@@ -17,7 +15,7 @@ process COUNT_MERGE {
     path "versions.yml", emit:versions
 
     script:
-    def prefix = task.ext.prefix ?: "${meta.id}_${meta.chr}"
+    def prefix = task.ext.prefix ?: "${meta.id}"
     """
     # Sort
     sorted_files=\$(echo $files | tr ' ' '\\n' | sort -V | tr '\\n' ' ')
@@ -41,7 +39,7 @@ process COUNT_MERGE {
     """
 
     stub:
-    prefix = task.ext.prefix ?: "${meta.id}_${meta.chr}"
+    def prefix = task.ext.prefix ?: "${meta.id}"
     """
     touch ${prefix}.txt
 

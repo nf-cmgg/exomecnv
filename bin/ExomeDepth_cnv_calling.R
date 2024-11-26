@@ -126,13 +126,13 @@ for (i in 1:nsamples) {
             ## ranking the CNV calls by confidence level
             ## the BF column = Bayes factor = quantifies the statistical support for each CNV (=log10 of the likelyhood ratio of data for the CNV call divided by the null (normal copy number).
             ## The higher BF, the more confident about the presence of a CNV; this is especially true for obvious large calls; for short exons: BF are bound to be unconvincing
-            output.cnv.file = paste(sample,"_CNVs_ExomeDepth_",prefix,".txt",sep='')
+            output.cnv.file = paste(prefix,".txt",sep='')
             cat("\nOutput file:",output.cnv.file ,"\n")
             write.table(all_exons@CNV.calls[order ( all_exons@CNV.calls$BF, decreasing = TRUE),], file=output.cnv.file,
                 sep='\t', row.names=FALSE, col.names=TRUE, quote=FALSE)
         }
         else {#no CNVs found
-            output.cnv.file = paste(sample,"_CNVs_ExomeDepth_",prefix,".txt",sep='')
+            output.cnv.file = paste(prefix,".txt",sep='')
             cat("\nNo", prefix, "CNVs found\n")
             cat("\nOutput file:",output.cnv.file ,"\n")
             note = paste( cnv_call_header , collapse = "\t")

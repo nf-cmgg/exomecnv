@@ -1,30 +1,30 @@
 {
-    "homo_sapiens - bam, bai, roi": {
+    "homo_sapiens - bed, merged_counts": {
         "content": [
             {
                 "0": [
                     [
                         {
-                            "id": "Sample1",
+                            "id": "test",
                             "chromosome": "chrX"
                         },
-                        "Sample1.chrX.txt:md5,38b5cbbe36f1561d05e9318c972f947a"
+                        "test.chrX.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,92941b5ef970effd3c691860894506da"
+                    "versions.yml:md5,52fa9e72dbb0111366d891f166c93b95"
                 ],
-                "counts": [
+                "cnvcall": [
                     [
                         {
-                            "id": "Sample1",
+                            "id": "test",
                             "chromosome": "chrX"
                         },
-                        "Sample1.chrX.txt:md5,38b5cbbe36f1561d05e9318c972f947a"
+                        "test.chrX.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,92941b5ef970effd3c691860894506da"
+                    "versions.yml:md5,52fa9e72dbb0111366d891f166c93b95"
                 ]
             }
         ],
@@ -32,34 +32,34 @@
             "nf-test": "0.9.1",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-26T13:21:21.456309055"
+        "timestamp": "2024-11-26T13:20:56.428817743"
     },
-    "homo_sapiens - bam, bai, roi - stub": {
+    "homo_sapiens - bed, merged_counts - stub": {
         "content": [
             {
                 "0": [
                     [
                         {
-                            "id": "Sample1",
+                            "id": "test",
                             "chromosome": "chrX"
                         },
-                        "Sample1.chrX.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.chrX.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,92941b5ef970effd3c691860894506da"
+                    "versions.yml:md5,52fa9e72dbb0111366d891f166c93b95"
                 ],
-                "counts": [
+                "cnvcall": [
                     [
                         {
-                            "id": "Sample1",
+                            "id": "test",
                             "chromosome": "chrX"
                         },
-                        "Sample1.chrX.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.chrX.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,92941b5ef970effd3c691860894506da"
+                    "versions.yml:md5,52fa9e72dbb0111366d891f166c93b95"
                 ]
             }
         ],
@@ -67,6 +67,6 @@
             "nf-test": "0.9.1",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-26T13:21:32.501853278"
+        "timestamp": "2024-11-26T13:21:04.456697604"
     }
 }

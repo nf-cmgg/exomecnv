@@ -1,8 +1,8 @@
 nextflow_process {
 
-    name "Test Process CNV_MERGE"
+    name "Test Process CUSTOM_MERGECNV"
     script "../main.nf"
-    process "CNV_MERGE"
+    process "CUSTOM_MERGECNV"
 
     test("homo_sapiens - cnv_auto, cnv_chrx") {
 

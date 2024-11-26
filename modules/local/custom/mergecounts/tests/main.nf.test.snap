@@ -1,12 +1,12 @@
 {
-    "homo_sapiens - cnv_auto, cnv_chrx": {
+    "homo_sapiens - counts": {
         "content": [
             {
                 "0": [
                     [
                         {
                             "id": "Sample1",
-                            "chr": "autosomal",
+                            "chromosome": "test",
                             "sam": [
                                 "Sample1",
                                 "Sample2",
@@ -22,17 +22,17 @@
                                 "Fam5"
                             ]
                         },
-                        "[id:Sample1, chr:autosomal, sam:[Sample1, Sample2, Sample3, Sample4, Sample5], fam:[Fam1, Fam2, Fam3, Fam4, Fam5]]_CNVs_ExomeDepth.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
+                        "Sample1.test.txt:md5,911202604c02c755cdd6ac4b0bccfd79"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,ce1a599ac7cf70d2997578484a4f4645"
+                    "versions.yml:md5,8894fd2d212a06e7bd0a3d53a1d5e0ee"
                 ],
                 "merge": [
                     [
                         {
                             "id": "Sample1",
-                            "chr": "autosomal",
+                            "chromosome": "test",
                             "sam": [
                                 "Sample1",
                                 "Sample2",
@@ -48,28 +48,28 @@
                                 "Fam5"
                             ]
                         },
-                        "[id:Sample1, chr:autosomal, sam:[Sample1, Sample2, Sample3, Sample4, Sample5], fam:[Fam1, Fam2, Fam3, Fam4, Fam5]]_CNVs_ExomeDepth.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
+                        "Sample1.test.txt:md5,911202604c02c755cdd6ac4b0bccfd79"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,ce1a599ac7cf70d2997578484a4f4645"
+                    "versions.yml:md5,8894fd2d212a06e7bd0a3d53a1d5e0ee"
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.9.1",
-            "nextflow": "24.10.0"
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-20T13:08:25.353313066"
+        "timestamp": "2024-11-26T13:20:32.229071491"
     },
-    "homo_sapiens - cnv_auto, cnv_chrx - stub": {
+    "homo_sapiens - counts - stub": {
         "content": [
             {
                 "0": [
                     [
                         {
                             "id": "Sample1",
-                            "chr": "autosomal",
+                            "chromosome": "test",
                             "sam": [
                                 "Sample1",
                                 "Sample2",
@@ -85,17 +85,17 @@
                                 "Fam5"
                             ]
                         },
-                        "Fam5]]_CNVs_ExomeDepth.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "Sample1.test.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,4425066ae908aabce62e256293297377"
+                    "versions.yml:md5,8894fd2d212a06e7bd0a3d53a1d5e0ee"
                 ],
                 "merge": [
                     [
                         {
                             "id": "Sample1",
-                            "chr": "autosomal",
+                            "chromosome": "test",
                             "sam": [
                                 "Sample1",
                                 "Sample2",
@@ -111,18 +111,18 @@
                                 "Fam5"
                             ]
                         },
-                        "Fam5]]_CNVs_ExomeDepth.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "Sample1.test.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,4425066ae908aabce62e256293297377"
+                    "versions.yml:md5,8894fd2d212a06e7bd0a3d53a1d5e0ee"
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.9.1",
-            "nextflow": "24.10.0"
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-20T13:08:35.486908993"
+        "timestamp": "2024-11-26T13:20:40.723101561"
     }
 }
