@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Refactored the whole pipeline and made some small improvements
 - Removed a bottleneck in the exomedepth flow
+- Samplesheet header: rename `pool` to `batch`
 
 ## v1.1.0 - Amazing Alderweireld [2024-11-19]
 

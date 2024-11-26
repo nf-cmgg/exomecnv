@@ -19,7 +19,7 @@
 1. Input samplesheet check
 2. Convert CRAM to BAM if CRAM files are provided (optional)
 3. ExomeDepth counting per sample (autosomal and chrX are separated)
-4. Merge count files per pool (autosomal and chrX remain separated)
+4. Merge count files per batch (autosomal and chrX remain separated)
 5. ExomeDepth CNV calling per sample (autosomal and chrX remain separated)
 6. Merge CNV calling files per sample (autosomal and chrX are merged)
 7. Convert merged files to VCF
@@ -38,12 +38,12 @@ First, prepare a samplesheet with your input data that looks as follows:
 `samplesheet.csv`:
 
 ```csv
-sample,pool,family,cram,crai,vcf,tbi
-sample1,poolM,Fam1,/path/to/sample1.cram,/path/to/sample1.crai
-sample2,poolF,Fam2,/path/to/sample2.cram,/path/to/sample2.crai,/path/to/sample2.vcf,/path/to/sample2.vcf.tbi
+sample,batch,family,cram,crai,vcf,tbi
+sample1,prep_M,Fam1,/path/to/sample1.cram,/path/to/sample1.crai
+sample2,prep_F,Fam2,/path/to/sample2.cram,/path/to/sample2.crai,/path/to/sample2.vcf,/path/to/sample2.vcf.tbi
 ```
 
-Each row represents a sample with the associated pool and family, followed by the optional paths to the CRAM/CRAI and/or VCF/TBI files, depending on which tasks should be executed.
+Each row represents a sample with the associated batch and family, followed by the optional paths to the CRAM/CRAI and/or VCF/TBI files, depending on which tasks should be executed.
 
 Now, you can run the pipeline using:
 

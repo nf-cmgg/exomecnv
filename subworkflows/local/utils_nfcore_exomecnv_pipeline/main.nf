@@ -78,7 +78,7 @@ workflow PIPELINE_INITIALISATION {
         // Don't account for inputs that have a VCF file
         if (vcf) { return }
 
-        def pool = meta.pool
+        def pool = meta.batch
         if (!pools.containsKey(pool)) {
             pools[pool] = [samples:[], families:[]]
         }
@@ -98,8 +98,8 @@ workflow PIPELINE_INITIALISATION {
                 return [ meta, cram, crai, vcf, tbi ]
             } else {
                 def new_meta = meta + [
-                    samples:pools[meta.pool].samples.join(","),
-                    families:pools[meta.pool].families.join(",")
+                    samples:pools[meta.batch].samples.join(","),
+                    families:pools[meta.batch].families.join(",")
                 ]
                 return [ new_meta, cram, crai, vcf, tbi ]
             }

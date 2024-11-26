@@ -50,15 +50,15 @@ ExomeDepth will generate 2 count files for each sample: 1 for autosomal chromoso
 
 ### Count merge
 
-All samples sharing the same pool will be merged together since CNV calling in the ExomeDepth workflow is executed per pool.
+All samples sharing the same batch will be merged together since CNV calling in the ExomeDepth workflow is executed per batch.
 
 <details markdown="1">
 <summary>Output files</summary>
 
 - `exomedepth/`
   - `counts/`
-    - `<pool>_autosomal.txt`: Count file for autosomal chromosomes per pool
-    - `<pool>_chrX.txt`: Count file for chrX per pool
+    - `<batch>_autosomal.txt`: Count file for autosomal chromosomes per batch
+    - `<batch>_chrX.txt`: Count file for chrX per batch
 
 </details>
 
