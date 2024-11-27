@@ -29,63 +29,43 @@ If CRAM/CRAI files were provided in the samplesheet, they will be converted into
 <details markdown="1">
 <summary>Output files</summary>
 
-- `cram/`
+- `bam/`
   - `<sample>.bam`: BAM file
   - `<sample>.bam.bai`: BAI index file
   </details>
 
 ### ExomeDepth count
 
-ExomeDepth will generate 2 count files for each sample: 1 for autosomal chromosomes and 1 for chrX.
-
-<details markdown="1">
-<summary>Output files</summary>
-
-- `exomedepth/`
-  - `counts/`
-    - `<sample>_autosomal.txt`: Count file for autosomal chromosomes per sample
-    - `<sample>_chrX.txt`: Count file for chrX per sample
-
-</details>
+ExomeDepth will generate 2 count files for each sample: 1 for autosomal chromosomes (`<sample>_autosomal.txt`) and 1 for chrX (`<sample>_chrX.txt`). They are not not written out in the `publishDir`.
 
 ### Count merge
 
-All samples sharing the same pool will be merged together since CNV calling in the ExomeDepth workflow is executed per pool.
+All samples sharing the same batch will be merged together since CNV calling in the ExomeDepth workflow is executed per batch.
 
 <details markdown="1">
 <summary>Output files</summary>
 
 - `exomedepth/`
   - `counts/`
-    - `<pool>_autosomal.txt`: Count file for autosomal chromosomes per pool
-    - `<pool>_chrX.txt`: Count file for chrX per pool
+    - `<batch>_autosomal.txt`: Count file for autosomal chromosomes per batch
+    - `<batch>_chrX.txt`: Count file for chrX per batch
 
 </details>
 
 ### ExomeDepth CNV call
 
-ExomeDepth will generate 2 CNV files for each sample: 1 for autosomal chromosomes and 1 for chrX.
-
-<details markdown="1">
-<summary>Output files</summary>
-
-- `exomedepth/`
-  - `cnv_call/`
-    - `<sample>_CNVs_ExomeDepth_autosomal.txt`: CNV file for autosomal chromosomes
-    - `<sample>_CNVs_ExomeDepth_chrX.txt`: CNV file for chrX
-
-</details>
+ExomeDepth will generate 2 CNV files for each sample: 1 for autosomal chromosomes (`<sample>_autosomal.txt`) and 1 for chrX (`<sample>_chrX.txt`). They are not not written out in the `publishDir`.
 
 ### CNV merge
 
-The 2 CNV files will be merged into 1 complete file.
+The 2 CNV files will be merged into 1 summary file.
 
 <details markdown="1">
 <summary>Output files</summary>
 
 - `exomedepth/`
   - `cnv_call/`
-    - `<sample>_CNVs_ExomeDepth.txt`: Merged CNV file
+    - `<sample>.txt`: Merged CNV file
 
 </details>
 
@@ -98,7 +78,7 @@ The merged CNV file is converted into a VCF file.
 
 - `exomedepth/`
   - `cnv_call/`
-    - `<sample>_CNVs_ExomeDepth.vcf.gz`: VCF file
+    - `<sample>.vcf.gz`: VCF file
 
 </details>
 
@@ -111,11 +91,13 @@ A TBI index file is generated for each VCF file. While these TBI index files are
 
 - `exomedepth/`
   - `cnv_call/`
-    - `<sample>_CNVs_ExomeDepth.vcf.gz.tbi`: TBI index file
+    - `<sample>.vcf.gz.tbi`: TBI index file
 
 </details>
 
 ### EnsemblVEP
+
+Annotated VCF files by the [Ensembl Variant Effect Predictor](https://www.ensembl.info/2020/03/27/cool-stuff-the-ensembl-vep-can-do-annotating-structural-variants/).
 
 <details markdown="1">
 <summary>Output files</summary>

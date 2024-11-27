@@ -17,27 +17,27 @@ The samplesheet has a strict requirement for the first 7 columns to match those 
 A final samplesheet file consisting of both samples to run the full workflow and samples to only re-annotate with EnsemblVEP may look something like the one below.
 
 ```csv title="samplesheet.csv"
-sample,pool,family,cram,crai,vcf,tbi
-Sample1,poolM,Fam1,/path/to/cram/Sample1,/path/to/crai/Sample1
-Sample2,poolM,Fam2,/path/to/cram/Sample2,/path/to/crai/Sample2
-Sample3,poolM,Fam2,/path/to/cram/Sample3,/path/to/crai/Sample3
-Sample4,poolF,Fam3,/path/to/cram/Sample4,/path/to/crai/Sample4,/path/to/vcf/Sample4,/path/to/tbi/Sample4
-Sample5,poolF,Fam4,/path/to/cram/Sample5,/path/to/crai/Sample5,/path/to/vcf/Sample5,/path/to/tbi/Sample5
-Sample6,poolF,Fam5,/path/to/cram/Sample6,/path/to/crai/Sample6,/path/to/vcf/Sample6,/path/to/tbi/Sample6
+sample,batch,family,cram,crai,vcf,tbi
+Sample1,prep_M,Fam1,/path/to/cram/Sample1,/path/to/crai/Sample1
+Sample2,prep_M,Fam2,/path/to/cram/Sample2,/path/to/crai/Sample2
+Sample3,prep_M,Fam2,/path/to/cram/Sample3,/path/to/crai/Sample3
+Sample4,prep_F,Fam3,/path/to/cram/Sample4,/path/to/crai/Sample4,/path/to/vcf/Sample4,/path/to/tbi/Sample4
+Sample5,prep_F,Fam4,/path/to/cram/Sample5,/path/to/crai/Sample5,/path/to/vcf/Sample5,/path/to/tbi/Sample5
+Sample6,prep_F,Fam5,/path/to/cram/Sample6,/path/to/crai/Sample6,/path/to/vcf/Sample6,/path/to/tbi/Sample6
 
 ```
 
 ### All samplesheet options
 
-| Column   | Description                                                                                                                                                                                           |     |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
-| `sample` | Custom sample name. Cannot contain spaces and has to be unique.                                                                                                                                       |     |
-| `pool`   | Pool name for the current sample. Samples sharing the same pool will be merged together during the pipeline since CNV calling in the ExomeDepth workflow is executed per pool. Cannot contain spaces. |     |
-| `family` | Family name for the current sample. Samples sharing this family name will be excluded from the reference set to ensure that CNVs common to this family are not excluded. Cannot contain spaces.       |     |
-| `cram`   | Path to the CRAM (or BAM) file to be used by the pipeline for the current sample.                                                                                                                     |     |
-| `crai`   | Path to the CRAM (or BAI) index file.                                                                                                                                                                 |     |
-| `vcf`    | Path to the VCF file to be used by the pipeline for the current sample. When this is provided, the pipeline will skip to the annotation.                                                              |     |
-| `tbi`    | Path to the TBI index file.                                                                                                                                                                           |     |
+| Column   | Description                                                                                                                                                                                              |     |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| `sample` | Custom sample name. Cannot contain spaces and has to be unique.                                                                                                                                          |     |
+| `batch`  | Batch name for the current sample. Samples sharing the same batch will be merged together during the pipeline since CNV calling in the ExomeDepth workflow is executed per batch. Cannot contain spaces. |     |
+| `family` | Family name for the current sample. Samples sharing this family name will be excluded from the reference set to ensure that CNVs common to this family are not excluded. Cannot contain spaces.          |     |
+| `cram`   | Path to the CRAM (or BAM) file to be used by the pipeline for the current sample.                                                                                                                        |     |
+| `crai`   | Path to the CRAM (or BAI) index file.                                                                                                                                                                    |     |
+| `vcf`    | Path to the VCF file to be used by the pipeline for the current sample. When this is provided, the pipeline will skip to the annotation.                                                                 |     |
+| `tbi`    | Path to the TBI index file.                                                                                                                                                                              |     |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -106,8 +106,8 @@ nextflow pull nf-cmgg/exomecnv
 
 It is a good idea to specify a pipeline version when running the pipeline on your data. This ensures that a specific version of the pipeline code and software are used when you run your pipeline. If you keep using the same tag, you'll be running the same version of the pipeline, even if there have been changes to the code since.
 
-First, go to the [nf-cmgg/exomecnv releases page](https://github.com/nf-cmgg/exomecnv/releases) and find the latest pipeline version - numeric only (eg. `1.3.1`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.3.1`. Of course, you can switch to another version by changing the number after the `-r` flag.
-First, go to the [nf-cmgg/exomecnv releases page](https://github.com/nf-cmgg/exomecnv/releases) and find the latest pipeline version - numeric only (eg. `1.3.1`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.3.1`. Of course, you can switch to another version by changing the number after the `-r` flag.
+First, go to the [nf-cmgg/exomecnv releases page](https://github.com/nf-cmgg/exomecnv/releases) and find the latest pipeline version - numeric only (eg. `1.2.0`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.2.0`. Of course, you can switch to another version by changing the number after the `-r` flag.
+First, go to the [nf-cmgg/exomecnv releases page](https://github.com/nf-cmgg/exomecnv/releases) and find the latest pipeline version - numeric only (eg. `1.2.0`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.2.0`. Of course, you can switch to another version by changing the number after the `-r` flag.
 
 This version number will be logged in reports when you run the pipeline, so that you'll know what you used when you look back in the future. For example, at the bottom of the MultiQC reports.
 

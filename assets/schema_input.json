@@ -13,11 +13,11 @@
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
                 "meta": ["id"]
             },
-            "pool": {
+            "batch": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Pool name must be provided and cannot contain spaces",
-                "meta": ["pool"]
+                "errorMessage": "Batch name must be provided and cannot contain spaces",
+                "meta": ["batch"]
             },
             "family": {
                 "type": "string",
@@ -54,7 +54,7 @@
                 "exists": true
             }
         },
-        "required": ["sample", "pool", "family", "cram"]
+        "required": ["sample", "batch", "family", "cram"]
     },
     "uniqueEntries": ["sample"]
 }

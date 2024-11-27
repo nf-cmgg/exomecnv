@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.2.0dev
+## v1.2.0 - Dominant De Ketelaere [2024-11-27]
 
 ### `Updates`
 
@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Refactored the whole pipeline and made some small improvements
 - Removed a bottleneck in the exomedepth flow
+- Samplesheet header: rename `pool` to `batch` ([issue/23](https://github.com/nf-cmgg/exomecnv/issues/23))
 
 ## v1.1.0 - Amazing Alderweireld [2024-11-19]
 

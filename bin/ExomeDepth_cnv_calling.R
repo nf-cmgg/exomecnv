@@ -31,7 +31,7 @@ cat("samplename: ", sampleName, "\n")
 cat("count file: ", countfile, "\n")
 cat("exon target file: ", exon_target, "\n")
 cat("prefix: ", prefix, "\n")
-cat("sample ids pool: ", sampleNames, "\n")
+cat("sample ids batch: ", sampleNames, "\n")
 cat("family ids for samples: ", families, "\n")
 
 ### load exon data ###
@@ -83,8 +83,8 @@ for (i in 1:nsamples) {
         ## perform CNV calling for the test sample
         cat("\n*** CNV calling for",sample,"***\n")
 
-        ## build reference set (pool = all other samples of run)
-        cat("\nSelecting reference samples from pool:\n")
+        ## build reference set (batch = all other samples of run)
+        cat("\nSelecting reference samples from batch:\n")
         print(unlist(sampleNames[families != families[sample_index]]))
         cat("\n")
         reference_list = select.reference.set(
