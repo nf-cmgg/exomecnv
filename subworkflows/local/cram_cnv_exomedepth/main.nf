@@ -4,7 +4,6 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { SAMTOOLS_CONVERT as CRAM_PREPARE  } from '../../../modules/nf-core/samtools/convert/main'
 include { EXOMEDEPTH_COUNT                  } from '../../../modules/local/exomedepth/count/main'
 include { CUSTOM_MERGECOUNTS                } from '../../../modules/local/custom/mergecounts/main'
 include { EXOMEDEPTH_CALL                   } from '../../../modules/local/exomedepth/call/main'
