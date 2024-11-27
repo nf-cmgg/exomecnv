@@ -29,15 +29,15 @@ Sample6,prep_F,Fam5,/path/to/cram/Sample6,/path/to/crai/Sample6,/path/to/vcf/Sam
 
 ### All samplesheet options
 
-| Column   | Description                                                                                                                                                                                           |     |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
-| `sample` | Custom sample name. Cannot contain spaces and has to be unique.                                                                                                                                       |     |
-| `batch`   | Batch name for the current sample. Samples sharing the same batch will be merged together during the pipeline since CNV calling in the ExomeDepth workflow is executed per batch. Cannot contain spaces. |     |
-| `family` | Family name for the current sample. Samples sharing this family name will be excluded from the reference set to ensure that CNVs common to this family are not excluded. Cannot contain spaces.       |     |
-| `cram`   | Path to the CRAM (or BAM) file to be used by the pipeline for the current sample.                                                                                                                     |     |
-| `crai`   | Path to the CRAM (or BAI) index file.                                                                                                                                                                 |     |
-| `vcf`    | Path to the VCF file to be used by the pipeline for the current sample. When this is provided, the pipeline will skip to the annotation.                                                              |     |
-| `tbi`    | Path to the TBI index file.                                                                                                                                                                           |     |
+| Column   | Description                                                                                                                                                                                              |     |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| `sample` | Custom sample name. Cannot contain spaces and has to be unique.                                                                                                                                          |     |
+| `batch`  | Batch name for the current sample. Samples sharing the same batch will be merged together during the pipeline since CNV calling in the ExomeDepth workflow is executed per batch. Cannot contain spaces. |     |
+| `family` | Family name for the current sample. Samples sharing this family name will be excluded from the reference set to ensure that CNVs common to this family are not excluded. Cannot contain spaces.          |     |
+| `cram`   | Path to the CRAM (or BAM) file to be used by the pipeline for the current sample.                                                                                                                        |     |
+| `crai`   | Path to the CRAM (or BAI) index file.                                                                                                                                                                    |     |
+| `vcf`    | Path to the VCF file to be used by the pipeline for the current sample. When this is provided, the pipeline will skip to the annotation.                                                                 |     |
+| `tbi`    | Path to the TBI index file.                                                                                                                                                                              |     |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
