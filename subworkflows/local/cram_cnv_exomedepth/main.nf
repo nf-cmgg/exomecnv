@@ -4,7 +4,6 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { SAMTOOLS_CONVERT as CRAM_PREPARE  } from '../../../modules/nf-core/samtools/convert/main'
 include { EXOMEDEPTH_COUNT                  } from '../../../modules/local/exomedepth/count/main'
 include { CUSTOM_MERGECOUNTS                } from '../../../modules/local/custom/mergecounts/main'
 include { EXOMEDEPTH_CALL                   } from '../../../modules/local/exomedepth/call/main'
@@ -41,11 +40,11 @@ workflow CRAM_CNV_EXOMEDEPTH {
     )
     ch_versions = ch_versions.mix(EXOMEDEPTH_COUNT.out.versions.first())
 
-    //MODULE: Group autosomal counts per pool (count file for each pool)
+    //MODULE: Group autosomal counts per batch (count file for each batch)
 
     def ch_grouped_counts = EXOMEDEPTH_COUNT.out.counts
         .map { meta, txt ->
-            def new_meta = meta + [id:meta.pool] - meta.subMap("family")
+            def new_meta = meta + [id:meta.batch] - meta.subMap("family")
             [groupKey(new_meta, new_meta.samples.tokenize(",").size), txt]
         }
         .groupTuple()
