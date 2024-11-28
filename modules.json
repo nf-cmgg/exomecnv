@@ -8,6 +8,12 @@
                     "bedgovcf": {
                         "branch": "master",
                         "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/bedgovcf/bedgovcf.diff"
+                    },
+                    "ensemblvep/download": {
+                        "branch": "master",
+                        "git_sha": "6e3585d9ad20b41adc7d271009f8cb5e191ecab4",
                         "installed_by": ["modules"]
                     },
                     "ensemblvep/vep": {
@@ -46,9 +52,9 @@
                         "git_sha": "1b6b9a3338d011367137808b49b923515080e3ba",
                         "installed_by": ["subworkflows"]
                     },
-                    "utils_nfvalidation_plugin": {
+                    "utils_nfschema_plugin": {
                         "branch": "master",
-                        "git_sha": "f533459a222ac53eb4c6bb7a5f574e4069197cdb",
+                        "git_sha": "2fd2cd6d0e7b273747f32e465fdc6bcc3ae0814e",
                         "installed_by": ["subworkflows"]
                     }
                 }

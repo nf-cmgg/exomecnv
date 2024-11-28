@@ -19,7 +19,7 @@
 1. Input samplesheet check
 2. Convert CRAM to BAM if CRAM files are provided (optional)
 3. ExomeDepth counting per sample (autosomal and chrX are separated)
-4. Merge count files per pool (autosomal and chrX remain separated)
+4. Merge count files per batch (autosomal and chrX remain separated)
 5. ExomeDepth CNV calling per sample (autosomal and chrX remain separated)
 6. Merge CNV calling files per sample (autosomal and chrX are merged)
 7. Convert merged files to VCF
@@ -38,12 +38,12 @@ First, prepare a samplesheet with your input data that looks as follows:
 `samplesheet.csv`:
 
 ```csv
-sample,pool,family,cram,crai,vcf,tbi
-sample1,poolM,Fam1,/path/to/sample1.cram,/path/to/sample1.crai
-sample2,poolF,Fam2,/path/to/sample2.cram,/path/to/sample2.crai,/path/to/sample2.vcf,/path/to/sample2.vcf.tbi
+sample,batch,family,cram,crai,vcf,tbi
+sample1,prep_M,Fam1,/path/to/sample1.cram,/path/to/sample1.crai
+sample2,prep_F,Fam2,/path/to/sample2.cram,/path/to/sample2.crai,/path/to/sample2.vcf,/path/to/sample2.vcf.tbi
 ```
 
-Each row represents a sample with the associated pool and family, followed by the optional paths to the CRAM/CRAI and/or VCF/TBI files, depending on which tasks should be executed.
+Each row represents a sample with the associated batch and family, followed by the optional paths to the CRAM/CRAI and/or VCF/TBI files, depending on which tasks should be executed.
 
 Now, you can run the pipeline using:
 
@@ -90,12 +90,13 @@ If you would like to contribute to this pipeline, please see the [contributing g
 
 <!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
 <!-- If you use nf-cmgg/exomecnv for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
+<!-- If you use nf-cmgg/exomecnv for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
 
 <!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
-This pipeline uses code and infrastructure developed and maintained by the [nf-core](https://nf-co.re) community, reused here under the [MIT license](https://github.com/nf-core/tools/blob/master/LICENSE).
+This pipeline uses code and infrastructure developed and maintained by the [nf-core](https://nf-co.re) community, reused here under the [MIT license](https://github.com/nf-core/tools/blob/main/LICENSE).
 
 > **The nf-core framework for community-curated bioinformatics pipelines.**
 >

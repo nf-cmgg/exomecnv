@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-cmgg/exomecnv/master/assets/schema_input.json",
     "title": "nf-cmgg/exomecnv pipeline - params.input schema",
     "description": "Schema for the file provided with params.input",
@@ -11,13 +11,13 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
-                "meta": ["id", "sample"]
+                "meta": ["id"]
             },
-            "pool": {
+            "batch": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Pool name must be provided and cannot contain spaces",
-                "meta": ["pool"]
+                "errorMessage": "Batch name must be provided and cannot contain spaces",
+                "meta": ["batch"]
             },
             "family": {
                 "type": "string",
@@ -54,6 +54,7 @@
                 "exists": true
             }
         },
-        "required": ["sample", "pool", "family", "cram"]
-    }
+        "required": ["sample", "batch", "family", "cram"]
+    },
+    "uniqueEntries": ["sample"]
 }

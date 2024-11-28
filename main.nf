@@ -7,8 +7,6 @@
 ----------------------------------------------------------------------------------------
 */
 
-nextflow.enable.dsl = 2
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     GENOME PARAMETER VALUES
@@ -27,7 +25,7 @@ params.fai   = getGenomeAttribute('fai')
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { EXOMECNV  } from './workflows/exomecnv'
+include { EXOMECNV                } from './workflows/exomecnv'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_exomecnv_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
@@ -41,14 +39,13 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_exom
 //
 // WORKFLOW: Run main analysis pipeline depending on type of input
 //
-workflow NFCMGG_EXOMECNV {
+workflow {
 
     //
     // SUBWORKFLOW: Run initialisation tasks
     //
     PIPELINE_INITIALISATION (
         params.version,
-        params.help,
         params.validate_params,
         params.monochrome_logs,
         args,
@@ -61,7 +58,29 @@ workflow NFCMGG_EXOMECNV {
     //
 
     EXOMECNV (
-        PIPELINE_INITIALISATION.out.samplesheet
+        // file inputs
+        PIPELINE_INITIALISATION.out.samplesheet,
+        params.outdir,
+        params.fasta,
+        params.fai,
+        params.roi_auto,
+        params.roi_chrx,
+        params.vep_cache,
+        params.yamlconfig,
+        params.multiqc_config,
+        params.multiqc_logo,
+        params.multiqc_methods_description,
+
+        // booleans
+        params.exomedepth,
+        params.annotate,
+
+        // strings
+        params.vep_assembly,
+        params.species,
+
+        // integers
+        params.vep_cache_version
     )
 
     //
@@ -81,9 +100,6 @@ workflow NFCMGG_EXOMECNV {
     //
 
 
-}
-workflow  {
-    NFCMGG_EXOMECNV()
 }
 
 /*

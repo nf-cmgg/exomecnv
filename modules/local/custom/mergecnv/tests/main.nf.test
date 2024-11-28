@@ -1,0 +1,51 @@
+nextflow_process {
+
+    name "Test Process CUSTOM_MERGECNV"
+    script "../main.nf"
+    process "CUSTOM_MERGECNV"
+
+    test("homo_sapiens - cnv_auto, cnv_chrx") {
+
+        when {
+            process {
+                """
+                input[0] = Channel.of([
+                    [ id: 'Sample1', chr:"autosomal", sam:["Sample1", "Sample2", "Sample3", "Sample4", "Sample5"], fam:["Fam1", "Fam2", "Fam3", "Fam4", "Fam5"] ],
+                    file(params.cnv_auto, checkIfExists:true),
+                    file(params.cnv_chrx, checkIfExists:true)
+                ])
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("homo_sapiens - cnv_auto, cnv_chrx - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = Channel.of([
+                    [ id: 'Sample1', chr:"autosomal", sam:["Sample1", "Sample2", "Sample3", "Sample4", "Sample5"], fam:["Fam1", "Fam2", "Fam3", "Fam4", "Fam5"] ],
+                    file(params.cnv_auto, checkIfExists:true),
+                    file(params.cnv_chrx, checkIfExists:true)
+                ])
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+}

@@ -1,5 +1,5 @@
-process CNV_CALL {
-    tag "$sample $meta2.chr"
+process EXOMEDEPTH_CALL {
+    tag "$sample"
     label 'process_low'
 
     conda "${moduleDir}/environment.yml"
@@ -7,18 +7,16 @@ process CNV_CALL {
         'https://depot.galaxyproject.org/singularity/r-exomedepth:1.1.16--r43hfb3cda0_3' :
         'biocontainers/r-exomedepth:1.1.16--r43hfb3cda0_3' }"
 
-    publishDir "$params.outdir/exomedepth/cnv_call", mode: 'copy'
-
     input:
-    tuple val(meta), path(exon_target) // meta.id=chrx/autosomal
-    tuple val(meta2), val(sample), path(countfile) // meta:id, chr, sam, fam, sample
+    tuple val(meta), path(countfile), val(sample), val(samples), val(families) // meta:id, chr, sam, fam, sample
+    tuple val(meta2), path(exon_target) // meta.id=chrx/autosomal
 
     output:
-    tuple val(meta2), val (sample), path("*.txt"), emit: cnvcall
+    tuple val(meta), path("*.txt"), emit: cnvcall
     path "versions.yml", emit:versions
 
     script:
-
+    def prefix = task.ext.prefix ?: "${meta.id}"
     def VERSION = '1.1.16'
 
     """
@@ -26,9 +24,9 @@ process CNV_CALL {
         $sample \\
         $countfile \\
         $exon_target \\
-        $meta2.chr \\
-        ${meta2.sam.join(',')} \\
-        ${meta2.fam.join(',')} \\
+        $prefix \\
+        $samples \\
+        $families
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -38,7 +36,7 @@ process CNV_CALL {
     """
 
     stub:
-    def prefix = task.ext.prefix ?: "${sample}_CNVs_ExomeDepth_${meta2.chr}"
+    def prefix = task.ext.prefix ?: "${meta.id}"
     def VERSION = '1.1.16'
     """
     touch ${prefix}.txt
