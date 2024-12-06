@@ -94,6 +94,19 @@
                     "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`.",
                     "default": true
                 },
+                "genomes_base": {
+                    "type": "string",
+                    "default": "/references/",
+                    "description": "Directory base for CMGG reference store (used when `--genomes_ignore false` is specified)",
+                    "fa_icon": "fas fa-download",
+                    "format": "directory-path"
+                },
+                "genomes_ignore": {
+                    "type": "boolean",
+                    "hidden": true,
+                    "description": "Do not load the local references from the path specified with `--genomes_base`",
+                    "fa_icon": "fas fa-ban"
+                },
                 "cmgg_config_base": {
                     "type": "string",
                     "default": "/conf/",
@@ -292,7 +305,8 @@
                 "vep_cache": {
                     "type": "string",
                     "format": "directory-path",
-                    "description": "Path to the VEP cache"
+                    "description": "Path to the VEP cache",
+                    "exists": true
                 },
                 "annotate": {
                     "type": "boolean",

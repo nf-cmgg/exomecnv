@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v1.2.1dev
 
+### `Improvements`
+
+- Added a `cmgg` profile to make it easier to run the pipeline on our infrastructure
+
 ### `Bug Fixes`
 
 - Fixed an issue where the bedgovcf yaml wasn't being given
