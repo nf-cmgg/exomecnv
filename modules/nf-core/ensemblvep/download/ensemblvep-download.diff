@@ -1,0 +1,23 @@
+Changes in module 'nf-core/ensemblvep/download'
+Changes in 'ensemblvep/download/main.nf':
+--- modules/nf-core/ensemblvep/download/main.nf
++++ modules/nf-core/ensemblvep/download/main.nf
+@@ -4,8 +4,8 @@
+ 
+     conda "${moduleDir}/environment.yml"
+     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+-        'https://depot.galaxyproject.org/singularity/ensembl-vep:113.0--pl5321h2a3209d_0' :
+-        'biocontainers/ensembl-vep:113.0--pl5321h2a3209d_0' }"
++        'https://depot.galaxyproject.org/singularity/ensembl-vep:105.0--pl5321h4a94de4_1' :
++        'biocontainers/ensembl-vep:105.0--pl5321h4a94de4_1' }"
+ 
+     input:
+     tuple val(meta), val(assembly), val(species), val(cache_version)
+
+'modules/nf-core/ensemblvep/download/environment.yml' is unchanged
+'modules/nf-core/ensemblvep/download/meta.yml' is unchanged
+'modules/nf-core/ensemblvep/download/tests/tags.yml' is unchanged
+'modules/nf-core/ensemblvep/download/tests/main.nf.test' is unchanged
+'modules/nf-core/ensemblvep/download/tests/main.nf.test.snap' is unchanged
+'modules/nf-core/ensemblvep/download/tests/nextflow.config' is unchanged
+************************************************************

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Improvements`
 
 - Added a `cmgg` profile to make it easier to run the pipeline on our infrastructure
+- Pin the VEP version to v105
 
 ### `Bug Fixes`
 
