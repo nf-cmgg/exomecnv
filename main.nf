@@ -16,8 +16,9 @@
 //  from igenomes.config using `--genome`
 include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
-params.fasta = getGenomeAttribute('fasta')
-params.fai   = getGenomeAttribute('fai')
+params.fasta     = getGenomeAttribute('fasta')
+params.fai       = getGenomeAttribute('fai')
+params.vep_cache = getGenomeAttribute('vep_cache')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
