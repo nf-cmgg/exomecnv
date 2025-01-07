@@ -4,7 +4,7 @@
             1,
             {
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v1.2.1dev"
+                    "nf-cmgg/exomecnv": "v1.2.1"
                 }
             },
             [
