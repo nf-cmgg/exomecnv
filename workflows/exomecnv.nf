@@ -133,7 +133,7 @@ workflow EXOMECNV {
 
         def bedgovcf_input = CUSTOM_MERGECNV.out.merge
             .map{ meta, bed ->
-                [meta, bed, bedgovcf_yaml]
+                [meta, bed, file(bedgovcf_yaml, checkIfExists:true)]
             }
 
         BEDGOVCF(

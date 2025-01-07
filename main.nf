@@ -16,8 +16,9 @@
 //  from igenomes.config using `--genome`
 include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
-params.fasta = getGenomeAttribute('fasta')
-params.fai   = getGenomeAttribute('fai')
+params.fasta     = getGenomeAttribute('fasta')
+params.fai       = getGenomeAttribute('fai')
+params.vep_cache = getGenomeAttribute('vep_cache')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -66,7 +67,7 @@ workflow {
         params.roi_auto,
         params.roi_chrx,
         params.vep_cache,
-        params.yamlconfig,
+        "${projectDir}/assets/exomedepth.yaml",
         params.multiqc_config,
         params.multiqc_logo,
         params.multiqc_methods_description,

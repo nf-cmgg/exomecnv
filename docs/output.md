@@ -24,15 +24,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 ### Cram Prepare
 
-If CRAM/CRAI files were provided in the samplesheet, they will be converted into BAM/BAI first before continuing with the pipeline. If the directive `publishDir` option `enabled` is set to `true` (default: `false`) , the BAM/BAI are in the output folder (subfolder `bam/`).
-
-<details markdown="1">
-<summary>Output files</summary>
-
-- `bam/`
-  - `<sample>.bam`: BAM file
-  - `<sample>.bam.bai`: BAI index file
-  </details>
+If CRAM/CRAI files were provided in the samplesheet, they will be converted into BAM/BAI first before continuing with the pipeline.
 
 ### ExomeDepth count
 

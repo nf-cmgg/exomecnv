@@ -2,25 +2,25 @@
     "test_ensemblvep_vep_fasta_tab_gz": {
         "content": [
             [
-                "versions.yml:md5,4fbfeb73f0d4b4aa039f17be8ba9e1f2"
+                "versions.yml:md5,c6d58a35e7be5e6ab46a3f9757f6e259"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.4"
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2024-10-21T09:12:23.474703494"
+        "timestamp": "2024-12-06T15:11:50.757491834"
     },
     "test_ensemblvep_vep_fasta_vcf": {
         "content": [
             [
-                "versions.yml:md5,4fbfeb73f0d4b4aa039f17be8ba9e1f2"
+                "versions.yml:md5,c6d58a35e7be5e6ab46a3f9757f6e259"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.04.4"
+            "nf-test": "0.9.1",
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2024-10-21T09:11:54.343590485"
+        "timestamp": "2024-12-06T15:11:30.705471783"
     }
 }

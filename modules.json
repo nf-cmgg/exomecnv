@@ -14,7 +14,8 @@
                     "ensemblvep/download": {
                         "branch": "master",
                         "git_sha": "6e3585d9ad20b41adc7d271009f8cb5e191ecab4",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/ensemblvep/download/ensemblvep-download.diff"
                     },
                     "ensemblvep/vep": {
                         "branch": "master",
