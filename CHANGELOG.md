@@ -3,6 +3,13 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.2.2 Dynamic De Bruyne [2025-01-20]
+
+### `Bug fixes`
+
+- Fix `WES` config
+- Fix file collision in `nextflow` config
+
 ## v1.2.1 Lunatic Lamkel Zé [2025-01-07]
 
 ### `Improvements`

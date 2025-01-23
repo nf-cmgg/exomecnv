@@ -31,7 +31,7 @@
                     "tabix": 1.2
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v1.2.1"
+                    "nf-cmgg/exomecnv": "v1.2.2"
                 }
             },
             [
@@ -157,7 +157,7 @@
                     "tabix": 1.2
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v1.2.1"
+                    "nf-cmgg/exomecnv": "v1.2.2"
                 }
             },
             [
