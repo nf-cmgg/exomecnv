@@ -92,36 +92,24 @@ workflow EXOMECNV {
     // ExomeDepth
     def ch_exomedepth_vcf = Channel.empty()
     if (exomedepth) {
-        def ch_cram_bam = ch_input.no_vcf.branch { _meta, file, _index ->
-            cram: file.extension == "cram"
-            bam:  file.extension == "bam"
-        }
-
-        SAMTOOLS_CONVERT(
-            ch_cram_bam.cram,
-            ch_fasta,
-            ch_fai
-        )
-        ch_versions = ch_versions.mix(SAMTOOLS_CONVERT.out.versions.first())
-
-        def ch_exomedepth_input = ch_cram_bam.bam
-            .mix(
-                SAMTOOLS_CONVERT.out.bam.join(SAMTOOLS_CONVERT.out.bai, failOnMismatch:true, failOnDuplicate:true)
-            )
 
         CRAM_CNV_EXOMEDEPTH_X(
-            ch_exomedepth_input,
+            ch_input.no_vcf,
             ch_roi_x,
-            "chrX"
+            "chrX",
+            ch_fasta,
+            ch_fai
         )
         ch_versions = ch_versions.mix(CRAM_CNV_EXOMEDEPTH_X.out.versions)
 
         CRAM_CNV_EXOMEDEPTH_AUTO(
-            ch_exomedepth_input,
+            ch_input.no_vcf,
             ch_roi_auto,
-            "autosomal"
+            "autosomal",
+            ch_fasta,
+            ch_fai
         )
-        ch_versions = ch_versions.mix(CRAM_CNV_EXOMEDEPTH_X.out.versions)
+        ch_versions = ch_versions.mix(CRAM_CNV_EXOMEDEPTH_AUTO.out.versions)
 
         def ch_merge_input = CRAM_CNV_EXOMEDEPTH_X.out.cnv
             .join(CRAM_CNV_EXOMEDEPTH_AUTO.out.cnv)
@@ -142,7 +130,7 @@ workflow EXOMECNV {
         )
         ch_versions = ch_versions.mix(BEDGOVCF.out.versions.first())
 
-        // Index files for VCF
+        // // Index files for VCF
 
         TABIX_TABIX(
             BEDGOVCF.out.vcf

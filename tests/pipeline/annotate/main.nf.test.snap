@@ -1,7 +1,7 @@
 {
     "exomedepth_cram + annotate": {
         "content": [
-            105,
+            115,
             {
                 "BEDGOVCF": {
                     "bedgovcf": "0.1.0"
@@ -19,18 +19,14 @@
                     "ExomeDepth": "1.1.16",
                     "R": "Rscript (R) version 4.3.1 (2023-06-16)"
                 },
-                "EXOMEDEPTH_COUNT": {
-                    "ExomeDepth": "1.1.16",
-                    "R": "Rscript (R) version 4.3.1 (2023-06-16)"
-                },
-                "SAMTOOLS_CONVERT": {
+                "SAMTOOLS_BEDCOV": {
                     "samtools": 1.21
                 },
                 "TABIX_TABIX": {
                     "tabix": 1.2
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v1.2.2"
+                    "nf-cmgg/exomecnv": "v1.3.1dev"
                 }
             },
             [
@@ -198,13 +194,13 @@
                 "samplesheet.csv:md5,c759d9162a7bf9ad1d3eba088ecd46bf"
             ],
             [
-
+                
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.1"
+            "nextflow": "24.10.5"
         },
-        "timestamp": "2024-11-27T08:44:26.575986"
+        "timestamp": "2025-05-07T13:39:29.082381"
     }
 }

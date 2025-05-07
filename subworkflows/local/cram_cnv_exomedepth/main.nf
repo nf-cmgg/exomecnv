@@ -9,7 +9,8 @@ include { CUSTOM_MERGECOUNTS                } from '../../../modules/local/custo
 include { EXOMEDEPTH_CALL                   } from '../../../modules/local/exomedepth/call/main'
 include { CUSTOM_MERGECNV                   } from '../../../modules/local/custom/mergecnv/main'
 include { BEDGOVCF                          } from '../../../modules/nf-core/bedgovcf/main'
-
+include { SAMTOOLS_BEDCOV                   } from '../../../modules/nf-core/samtools/bedcov/main'
+include { CUSTOM_REFORMATCOUNTS             } from '../../../modules/local/custom/reformatcounts/main'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN EXOMEDEPTH WORKFLOW
@@ -19,42 +20,52 @@ include { BEDGOVCF                          } from '../../../modules/nf-core/bed
 workflow CRAM_CNV_EXOMEDEPTH {
 
     take:
-    ch_bams    // meta, bam, bai
+    ch_crams    // meta, cram, crai
     ch_bed     // meta, bed
     chromosome // string
+    ch_fasta   // meta, fasta
+    ch_fai     // meta, fai
 
     main:
     def ch_versions = Channel.empty()
 
     //MODULE: Count autosomal reads per sample (count file for each sample)
 
-    def ch_count_input = ch_bams
-        .map { meta, bam, bai ->
+    def ch_count_input = ch_crams
+        .map { meta, cram, crai ->
             def new_meta = meta + [chromosome:chromosome]
-            [ new_meta, bam, bai, meta.id ]
+            [ new_meta, cram, crai ]
         }
 
-    EXOMEDEPTH_COUNT (
+    SAMTOOLS_BEDCOV (
         ch_count_input,
-        ch_bed
+        ch_bed,
+        ch_fasta,
+        ch_fai
     )
-    ch_versions = ch_versions.mix(EXOMEDEPTH_COUNT.out.versions.first())
 
-    //MODULE: Group autosomal counts per batch (count file for each batch)
+    ch_versions = ch_versions.mix(SAMTOOLS_BEDCOV.out.versions.first())
 
-    def ch_grouped_counts = EXOMEDEPTH_COUNT.out.counts
-        .map { meta, txt ->
+    //MODULE: Group counts per batch (count file for each batch)
+    def ch_grouped_counts = SAMTOOLS_BEDCOV.out.coverage
+
+    CUSTOM_REFORMATCOUNTS (
+        ch_grouped_counts
+    )
+    def ch_grouped_counts_header = CUSTOM_REFORMATCOUNTS.out.header
+        .map { meta, tsv ->
             def new_meta = meta + [id:meta.batch] - meta.subMap("family")
-            [groupKey(new_meta, new_meta.samples.tokenize(",").size), txt]
+            [groupKey(new_meta, new_meta.samples.tokenize(",").size), tsv]
         }
         .groupTuple()
 
     CUSTOM_MERGECOUNTS(
-        ch_grouped_counts
+        ch_grouped_counts_header
     )
+
     ch_versions = ch_versions.mix(CUSTOM_MERGECOUNTS.out.versions.first())
 
-    //MODULE: Autosomal CNV call per sample (file for each sample)
+    //MODULE: CNV call per sample (file for each sample)
 
     def ch_counts = CUSTOM_MERGECOUNTS.out.merge
         .map { meta, txt ->
