@@ -12,8 +12,7 @@ The directories listed below will be created in the results directory after the 
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-- [Cram Prepare](#cram-prepare)
-- [ExomeDepth count](#exomedepth-count)
+- [Read count](#read-count)
 - [Count merge](#count-merge)
 - [ExomeDepth CNV call](#exomedepth-cnv-call)
 - [CNV merge](#cnv-merge)
@@ -22,13 +21,9 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [EnsemblVEP](#ensemblvep)
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
-### Cram Prepare
+### Read count
 
-If CRAM/CRAI files were provided in the samplesheet, they will be converted into BAM/BAI first before continuing with the pipeline.
-
-### ExomeDepth count
-
-ExomeDepth will generate 2 count files for each sample: 1 for autosomal chromosomes (`<sample>_autosomal.txt`) and 1 for chrX (`<sample>_chrX.txt`). They are not not written out in the `publishDir`.
+The counting step will generate 2 count files for each sample: 1 for autosomal chromosomes (`<sample>_autosomal.txt`) and 1 for chrX (`<sample>_chrX.txt`). They are not not written out in the `publishDir`.
 
 ### Count merge
 
