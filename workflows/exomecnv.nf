@@ -92,22 +92,6 @@ workflow EXOMECNV {
     // ExomeDepth
     def ch_exomedepth_vcf = Channel.empty()
     if (exomedepth) {
-        // def ch_cram_bam = ch_input.no_vcf.branch { _meta, file, _index ->
-        //     cram: file.extension == "cram"
-        //     bam:  file.extension == "bam"
-        // }
-
-        // SAMTOOLS_CONVERT(
-        //     ch_cram_bam.cram,
-        //     ch_fasta,
-        //     ch_fai
-        // )
-        // ch_versions = ch_versions.mix(SAMTOOLS_CONVERT.out.versions.first())
-
-        // def ch_exomedepth_input = ch_input.no_vcf
-        //     .mix(
-        //         SAMTOOLS_CONVERT.out.bam.join(SAMTOOLS_CONVERT.out.bai, failOnMismatch:true, failOnDuplicate:true)
-        //     )
 
         CRAM_CNV_EXOMEDEPTH_X(
             ch_input.no_vcf,
@@ -118,41 +102,43 @@ workflow EXOMECNV {
         )
         ch_versions = ch_versions.mix(CRAM_CNV_EXOMEDEPTH_X.out.versions)
 
-        // CRAM_CNV_EXOMEDEPTH_AUTO(
-        //     ch_exomedepth_input,
-        //     ch_roi_auto,
-        //     "autosomal"
-        // )
-        // ch_versions = ch_versions.mix(CRAM_CNV_EXOMEDEPTH_X.out.versions)
+        CRAM_CNV_EXOMEDEPTH_AUTO(
+            ch_input.no_vcf,
+            ch_roi_auto,
+            "autosomal",
+            ch_fasta,
+            ch_fai
+        )
+        ch_versions = ch_versions.mix(CRAM_CNV_EXOMEDEPTH_AUTO.out.versions)
 
-        // def ch_merge_input = CRAM_CNV_EXOMEDEPTH_X.out.cnv
-        //     .join(CRAM_CNV_EXOMEDEPTH_AUTO.out.cnv)
+        def ch_merge_input = CRAM_CNV_EXOMEDEPTH_X.out.cnv
+            .join(CRAM_CNV_EXOMEDEPTH_AUTO.out.cnv)
 
-        // CUSTOM_MERGECNV(
-        //     ch_merge_input
-        // )
-        // ch_versions = ch_versions.mix(CUSTOM_MERGECNV.out.versions.first())
+        CUSTOM_MERGECNV(
+            ch_merge_input
+        )
+        ch_versions = ch_versions.mix(CUSTOM_MERGECNV.out.versions.first())
 
-        // def bedgovcf_input = CUSTOM_MERGECNV.out.merge
-        //     .map{ meta, bed ->
-        //         [meta, bed, file(bedgovcf_yaml, checkIfExists:true)]
-        //     }
+        def bedgovcf_input = CUSTOM_MERGECNV.out.merge
+            .map{ meta, bed ->
+                [meta, bed, file(bedgovcf_yaml, checkIfExists:true)]
+            }
 
-        // BEDGOVCF(
-        //     bedgovcf_input,
-        //     ch_fai
-        // )
-        // ch_versions = ch_versions.mix(BEDGOVCF.out.versions.first())
+        BEDGOVCF(
+            bedgovcf_input,
+            ch_fai
+        )
+        ch_versions = ch_versions.mix(BEDGOVCF.out.versions.first())
 
         // // Index files for VCF
 
-        // TABIX_TABIX(
-        //     BEDGOVCF.out.vcf
-        // )
-        // ch_versions = ch_versions.mix(TABIX_TABIX.out.versions)
+        TABIX_TABIX(
+            BEDGOVCF.out.vcf
+        )
+        ch_versions = ch_versions.mix(TABIX_TABIX.out.versions)
 
-        // ch_exomedepth_vcf = BEDGOVCF.out.vcf
-        //     .join(TABIX_TABIX.out.tbi, failOnMismatch:true, failOnDuplicate:true)
+        ch_exomedepth_vcf = BEDGOVCF.out.vcf
+            .join(TABIX_TABIX.out.tbi, failOnMismatch:true, failOnDuplicate:true)
     }
 
     // Annotate exomedepth VCFs and input VCFs
