@@ -4,12 +4,10 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { EXOMEDEPTH_COUNT                  } from '../../../modules/local/exomedepth/count/main'
 include { CUSTOM_MERGECOUNTS                } from '../../../modules/local/custom/mergecounts/main'
 include { EXOMEDEPTH_CALL                   } from '../../../modules/local/exomedepth/call/main'
 include { CUSTOM_MERGECNV                   } from '../../../modules/local/custom/mergecnv/main'
 include { BEDGOVCF                          } from '../../../modules/nf-core/bedgovcf/main'
-include { SAMTOOLS_BEDCOV                   } from '../../../modules/nf-core/samtools/bedcov/main'
 include { CUSTOM_REFORMATCOUNTS             } from '../../../modules/local/custom/reformatcounts/main'
 include { MOSDEPTH                          } from '../../../modules/nf-core/mosdepth/main'
 /*
