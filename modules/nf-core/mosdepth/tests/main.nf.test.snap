@@ -401,9 +401,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.3"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2025-01-17T14:56:12.528228123"
+        "timestamp": "2025-06-04T10:25:52.984023201"
     },
     "homo_sapiens - bam, bai, [] - quantized": {
         "content": [
@@ -562,9 +562,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.3"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2025-01-17T14:56:38.422491251"
+        "timestamp": "2025-06-04T10:26:16.953841605"
     },
     "homo_sapiens - bam, bai, bed": {
         "content": [
@@ -735,9 +735,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.3"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2025-01-17T14:55:43.01015749"
+        "timestamp": "2025-06-04T10:25:26.89154641"
     },
     "homo_sapiens - bam, bai, [] - window": {
         "content": [
@@ -908,9 +908,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.3"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2025-01-17T14:56:27.10647246"
+        "timestamp": "2025-06-04T10:26:05.664377157"
     },
     "homo_sapiens - bam, bai, []": {
         "content": [
@@ -1045,9 +1045,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.3"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2025-01-17T14:55:30.449110281"
+        "timestamp": "2025-06-04T10:25:15.39789502"
     },
     "homo_sapiens - cram, crai, []": {
         "content": [
@@ -1182,9 +1182,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.3"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2025-01-17T14:55:55.244274402"
+        "timestamp": "2025-06-04T10:25:40.546356216"
     },
     "homo_sapiens - bam, bai, bed - thresholds": {
         "content": [
@@ -1379,8 +1379,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.3"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2025-01-17T14:56:49.888375978"
+        "timestamp": "2025-06-04T10:26:26.826369881"
     }
 }

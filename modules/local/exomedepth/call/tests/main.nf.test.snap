@@ -8,7 +8,7 @@
                             "id": "test",
                             "chromosome": "chrX"
                         },
-                        "test.chrX.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
+                        "test.chrX.txt:md5,ccd4d7a5c71c953dfaab903ca2be19d9"
                     ]
                 ],
                 "1": [
@@ -20,7 +20,7 @@
                             "id": "test",
                             "chromosome": "chrX"
                         },
-                        "test.chrX.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
+                        "test.chrX.txt:md5,ccd4d7a5c71c953dfaab903ca2be19d9"
                     ]
                 ],
                 "versions": [
@@ -29,10 +29,10 @@
             }
         ],
         "meta": {
-            "nf-test": "0.9.1",
-            "nextflow": "24.10.1"
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2024-11-26T13:20:56.428817743"
+        "timestamp": "2025-06-03T15:01:00.135671758"
     },
     "homo_sapiens - bed, merged_counts - stub": {
         "content": [
