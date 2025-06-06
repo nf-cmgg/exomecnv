@@ -16,9 +16,15 @@ process CUSTOM_REFORMATCOUNTS {
 
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
+    def unzipped_tsv = tsv.toString().replaceAll('\\.gz$', '')
     """
+    # Only decompress if the file ends with .gz
+    if [[ "$tsv" == *.gz ]]; then
+        gzip -d -f $tsv
+    fi
+
     { echo -e "chromosome\\tstart\\tend\\texon\\t${meta.id}"; \
-    cut --complement -f5 $tsv ; } > "${prefix}.txt"
+    cut --complement -f6 $unzipped_tsv ; } > "${prefix}.txt"
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

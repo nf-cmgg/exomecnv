@@ -4,13 +4,12 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { EXOMEDEPTH_COUNT                  } from '../../../modules/local/exomedepth/count/main'
 include { CUSTOM_MERGECOUNTS                } from '../../../modules/local/custom/mergecounts/main'
 include { EXOMEDEPTH_CALL                   } from '../../../modules/local/exomedepth/call/main'
 include { CUSTOM_MERGECNV                   } from '../../../modules/local/custom/mergecnv/main'
 include { BEDGOVCF                          } from '../../../modules/nf-core/bedgovcf/main'
-include { SAMTOOLS_BEDCOV                   } from '../../../modules/nf-core/samtools/bedcov/main'
 include { CUSTOM_REFORMATCOUNTS             } from '../../../modules/local/custom/reformatcounts/main'
+include { MOSDEPTH                          } from '../../../modules/nf-core/mosdepth/main'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN EXOMEDEPTH WORKFLOW
@@ -31,24 +30,24 @@ workflow CRAM_CNV_EXOMEDEPTH {
 
     //MODULE: Count autosomal reads per sample (count file for each sample)
 
-    def ch_count_input = ch_crams
-        .map { meta, cram, crai ->
+    def ch_count_input = ch_crams.combine(ch_bed.map{ meta, bed -> bed})
+        .map { meta, cram, crai, bed ->
             def new_meta = meta + [chromosome:chromosome]
-            [ new_meta, cram, crai ]
+            [ new_meta, cram, crai, bed ]
         }
+    
 
-    SAMTOOLS_BEDCOV (
+    MOSDEPTH (
         ch_count_input,
-        ch_bed,
         ch_fasta,
-        ch_fai
     )
 
-    ch_versions = ch_versions.mix(SAMTOOLS_BEDCOV.out.versions.first())
+    ch_versions = ch_versions.mix(MOSDEPTH.out.versions.first())
 
     //MODULE: Group counts per batch (count file for each batch)
-    def ch_grouped_counts = SAMTOOLS_BEDCOV.out.coverage
-
+    def ch_grouped_counts = MOSDEPTH.out.regions_bed
+    
+    
     CUSTOM_REFORMATCOUNTS (
         ch_grouped_counts
     )
