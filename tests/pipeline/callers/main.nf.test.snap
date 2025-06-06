@@ -114,7 +114,7 @@
                 "prep_F.autosomal.txt:md5,22e278e546bcf03f0b74de412700e29e",
                 "prep_F.chrX.txt:md5,eea46de1aa301fc26aad326c9eeacb09",
                 "prep_M.autosomal.txt:md5,7550fedab93afa2197cf0329ff158e85",
-                "prep_M.chrX.txt:md5,41dd1ce5670d1affa947f75d33142a38",
+                "prep_M.chrX.txt:md5,b6c11f33928e914d1f69a247aed91b37",
                 "samplesheet.csv:md5,c759d9162a7bf9ad1d3eba088ecd46bf"
             ]
         ],
@@ -122,7 +122,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2025-06-04T09:28:41.702043719"
+        "timestamp": "2025-06-06T10:02:22.260090618"
     },
     "exomedepth_bam": {
         "content": [
@@ -239,7 +239,7 @@
                 "prep_F.autosomal.txt:md5,22e278e546bcf03f0b74de412700e29e",
                 "prep_F.chrX.txt:md5,eea46de1aa301fc26aad326c9eeacb09",
                 "prep_M.autosomal.txt:md5,7550fedab93afa2197cf0329ff158e85",
-                "prep_M.chrX.txt:md5,41dd1ce5670d1affa947f75d33142a38",
+                "prep_M.chrX.txt:md5,b6c11f33928e914d1f69a247aed91b37",
                 "samplesheet.csv:md5,48c59f89cd1e4a598fef724096737c44"
             ]
         ],
@@ -247,6 +247,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2025-06-04T09:33:49.068350754"
+        "timestamp": "2025-06-06T10:07:18.627328304"
     }
 }
