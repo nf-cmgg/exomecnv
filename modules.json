@@ -8,46 +8,55 @@
                     "bedgovcf": {
                         "branch": "master",
                         "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
-                        "installed_by": ["modules"],
+                        "installed_by": [
+                            "modules"
+                        ],
                         "patch": "modules/nf-core/bedgovcf/bedgovcf.diff"
                     },
                     "ensemblvep/download": {
                         "branch": "master",
                         "git_sha": "6e3585d9ad20b41adc7d271009f8cb5e191ecab4",
-                        "installed_by": ["modules"],
+                        "installed_by": [
+                            "modules"
+                        ],
                         "patch": "modules/nf-core/ensemblvep/download/ensemblvep-download.diff"
                     },
                     "ensemblvep/vep": {
                         "branch": "master",
                         "git_sha": "6e3585d9ad20b41adc7d271009f8cb5e191ecab4",
-                        "installed_by": ["modules"],
+                        "installed_by": [
+                            "modules"
+                        ],
                         "patch": "modules/nf-core/ensemblvep/vep/ensemblvep-vep.diff"
                     },
                     "mosdepth": {
                         "branch": "master",
                         "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
-                        "installed_by": ["modules"]
+                        "installed_by": [
+                            "modules"
+                        ]
                     },
                     "multiqc": {
                         "branch": "master",
                         "git_sha": "cf17ca47590cc578dfb47db1c2a44ef86f89976d",
-                        "installed_by": ["modules"]
-                    },
-                    "samtools/bedcov": {
-                        "branch": "master",
-                        "git_sha": "5155eda22a73b9d74248e8e135afec1fd48828b1",
-                        "installed_by": ["modules"]
+                        "installed_by": [
+                            "modules"
+                        ]
                     },
                     "samtools/convert": {
                         "branch": "master",
                         "git_sha": "b13f07be4c508d6ff6312d354d09f2493243e208",
-                        "installed_by": ["modules"],
+                        "installed_by": [
+                            "modules"
+                        ],
                         "patch": "modules/nf-core/samtools/convert/samtools-convert.diff"
                     },
                     "tabix/tabix": {
                         "branch": "master",
                         "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
-                        "installed_by": ["modules"]
+                        "installed_by": [
+                            "modules"
+                        ]
                     }
                 }
             },
@@ -56,17 +65,23 @@
                     "utils_nextflow_pipeline": {
                         "branch": "master",
                         "git_sha": "56372688d8979092cafbe0c5c3895b491166ca1c",
-                        "installed_by": ["subworkflows"]
+                        "installed_by": [
+                            "subworkflows"
+                        ]
                     },
                     "utils_nfcore_pipeline": {
                         "branch": "master",
                         "git_sha": "1b6b9a3338d011367137808b49b923515080e3ba",
-                        "installed_by": ["subworkflows"]
+                        "installed_by": [
+                            "subworkflows"
+                        ]
                     },
                     "utils_nfschema_plugin": {
                         "branch": "master",
                         "git_sha": "2fd2cd6d0e7b273747f32e465fdc6bcc3ae0814e",
-                        "installed_by": ["subworkflows"]
+                        "installed_by": [
+                            "subworkflows"
+                        ]
                     }
                 }
             }

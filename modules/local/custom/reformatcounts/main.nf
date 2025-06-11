@@ -1,4 +1,4 @@
-//REFORMAT SAMTOOLS BEDCOV FILES (add header and remove 5th column)
+//REFORMAT COUNT FILES (add header and remove 5th column)
 process CUSTOM_REFORMATCOUNTS {
     tag "$meta.id"
 
