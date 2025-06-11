@@ -35,7 +35,7 @@ workflow CRAM_CNV_EXOMEDEPTH {
             def new_meta = meta + [chromosome:chromosome]
             [ new_meta, cram, crai, bed ]
         }
-    
+
 
     MOSDEPTH (
         ch_count_input,
@@ -46,8 +46,8 @@ workflow CRAM_CNV_EXOMEDEPTH {
 
     //MODULE: Group counts per batch (count file for each batch)
     def ch_grouped_counts = MOSDEPTH.out.regions_bed
-    
-    
+
+
     CUSTOM_REFORMATCOUNTS (
         ch_grouped_counts
     )

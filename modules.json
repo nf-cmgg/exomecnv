@@ -33,11 +33,6 @@
                         "git_sha": "cf17ca47590cc578dfb47db1c2a44ef86f89976d",
                         "installed_by": ["modules"]
                     },
-                    "samtools/bedcov": {
-                        "branch": "master",
-                        "git_sha": "5155eda22a73b9d74248e8e135afec1fd48828b1",
-                        "installed_by": ["modules"]
-                    },
                     "samtools/convert": {
                         "branch": "master",
                         "git_sha": "b13f07be4c508d6ff6312d354d09f2493243e208",
