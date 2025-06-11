@@ -56,9 +56,9 @@ ExomeCount.dafr <- read.table(file=countfile,sep="\t",header = TRUE,check.names 
 ## key idea: build optimized set of exomens that are well correlated with that exome
 
 ## prepare the main matrix of read count data
-countmat = as.matrix(ExomeCount.dafr[,5:dim(ExomeCount.dafr)[2]]) # remove cols 1-4 metadata
+countmat = round(as.matrix(ExomeCount.dafr[,5:dim(ExomeCount.dafr)[2]])) # remove cols 1-4 metadata
 nsamples <- ncol(countmat)
-# print(head(countmat))
+# print(countmat)
 
 ## check if test sample is part of count matrix
 if (is.element(sampleName, colnames(countmat))){
