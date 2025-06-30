@@ -5,5 +5,5 @@ channels:
   - defaults
 
 dependencies:
-  - conda-forge::r-base=4.3.1
-  - bioconda::r-exomedepth=1.1.16
+  - conda-forge::r-base=4.4
+  - bioconda::r-exomedepth=1.1.18
