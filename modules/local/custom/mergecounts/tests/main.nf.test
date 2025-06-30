@@ -4,6 +4,10 @@ nextflow_process {
     script "../main.nf"
     process "CUSTOM_MERGECOUNTS"
 
+    tag "modules"
+    tag "modules_local"
+    tag "mergecounts"
+
     test("homo_sapiens - counts") {
 
         when {

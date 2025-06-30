@@ -4,6 +4,10 @@ nextflow_process {
     script "../main.nf"
     process "CUSTOM_REFORMATCOUNTS"
 
+    tag "modules"
+    tag "modules_local"
+    tag "reformatcounts"
+
     test("homo_sapiens - reformat") {
 
         when {

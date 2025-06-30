@@ -12,7 +12,6 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_exom
 
 // Modules
 include { TABIX_TABIX       } from '../modules/nf-core/tabix/tabix/main'
-include { SAMTOOLS_CONVERT  } from '../modules/nf-core/samtools/convert/main'
 include { CUSTOM_MERGECNV   } from '../modules/local/custom/mergecnv/main.nf'
 include { BEDGOVCF          } from '../modules/nf-core/bedgovcf/main.nf'
 

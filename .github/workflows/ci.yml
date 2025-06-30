@@ -31,9 +31,9 @@ jobs:
         NXF_VER:
           - "24.10.0"
           - "latest-everything"
-        filter:
-          - "process"
-          - "workflow"
+        tags:
+          - "modules_local"
+          - "pipeline"
           - "pipeline"
         shard: [1, 2, 3, 4, 5]
     steps:
@@ -61,23 +61,23 @@ jobs:
         run: |
           conda install -c bioconda nf-test
 
-      - name: "Run ${{ matrix.filter }} tests (changed) | ${{ matrix.shard }}/${{ env.NFT_MAX_SHARDS }}"
+      - name: "Run ${{ matrix.tags }} tests (changed) | ${{ matrix.shard }}/${{ env.NFT_MAX_SHARDS }}"
         if: ${{ env.SOURCE_BRANCH != 'master' }}
         run: |
           $CONDA/bin/nf-test test \
             --ci \
             --changed-since HEAD^ \
             --shard ${{ matrix.shard }}/${{ env.NFT_MAX_SHARDS }} \
-            --filter ${{ matrix.filter }} \
+            --tag ${{ matrix.tags }} \
             --junitxml=default.xml
 
-      - name: "Run ${{ matrix.filter }} tests (all) | ${{ matrix.shard }}/${{ env.NFT_MAX_SHARDS }}"
+      - name: "Run ${{ matrix.tags }} tests (all) | ${{ matrix.shard }}/${{ env.NFT_MAX_SHARDS }}"
         if: ${{ env.SOURCE_BRANCH == 'master' }}
         run: |
           $CONDA/bin/nf-test test \
             --ci \
             --shard ${{ matrix.shard }}/${{ env.NFT_MAX_SHARDS }} \
-            --filter ${{ matrix.filter }} \
+            --tag ${{ matrix.tags }} \
             --junitxml=default.xml
 
       - name: Publish Test Report

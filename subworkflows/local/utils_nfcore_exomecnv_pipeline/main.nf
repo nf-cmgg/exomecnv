@@ -74,7 +74,7 @@ workflow PIPELINE_INITIALISATION {
 
     def pools = [:]
     def inputList = samplesheetToList(input, "${projectDir}/assets/schema_input.json")
-    inputList.each { meta, _cram, _crai, vcf, _tbi ->
+    inputList.each { meta, _cram, _crai, _bed, _bed_index, vcf, _vcf_index ->
         // Don't account for inputs that have a VCF file
         if (vcf) { return }
 
@@ -93,16 +93,12 @@ workflow PIPELINE_INITIALISATION {
 
     Channel
         .fromList(inputList)
-        .map { meta, cram, crai, vcf, tbi ->
-            if (vcf) {
-                return [ meta, cram, crai, vcf, tbi ]
-            } else {
-                def new_meta = meta + [
-                    samples:pools[meta.batch].samples.join(","),
-                    families:pools[meta.batch].families.join(",")
-                ]
-                return [ new_meta, cram, crai, vcf, tbi ]
-            }
+        .map { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
+            def new_meta = meta + [
+                samples:pools[meta.batch].samples.join(","),
+                families:pools[meta.batch].families.join(",")
+            ]
+            return [ new_meta, cram, crai, bed, bed_index, vcf, vcf_index ]
         }
         .set { ch_samplesheet }
 

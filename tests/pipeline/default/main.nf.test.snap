@@ -1,33 +1,25 @@
 {
     "default": {
         "content": [
-            1,
+            0,
             {
                 "Workflow": {
                     "nf-cmgg/exomecnv": "v1.3.1dev"
                 }
             },
             [
-                "multiqc",
-                "multiqc/multiqc_data",
-                "multiqc/multiqc_data/multiqc.log",
-                "multiqc/multiqc_data/multiqc_citations.txt",
-                "multiqc/multiqc_data/multiqc_data.json",
-                "multiqc/multiqc_data/multiqc_software_versions.txt",
-                "multiqc/multiqc_data/multiqc_sources.txt",
-                "multiqc/multiqc_report.html",
                 "pipeline_info",
                 "pipeline_info/nf_core_pipeline_software_mqc_versions.yml",
                 "samplesheet.csv"
             ],
             [
-                "samplesheet.csv:md5,c759d9162a7bf9ad1d3eba088ecd46bf"
+                "samplesheet.csv:md5,815bb5477f2ef2b34e9540e001aeeeb1"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.5"
+            "nextflow": "25.04.4"
         },
-        "timestamp": "2025-05-07T13:40:50.993838"
+        "timestamp": "2025-06-30T11:43:17.970028"
     }
 }

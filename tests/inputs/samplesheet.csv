@@ -1,4 +1,4 @@
-sample,batch,family,cram,crai,vcf,tbi
+sample,batch,family,cram,crai
 Sample1,prep_M,Fam1,https://raw.githubusercontent.com/nf-cmgg/test-datasets/exomecnv/data/genomics/homo_sapiens/illumina/cram/Sample1.cram,https://raw.githubusercontent.com/nf-cmgg/test-datasets/exomecnv/data/genomics/homo_sapiens/illumina/cram/Sample1.cram.crai
 Sample2,prep_M,Fam2,https://raw.githubusercontent.com/nf-cmgg/test-datasets/exomecnv/data/genomics/homo_sapiens/illumina/cram/Sample2.cram,https://raw.githubusercontent.com/nf-cmgg/test-datasets/exomecnv/data/genomics/homo_sapiens/illumina/cram/Sample2.cram.crai
 Sample3,prep_M,Fam3,https://raw.githubusercontent.com/nf-cmgg/test-datasets/exomecnv/data/genomics/homo_sapiens/illumina/cram/Sample3.cram,https://raw.githubusercontent.com/nf-cmgg/test-datasets/exomecnv/data/genomics/homo_sapiens/illumina/cram/Sample3.cram.crai
