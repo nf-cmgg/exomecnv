@@ -4,52 +4,49 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { CUSTOM_MERGECOUNTS                } from '../../../modules/local/custom/mergecounts/main'
-include { EXOMEDEPTH_CALL                   } from '../../../modules/local/exomedepth/call/main'
-include { CUSTOM_MERGECNV                   } from '../../../modules/local/custom/mergecnv/main'
-include { BEDGOVCF                          } from '../../../modules/nf-core/bedgovcf/main'
-include { CUSTOM_REFORMATCOUNTS             } from '../../../modules/local/custom/reformatcounts/main'
-include { MOSDEPTH                          } from '../../../modules/nf-core/mosdepth/main'
+include { BEDGOVCF              } from '../../../modules/nf-core/bedgovcf/main'
+include { BEDTOOLS_MAP          } from '../../../modules/nf-core/bedtools/map/main'
+include { CUSTOM_MERGECNV       } from '../../../modules/local/custom/mergecnv/main'
+include { CUSTOM_MERGECOUNTS    } from '../../../modules/local/custom/mergecounts/main'
+include { CUSTOM_REFORMATCOUNTS } from '../../../modules/local/custom/reformatcounts/main'
+include { EXOMEDEPTH_CALL       } from '../../../modules/local/exomedepth/call/main'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN EXOMEDEPTH WORKFLOW
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-workflow CRAM_CNV_EXOMEDEPTH {
+workflow CNV_EXOMEDEPTH {
 
     take:
-    ch_crams    // meta, cram, crai
-    ch_bed     // meta, bed
-    chromosome // string
-    ch_fasta   // meta, fasta
-    ch_fai     // meta, fai
+    ch_perbase  // meta, bed, index
+    ch_roi      // meta, bed
+    ch_fai      // meta, path
 
     main:
     def ch_versions = Channel.empty()
-
-    //MODULE: Count autosomal reads per sample (count file for each sample)
-
-    def ch_count_input = ch_crams.combine(ch_bed.map{ meta, bed -> bed})
-        .map { meta, cram, crai, bed ->
+    def ch_count_input = ch_perbase.combine(ch_roi.map{ meta, bed -> ["chromosome": meta.id , "bed": bed]})
+        .map { meta, perbase, _index, roi ->
+            def chromosome = roi.chromosome
+            def bed = roi.bed
             def new_meta = meta + [chromosome:chromosome]
-            [ new_meta, cram, crai, bed ]
+            return [ new_meta, perbase, bed ]
         }
 
-
-    MOSDEPTH (
+    // Calculate the mean coverage from the per-base coverage files for the exons in the ROI
+    BEDTOOLS_MAP (
         ch_count_input,
-        ch_fasta,
+        ch_fai
     )
+    ch_versions = ch_versions.mix(BEDTOOLS_MAP.out.versions.first())
 
-    ch_versions = ch_versions.mix(MOSDEPTH.out.versions.first())
+    // Group the mapped coverage files by batch
 
     //MODULE: Group counts per batch (count file for each batch)
-    def ch_grouped_counts = MOSDEPTH.out.regions_bed
-
-
     CUSTOM_REFORMATCOUNTS (
-        ch_grouped_counts
+        ch_count_input.map { meta, cram, crai, bed ->
+            [ meta, cram, crai ]
+        }
     )
     def ch_grouped_counts_header = CUSTOM_REFORMATCOUNTS.out.header
         .map { meta, tsv ->
@@ -64,8 +61,6 @@ workflow CRAM_CNV_EXOMEDEPTH {
 
     ch_versions = ch_versions.mix(CUSTOM_MERGECOUNTS.out.versions.first())
 
-    //MODULE: CNV call per sample (file for each sample)
-
     def ch_counts = CUSTOM_MERGECOUNTS.out.merge
         .map { meta, txt ->
             [meta, txt, meta.samples.tokenize(","), meta.samples, meta.families]
@@ -78,7 +73,7 @@ workflow CRAM_CNV_EXOMEDEPTH {
 
     EXOMEDEPTH_CALL(
         ch_counts,
-        ch_bed
+        ch_roi
     )
     ch_versions = ch_versions.mix(EXOMEDEPTH_CALL.out.versions.first())
 

@@ -13,6 +13,14 @@
                         ],
                         "patch": "modules/nf-core/bedgovcf/bedgovcf.diff"
                     },
+                    "bedtools/map": {
+                        "branch": "master",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
+                        "installed_by": [
+                            "modules"
+                        ],
+                        "patch": "modules/nf-core/bedtools/map/bedtools-map.diff"
+                    },
                     "ensemblvep/vep": {
                         "branch": "master",
                         "git_sha": "7452092e1a296442f2989bff9801797f28c28aaf",
@@ -26,7 +34,8 @@
                         "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": [
                             "modules"
-                        ]
+                        ],
+                        "patch": "modules/nf-core/mosdepth/mosdepth.diff"
                     },
                     "multiqc": {
                         "branch": "master",

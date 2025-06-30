@@ -4,21 +4,21 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { MULTIQC                } from '../modules/nf-core/multiqc/main'
-include { paramsSummaryMap       } from 'plugin/nf-schema'
-include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { paramsSummaryMap       } from 'plugin/nf-schema'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
 // Modules
 include { TABIX_TABIX       } from '../modules/nf-core/tabix/tabix/main'
+include { MULTIQC           } from '../modules/nf-core/multiqc/main'
+include { MOSDEPTH          } from '../modules/nf-core/mosdepth/main.nf'
 include { CUSTOM_MERGECNV   } from '../modules/local/custom/mergecnv/main.nf'
 include { BEDGOVCF          } from '../modules/nf-core/bedgovcf/main.nf'
 
 // Subworkflows
-include { CRAM_CNV_EXOMEDEPTH as CRAM_CNV_EXOMEDEPTH_X      } from '../subworkflows/local/cram_cnv_exomedepth/main'
-include { CRAM_CNV_EXOMEDEPTH as CRAM_CNV_EXOMEDEPTH_AUTO   } from '../subworkflows/local/cram_cnv_exomedepth/main'
-include { VCF_ANNOTATE_VEP                                  } from '../subworkflows/local/vcf_annotate_vep/main'
+include { CNV_EXOMEDEPTH    } from '../subworkflows/local/cnv_exomedepth/main'
+include { VCF_ANNOTATE_VEP  } from '../subworkflows/local/vcf_annotate_vep/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,13 +71,10 @@ workflow EXOMECNV {
         }
         .collect()
 
-    def ch_roi_auto = Channel.fromPath(roi_auto)
-        .map{ bed -> [[id:"autosomal"], bed]}
-        .collect()
-
-    def ch_roi_x    = Channel.fromPath(roi_chrx)
-        .map{ bed -> [[id:"chrX"], bed]}
-        .collect()
+    def ch_roi = Channel.fromList([
+        [[id: "autosomal"], file(roi_auto, checkIfExists:true)],
+        [[id: "chrX"], file(roi_chrx, checkIfExists:true)]
+    ])
 
     def ch_vep_cache = Channel.fromPath(vep_cache).collect()
 
@@ -93,33 +90,32 @@ workflow EXOMECNV {
                 return [ meta, cram, crai ]
         }
 
-    // ExomeDepth
-    def ch_exomedepth_vcf = Channel.empty()
+    // Generate the raw per-base counts for samples that do not have a VCF or BED file
+    MOSDEPTH(
+        ch_input.cram.map { meta, cram, crai ->
+            return [meta, cram, crai, []]
+        },
+        ch_fasta.join(ch_fai, failOnMismatch:true, failOnDuplicate:true)
+    )
+    ch_versions = ch_versions.mix(MOSDEPTH.out.versions.first())
+
+
+    def ch_cnv_vcf = Channel.empty()
+
     if (exomedepth) {
+        // Generate the ExomeDepth subworkflow input
+        ch_perbase = MOSDEPTH.out.per_base_bed
+            .join(MOSDEPTH.out.per_base_csi, failOnMismatch:true, failOnDuplicate:true)
+            .mix(ch_input.bed)
 
-        CRAM_CNV_EXOMEDEPTH_X(
-            ch_input.cram,
-            ch_roi_x,
-            "chrX",
-            ch_fasta,
-            ch_fai
+        CNV_EXOMEDEPTH(
+            ch_perbase,
+            ch_roi
         )
-        ch_versions = ch_versions.mix(CRAM_CNV_EXOMEDEPTH_X.out.versions)
-
-        CRAM_CNV_EXOMEDEPTH_AUTO(
-            ch_input.cram,
-            ch_roi_auto,
-            "autosomal",
-            ch_fasta,
-            ch_fai
-        )
-        ch_versions = ch_versions.mix(CRAM_CNV_EXOMEDEPTH_AUTO.out.versions)
-
-        def ch_merge_input = CRAM_CNV_EXOMEDEPTH_X.out.cnv
-            .join(CRAM_CNV_EXOMEDEPTH_AUTO.out.cnv)
+        ch_versions = ch_versions.mix(CNV_EXOMEDEPTH.out.versions)
 
         CUSTOM_MERGECNV(
-            ch_merge_input
+            CNV_EXOMEDEPTH.out.cnv
         )
         ch_versions = ch_versions.mix(CUSTOM_MERGECNV.out.versions.first())
 
@@ -135,18 +131,17 @@ workflow EXOMECNV {
         ch_versions = ch_versions.mix(BEDGOVCF.out.versions.first())
 
         // // Index files for VCF
-
         TABIX_TABIX(
             BEDGOVCF.out.vcf
         )
         ch_versions = ch_versions.mix(TABIX_TABIX.out.versions)
 
-        ch_exomedepth_vcf = BEDGOVCF.out.vcf
+        ch_cnv_vcf = BEDGOVCF.out.vcf
             .join(TABIX_TABIX.out.tbi, failOnMismatch:true, failOnDuplicate:true)
     }
 
     // Annotate exomedepth VCFs and input VCFs
-    def ch_annotate_input = ch_exomedepth_vcf.mix(ch_input.vcf)
+    def ch_annotate_input = ch_cnv_vcf.mix(ch_input.vcf)
     if(annotate) {
         VCF_ANNOTATE_VEP(
             ch_annotate_input,
