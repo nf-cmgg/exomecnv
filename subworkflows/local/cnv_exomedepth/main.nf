@@ -40,13 +40,10 @@ workflow CNV_EXOMEDEPTH {
     )
     ch_versions = ch_versions.mix(BEDTOOLS_MAP.out.versions.first())
 
-    // Group the mapped coverage files by batch
 
     //MODULE: Group counts per batch (count file for each batch)
     CUSTOM_REFORMATCOUNTS (
-        ch_count_input.map { meta, cram, crai, bed ->
-            [ meta, cram, crai ]
-        }
+        BEDTOOLS_MAP.out.mapped
     )
     def ch_grouped_counts_header = CUSTOM_REFORMATCOUNTS.out.header
         .map { meta, tsv ->

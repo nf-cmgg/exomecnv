@@ -10,6 +10,7 @@ include { paramsSummaryMap       } from 'plugin/nf-schema'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
 // Modules
+include { BEDTOOLS_MERGE } from '../modules/nf-core/bedtools/merge/main'
 include { TABIX_TABIX       } from '../modules/nf-core/tabix/tabix/main'
 include { MULTIQC           } from '../modules/nf-core/multiqc/main'
 include { MOSDEPTH          } from '../modules/nf-core/mosdepth/main.nf'
@@ -36,6 +37,7 @@ workflow EXOMECNV {
     fai
     roi_auto
     roi_chrx
+    roi_merged
     vep_cache
     bedgovcf_yaml
     multiqc_config
@@ -56,26 +58,11 @@ workflow EXOMECNV {
     main:
     def ch_versions = Channel.empty()
     def ch_multiqc_files = Channel.empty()
-
-    def ch_fasta = Channel.fromPath(fasta)
-        .map{ path ->
-            def new_meta = [id:"reference"]
-            [new_meta, path]
-        }
-        .collect()
-
-    def ch_fai = Channel.fromPath(fai)
-        .map{ path ->
-            def new_meta = [id:"reference"]
-            [new_meta, path]
-        }
-        .collect()
-
-    def ch_roi = Channel.fromList([
-        [[id: "autosomal"], file(roi_auto, checkIfExists:true)],
-        [[id: "chrX"], file(roi_chrx, checkIfExists:true)]
-    ])
-
+    def ch_fasta = Channel.value([ [id: "reference"], file(fasta, checkIfExists:true) ])
+    def ch_fai = Channel.value([[id: "reference"], file(fai, checkIfExists:true) ])
+    def ch_roi_x = Channel.value([[[id: "chrX"], file(roi_chrx, checkIfExists:true)]])
+    def ch_roi_auto = Channel.value([[id: "autosomal"], file(roi_auto, checkIfExists:true)])
+    def ch_roi_merged = roi_merged ? Channel.value([[id: "merged"], file(roi_merged, checkIfExists:true)]) : Channel.empty()
     def ch_vep_cache = Channel.fromPath(vep_cache).collect()
 
     def ch_input = ch_samplesheet.branch { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
@@ -90,18 +77,22 @@ workflow EXOMECNV {
                 return [ meta, cram, crai ]
         }
 
+    ch_input.vcf.dump (tag: "VCF INPUT:", pretty:true)
+    ch_input.bed.dump (tag: "BED INPUT:", pretty:true)
+    ch_input.cram.dump(tag: "BAM/CRAM INPUT:", pretty:true)
+
     // Generate the raw per-base counts for samples that do not have a VCF or BED file
     MOSDEPTH(
         ch_input.cram.map { meta, cram, crai ->
             return [meta, cram, crai, []]
         },
-        ch_fasta.join(ch_fai, failOnMismatch:true, failOnDuplicate:true)
+        ch_fasta.join(ch_fai, failOnMismatch:true, failOnDuplicate:true).collect()
     )
     ch_versions = ch_versions.mix(MOSDEPTH.out.versions.first())
+    MOSDEPTH.out.per_base_bed.dump(tag: "MOSDEPTH PER BASE BED:", pretty:true)
 
 
     def ch_cnv_vcf = Channel.empty()
-
     if (exomedepth) {
         // Generate the ExomeDepth subworkflow input
         ch_perbase = MOSDEPTH.out.per_base_bed
@@ -110,34 +101,34 @@ workflow EXOMECNV {
 
         CNV_EXOMEDEPTH(
             ch_perbase,
-            ch_roi
+            ch_roi_merged,
+            ch_fai
         )
         ch_versions = ch_versions.mix(CNV_EXOMEDEPTH.out.versions)
 
-        CUSTOM_MERGECNV(
-            CNV_EXOMEDEPTH.out.cnv
-        )
-        ch_versions = ch_versions.mix(CUSTOM_MERGECNV.out.versions.first())
+        // CUSTOM_MERGECNV(
+        //     CNV_EXOMEDEPTH.out.cnv
+        // )
+        // ch_versions = ch_versions.mix(CUSTOM_MERGECNV.out.versions.first())
 
-        def bedgovcf_input = CUSTOM_MERGECNV.out.merge
-            .map{ meta, bed ->
-                [meta, bed, file(bedgovcf_yaml, checkIfExists:true)]
-            }
+        // def bedgovcf_input = CUSTOM_MERGECNV.out.merge
+        //     .map{ meta, bed ->
+        //         [meta, bed, file(bedgovcf_yaml, checkIfExists:true)]
+        //     }
 
-        BEDGOVCF(
-            bedgovcf_input,
-            ch_fai
-        )
-        ch_versions = ch_versions.mix(BEDGOVCF.out.versions.first())
+        // BEDGOVCF(
+        //     bedgovcf_input,
+        //     ch_fai
+        // )
+        // ch_versions = ch_versions.mix(BEDGOVCF.out.versions.first())
 
-        // // Index files for VCF
-        TABIX_TABIX(
-            BEDGOVCF.out.vcf
-        )
-        ch_versions = ch_versions.mix(TABIX_TABIX.out.versions)
+        // // // Index files for VCF
+        // TABIX_TABIX(
+        //     BEDGOVCF.out.vcf
+        // )
+        // ch_versions = ch_versions.mix(TABIX_TABIX.out.versions)
 
-        ch_cnv_vcf = BEDGOVCF.out.vcf
-            .join(TABIX_TABIX.out.tbi, failOnMismatch:true, failOnDuplicate:true)
+        // ch_cnv_vcf = BEDGOVCF.out.vcf.join(TABIX_TABIX.out.tbi, failOnMismatch:true, failOnDuplicate:true)
     }
 
     // Annotate exomedepth VCFs and input VCFs
@@ -172,14 +163,14 @@ workflow EXOMECNV {
         ch_multiqc_files                      = ch_multiqc_files.mix(ch_collated_versions)
         ch_multiqc_files                      = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: false))
 
-    MULTIQC (
-        ch_multiqc_files.collect(),
-        ch_multiqc_config.toList(),
-        ch_multiqc_custom_config.toList(),
-        ch_multiqc_logo.toList(),
-        [],
-        []
-    )
+    // MULTIQC (
+    //     ch_multiqc_files.collect(),
+    //     ch_multiqc_config.toList(),
+    //     ch_multiqc_custom_config.toList(),
+    //     ch_multiqc_logo.toList(),
+    //     [],
+    //     []
+    // )
 
     emit:
     multiqc_report = Channel.empty()    // channel: /path/to/multiqc_report.html

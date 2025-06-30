@@ -276,9 +276,20 @@
                     "pattern": "^\\S+\\.bed$",
                     "mimetype": "text/plain",
                     "exists": true
+                },
+                "roi": {
+                    "type": "string",
+                    "description": "Path to the default merged ROI (regions of interest) BED file to be used for CNV analysis",
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.bed$",
+                    "mimetype": "text/plain",
+                    "exists": true
                 }
             },
-            "required": ["roi_auto", "roi_chrx"]
+            "AnyOf": [
+                {"required": ["roi_auto", "roi_chrx"]},
+                {"required": ["roi"]}
+            ]
         },
         "vep_parameters": {
             "title": "VEP parameters",

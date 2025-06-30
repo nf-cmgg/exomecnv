@@ -66,6 +66,7 @@ workflow {
         params.fai,
         params.roi_auto,
         params.roi_chrx,
+        params.roi,
         params.vep_cache,
         "${projectDir}/assets/exomedepth.yaml",
         params.multiqc_config,
