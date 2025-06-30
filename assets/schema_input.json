@@ -39,6 +39,20 @@
                 "format": "file-path",
                 "exists": true
             },
+            "bed": {
+                "type": "string",
+                "pattern": "^\\S+\\.(bed|bed.gz)$",
+                "errorMessage": "Per base BED file can be provided, cannot contain spaces and must have extension '.bed' or '.bed.gz'. This file will supercede usage of the bam/cram input.",
+                "format": "file-path",
+                "exists": true
+            },
+            "bed_index": {
+                "type": "string",
+                "pattern": "^\\S+\\.(bed.gz.tbi|bed.gz.csi)$",
+                "errorMessage": "index of BED file is optional but must be provided when using a bed.gz file",
+                "format": "file-path",
+                "exists": true
+            },
             "vcf": {
                 "type": "string",
                 "pattern": "^\\S+\\.(vcf|vcf.gz)$",
@@ -46,15 +60,30 @@
                 "format": "file-path",
                 "exists": true
             },
-            "tbi": {
+            "vcf_index": {
                 "type": "string",
-                "pattern": "^\\S+\\.(vcf.gz.tbi)$",
+                "pattern": "^\\S+\\.(vcf.gz.tbi|vcf.gz.csi)$",
                 "errorMessage": "index of VCF file is optional but must be provided when only annotating",
                 "format": "file-path",
                 "exists": true
             }
         },
-        "required": ["sample", "batch", "family", "cram"]
+        "anyOf": [
+            {"required": [
+                    "sample",
+                    "batch",
+                    "family",
+                    "cram"
+                ]
+            },
+            {"required": [
+                    "sample",
+                    "batch",
+                    "family",
+                    "bed"
+                ]
+            }
+        ]
     },
     "uniqueEntries": ["sample"]
 }

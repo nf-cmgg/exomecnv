@@ -96,11 +96,6 @@ workflow {
         params.hook_url,
         EXOMECNV.out.multiqc_report
     )
-    //
-    // WORKFLOW: Run pipeline
-    //
-
-
 }
 
 /*

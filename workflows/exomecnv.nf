@@ -82,10 +82,15 @@ workflow EXOMECNV {
 
     def ch_vep_cache = Channel.fromPath(vep_cache).collect()
 
-    def ch_input = ch_samplesheet.branch { meta, cram, crai, vcf, tbi ->
+    def ch_input = ch_samplesheet.branch { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
+            // return a channel with vcf for annotation
             vcf: vcf
-                return [ meta, vcf, tbi ]
-            no_vcf: !vcf
+                return [ meta, vcf, vcf_index ]
+            // return a channel with per-base beds, skipping bam/cram conversion
+            bed: bed
+                return [ meta, bed, bed_index ]
+            // return a channel with bam/cram files when no vcf or bed is provided
+            cram: !vcf && !bed
                 return [ meta, cram, crai ]
         }
 
@@ -94,7 +99,7 @@ workflow EXOMECNV {
     if (exomedepth) {
 
         CRAM_CNV_EXOMEDEPTH_X(
-            ch_input.no_vcf,
+            ch_input.cram,
             ch_roi_x,
             "chrX",
             ch_fasta,
@@ -103,7 +108,7 @@ workflow EXOMECNV {
         ch_versions = ch_versions.mix(CRAM_CNV_EXOMEDEPTH_X.out.versions)
 
         CRAM_CNV_EXOMEDEPTH_AUTO(
-            ch_input.no_vcf,
+            ch_input.cram,
             ch_roi_auto,
             "autosomal",
             ch_fasta,
@@ -183,8 +188,8 @@ workflow EXOMECNV {
     )
 
     emit:
-    multiqc_report = Channel.empty() // channel: /path/to/multiqc_report.html
-    versions       = ch_versions                 // channel: [ path(versions.yml) ]
+    multiqc_report = Channel.empty()    // channel: /path/to/multiqc_report.html
+    versions       = ch_versions        // channel: [ path(versions.yml) ]
 }
 
 /*
