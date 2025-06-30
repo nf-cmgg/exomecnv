@@ -1,4 +1,4 @@
-name: exomedepth_cnv_call
+name: exomedepth_call
 channels:
   - conda-forge
   - bioconda

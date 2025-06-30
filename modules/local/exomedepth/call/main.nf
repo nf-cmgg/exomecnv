@@ -17,7 +17,7 @@ process EXOMEDEPTH_CALL {
 
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def VERSION = '1.1.16'
+    def VERSION = '1.1.18'
 
     """
     ExomeDepth_cnv_calling.R \\
@@ -37,7 +37,7 @@ process EXOMEDEPTH_CALL {
 
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def VERSION = '1.1.16'
+    def VERSION = '1.1.18'
     """
     touch ${prefix}.txt
 
