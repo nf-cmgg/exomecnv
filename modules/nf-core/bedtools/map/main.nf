@@ -22,7 +22,7 @@ process BEDTOOLS_MAP {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     // Check if intervals1 is gzipped and set the extension accordingly
-    extension = !intervals1.endsWith(".gz") ? intervals1.getExtension() : intervals1.replace('.gz', '').getExtension()
+    extension = intervals1.endsWith(".gz") ? intervals1.replace('.gz', '').getExtension() : intervals1.getExtension()
     extension += ".gz"
     def sizes = chrom_sizes ? "-g ${chrom_sizes}" : ''
     if ("$intervals1" == "${prefix}.${extension}" ||

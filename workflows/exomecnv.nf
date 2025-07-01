@@ -10,7 +10,6 @@ include { paramsSummaryMap       } from 'plugin/nf-schema'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
 // Modules
-include { BEDTOOLS_MERGE } from '../modules/nf-core/bedtools/merge/main'
 include { TABIX_TABIX       } from '../modules/nf-core/tabix/tabix/main'
 include { MULTIQC           } from '../modules/nf-core/multiqc/main'
 include { MOSDEPTH          } from '../modules/nf-core/mosdepth/main.nf'
@@ -106,29 +105,21 @@ workflow EXOMECNV {
         )
         ch_versions = ch_versions.mix(CNV_EXOMEDEPTH.out.versions)
 
-        // CUSTOM_MERGECNV(
-        //     CNV_EXOMEDEPTH.out.cnv
-        // )
-        // ch_versions = ch_versions.mix(CUSTOM_MERGECNV.out.versions.first())
+        // Convert bed files to VCF format
+        BEDGOVCF(
+            CNV_EXOMEDEPTH.out.cnv.map{ meta, bed -> [meta, bed, file(bedgovcf_yaml, checkIfExists:true)]},
+            ch_fai
+        )
+        ch_versions = ch_versions.mix(BEDGOVCF.out.versions.first())
 
-        // def bedgovcf_input = CUSTOM_MERGECNV.out.merge
-        //     .map{ meta, bed ->
-        //         [meta, bed, file(bedgovcf_yaml, checkIfExists:true)]
-        //     }
+        // Index files for VCF
+        TABIX_TABIX(
+            BEDGOVCF.out.vcf
+        )
+        ch_versions = ch_versions.mix(TABIX_TABIX.out.versions)
 
-        // BEDGOVCF(
-        //     bedgovcf_input,
-        //     ch_fai
-        // )
-        // ch_versions = ch_versions.mix(BEDGOVCF.out.versions.first())
-
-        // // // Index files for VCF
-        // TABIX_TABIX(
-        //     BEDGOVCF.out.vcf
-        // )
-        // ch_versions = ch_versions.mix(TABIX_TABIX.out.versions)
-
-        // ch_cnv_vcf = BEDGOVCF.out.vcf.join(TABIX_TABIX.out.tbi, failOnMismatch:true, failOnDuplicate:true)
+        // Add the exome depth VCFs to the channel
+        ch_cnv_vcf.mix(BEDGOVCF.out.vcf.join(TABIX_TABIX.out.tbi, failOnMismatch:true, failOnDuplicate:true))
     }
 
     // Annotate exomedepth VCFs and input VCFs
@@ -163,14 +154,14 @@ workflow EXOMECNV {
         ch_multiqc_files                      = ch_multiqc_files.mix(ch_collated_versions)
         ch_multiqc_files                      = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: false))
 
-    // MULTIQC (
-    //     ch_multiqc_files.collect(),
-    //     ch_multiqc_config.toList(),
-    //     ch_multiqc_custom_config.toList(),
-    //     ch_multiqc_logo.toList(),
-    //     [],
-    //     []
-    // )
+    MULTIQC (
+        ch_multiqc_files.collect(),
+        ch_multiqc_config.toList(),
+        ch_multiqc_custom_config.toList(),
+        ch_multiqc_logo.toList(),
+        [],
+        []
+    )
 
     emit:
     multiqc_report = Channel.empty()    // channel: /path/to/multiqc_report.html

@@ -30,7 +30,7 @@ workflow CNV_EXOMEDEPTH {
             def chromosome = roi.chromosome
             def bed = roi.bed
             def new_meta = meta + [chromosome:chromosome]
-            return [ new_meta, perbase, bed ]
+            return [ new_meta, bed, perbase]
         }
 
     // Calculate the mean coverage from the per-base coverage files for the exons in the ROI
