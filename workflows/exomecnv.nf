@@ -10,11 +10,11 @@ include { paramsSummaryMap       } from 'plugin/nf-schema'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
 // Modules
-include { TABIX_TABIX       } from '../modules/nf-core/tabix/tabix/main'
 include { MULTIQC           } from '../modules/nf-core/multiqc/main'
 include { MOSDEPTH          } from '../modules/nf-core/mosdepth/main.nf'
 include { CUSTOM_MERGECNV   } from '../modules/local/custom/mergecnv/main.nf'
 include { BEDGOVCF          } from '../modules/nf-core/bedgovcf/main.nf'
+include { BCFTOOLS_SORT     } from '../modules/nf-core/bcftools/sort/main.nf'
 
 // Subworkflows
 include { CNV_EXOMEDEPTH    } from '../subworkflows/local/cnv_exomedepth/main'
@@ -112,14 +112,13 @@ workflow EXOMECNV {
         )
         ch_versions = ch_versions.mix(BEDGOVCF.out.versions.first())
 
-        // Index files for VCF
-        TABIX_TABIX(
+        BCFTOOLS_SORT(
             BEDGOVCF.out.vcf
         )
-        ch_versions = ch_versions.mix(TABIX_TABIX.out.versions)
+        ch_versions = ch_versions.mix(BCFTOOLS_SORT.out.versions)
 
         // Add the exome depth VCFs to the channel
-        ch_cnv_vcf.mix(BEDGOVCF.out.vcf.join(TABIX_TABIX.out.tbi, failOnMismatch:true, failOnDuplicate:true))
+        ch_cnv_vcf.mix(BCFTOOLS_SORT.out.vcf.join(BCFTOOLS_SORT.out.tbi, failOnMismatch:true, failOnDuplicate:true))
     }
 
     // Annotate exomedepth VCFs and input VCFs
