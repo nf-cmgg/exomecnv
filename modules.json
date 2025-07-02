@@ -25,7 +25,7 @@
                     "ensemblvep/vep": {
                         "branch": "master",
                         "git_sha": "7452092e1a296442f2989bff9801797f28c28aaf",
-                        "installed_by": ["modules"],
+                        "installed_by": ["modules", "vcf_annotate_ensemblvep"],
                         "patch": "modules/nf-core/ensemblvep/vep/ensemblvep-vep.diff"
                     },
                     "mosdepth": {
@@ -43,7 +43,7 @@
                     "tabix/tabix": {
                         "branch": "master",
                         "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules", "vcf_annotate_ensemblvep"]
                     }
                 }
             },
@@ -51,17 +51,22 @@
                 "nf-core": {
                     "utils_nextflow_pipeline": {
                         "branch": "master",
-                        "git_sha": "56372688d8979092cafbe0c5c3895b491166ca1c",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfcore_pipeline": {
                         "branch": "master",
-                        "git_sha": "1b6b9a3338d011367137808b49b923515080e3ba",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfschema_plugin": {
                         "branch": "master",
                         "git_sha": "2fd2cd6d0e7b273747f32e465fdc6bcc3ae0814e",
+                        "installed_by": ["subworkflows"]
+                    },
+                    "vcf_annotate_ensemblvep": {
+                        "branch": "master",
+                        "git_sha": "a96f42708b631dfc736f48980dbf2be418dd784b",
                         "installed_by": ["subworkflows"]
                     }
                 }

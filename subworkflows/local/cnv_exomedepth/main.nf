@@ -4,9 +4,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { BEDGOVCF              } from '../../../modules/nf-core/bedgovcf/main'
 include { BEDTOOLS_MAP          } from '../../../modules/nf-core/bedtools/map/main'
-include { CUSTOM_MERGECNV       } from '../../../modules/local/custom/mergecnv/main'
 include { CUSTOM_MERGECOUNTS    } from '../../../modules/local/custom/mergecounts/main'
 include { CUSTOM_REFORMATCOUNTS } from '../../../modules/local/custom/reformatcounts/main'
 include { EXOMEDEPTH_CALL       } from '../../../modules/local/exomedepth/call/main'
@@ -45,6 +43,7 @@ workflow CNV_EXOMEDEPTH {
     CUSTOM_REFORMATCOUNTS (
         BEDTOOLS_MAP.out.mapped
     )
+    ch_versions = ch_versions.mix(CUSTOM_REFORMATCOUNTS.out.versions.first())
     def ch_grouped_counts_header = CUSTOM_REFORMATCOUNTS.out.header
         .map { meta, tsv ->
             def new_meta = meta + [id:meta.batch] - meta.subMap("family")

@@ -17,9 +17,8 @@ include { BEDGOVCF          } from '../modules/nf-core/bedgovcf/main.nf'
 include { BCFTOOLS_SORT     } from '../modules/nf-core/bcftools/sort/main.nf'
 
 // Subworkflows
-include { CNV_EXOMEDEPTH    } from '../subworkflows/local/cnv_exomedepth/main'
-include { VCF_ANNOTATE_VEP  } from '../subworkflows/local/vcf_annotate_vep/main'
-
+include { CNV_EXOMEDEPTH            } from '../subworkflows/local/cnv_exomedepth/main'
+include { VCF_ANNOTATE_ENSEMBLVEP   } from '../subworkflows/nf-core/vcf_annotate_ensemblvep/main'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -59,8 +58,6 @@ workflow EXOMECNV {
     def ch_multiqc_files = Channel.empty()
     def ch_fasta = Channel.value([ [id: "reference"], file(fasta, checkIfExists:true) ])
     def ch_fai = Channel.value([[id: "reference"], file(fai, checkIfExists:true) ])
-    def ch_roi_x = Channel.value([[[id: "chrX"], file(roi_chrx, checkIfExists:true)]])
-    def ch_roi_auto = Channel.value([[id: "autosomal"], file(roi_auto, checkIfExists:true)])
     def ch_roi_merged = roi_merged ? Channel.value([[id: "merged"], file(roi_merged, checkIfExists:true)]) : Channel.empty()
     def ch_vep_cache = Channel.fromPath(vep_cache).collect()
 
@@ -125,13 +122,14 @@ workflow EXOMECNV {
 
     // Annotate exomedepth VCFs and input VCFs
     if(annotate) {
-        VCF_ANNOTATE_VEP(
+        VCF_ANNOTATE_ENSEMBLVEP(
             ch_cnv_vcf,
             ch_fasta,
-            ch_vep_cache,
             vep_assembly,
             species,
-            vep_cache_version
+            vep_cache_version,
+            ch_vep_cache,
+            []
         )
     }
 

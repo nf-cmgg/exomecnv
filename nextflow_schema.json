@@ -48,7 +48,7 @@
                 "annotate": {
                     "type": "boolean",
                     "description": "Option to annotate the ExomeDepth VCFs and input VCFs with VEP",
-                    "default": true,
+                    "default": false,
                     "fa_icon": "fas fa-magic",
                     "help_text": "If set to `true`, the pipeline will annotate the ExomeDepth VCFs and input VCFs with VEP. If set to `false`, the pipeline will not annotate the VCFs."
                 }
@@ -99,7 +99,7 @@
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
                     "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`.",
-                    "default": true
+                    "default": false
                 }
             },
             "required": ["fasta", "fai"]
