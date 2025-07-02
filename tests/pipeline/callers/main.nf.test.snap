@@ -1,236 +1,70 @@
 {
     "exomedepth_cram": {
         "content": [
-            94,
+            11,
             {
-                "BEDGOVCF": {
-                    "bedgovcf": "0.1.0"
-                },
-                "CUSTOM_MERGECNV": {
-                    "head": 9.3,
-                    "tail": 9.3,
-                    "sort": 9.3
-                },
-                "CUSTOM_MERGECOUNTS": {
-                    "paste": 9.3,
-                    "mv": 9.3,
-                    "cp": 9.3
-                },
-                "EXOMEDEPTH_CALL": {
-                    "ExomeDepth": "1.1.16",
-                    "R": "Rscript (R) version 4.3.1 (2023-06-16)"
-                },
                 "MOSDEPTH": {
                     "mosdepth": "0.3.10"
                 },
-                "TABIX_TABIX": {
-                    "tabix": 1.21
-                },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v1.3.1dev"
+                    "nf-cmgg/exomecnv": "v2.0-dev"
                 }
             },
             [
-                "exomedepth",
-                "exomedepth/cnv_call",
-                "exomedepth/cnv_call/Sample1.txt",
-                "exomedepth/cnv_call/Sample1.vcf.gz",
-                "exomedepth/cnv_call/Sample1.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample10.txt",
-                "exomedepth/cnv_call/Sample10.vcf.gz",
-                "exomedepth/cnv_call/Sample10.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample2.txt",
-                "exomedepth/cnv_call/Sample2.vcf.gz",
-                "exomedepth/cnv_call/Sample2.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample3.txt",
-                "exomedepth/cnv_call/Sample3.vcf.gz",
-                "exomedepth/cnv_call/Sample3.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample4.txt",
-                "exomedepth/cnv_call/Sample4.vcf.gz",
-                "exomedepth/cnv_call/Sample4.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample5.txt",
-                "exomedepth/cnv_call/Sample5.vcf.gz",
-                "exomedepth/cnv_call/Sample5.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample6.txt",
-                "exomedepth/cnv_call/Sample6.vcf.gz",
-                "exomedepth/cnv_call/Sample6.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample7.txt",
-                "exomedepth/cnv_call/Sample7.vcf.gz",
-                "exomedepth/cnv_call/Sample7.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample8.txt",
-                "exomedepth/cnv_call/Sample8.vcf.gz",
-                "exomedepth/cnv_call/Sample8.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample9.txt",
-                "exomedepth/cnv_call/Sample9.vcf.gz",
-                "exomedepth/cnv_call/Sample9.vcf.gz.tbi",
-                "exomedepth/counts",
-                "exomedepth/counts/prep_F.autosomal.txt",
-                "exomedepth/counts/prep_F.chrX.txt",
-                "exomedepth/counts/prep_M.autosomal.txt",
-                "exomedepth/counts/prep_M.chrX.txt",
+                "multiqc",
+                "multiqc/multiqc_data",
+                "multiqc/multiqc_data/multiqc.log",
+                "multiqc/multiqc_data/multiqc_citations.txt",
+                "multiqc/multiqc_data/multiqc_data.json",
+                "multiqc/multiqc_data/multiqc_software_versions.txt",
+                "multiqc/multiqc_data/multiqc_sources.txt",
+                "multiqc/multiqc_report.html",
                 "pipeline_info",
                 "pipeline_info/nf_core_pipeline_software_mqc_versions.yml",
                 "samplesheet.csv"
             ],
             [
-                "Sample1.txt:md5,87b00328fb2d8a139e824a3b20491141",
-                "Sample1.vcf.gz:md5,850a36fbb44a32ec85df424ac23a9d16",
-                "Sample1.vcf.gz.tbi:md5,c78054feb54ba70f016f170464d267ba",
-                "Sample10.txt:md5,ab14fc3d50a06417c3a78b5585f33821",
-                "Sample10.vcf.gz:md5,6cf5396846734057bbb9bd63ba1ad08a",
-                "Sample10.vcf.gz.tbi:md5,4cb176febbc8c26d717a6c6e67b9c905",
-                "Sample2.txt:md5,2976bc92a8898dccae91f4c48b1ba408",
-                "Sample2.vcf.gz:md5,236bc974f0c586c666b0688a7373e20f",
-                "Sample2.vcf.gz.tbi:md5,fe4261165b7531e3c21adc90918d0f78",
-                "Sample3.txt:md5,708f200a4ff7a2042db043153ede4a96",
-                "Sample3.vcf.gz:md5,029f754aba3d136c84a112123e730ccf",
-                "Sample3.vcf.gz.tbi:md5,5967f1ae800cfd6a7540817423bd4f21",
-                "Sample4.txt:md5,79254fecdcc924b0569c20b6f74f10b5",
-                "Sample4.vcf.gz:md5,b60c10d2b19bd3755f9d7d7b62c6fa51",
-                "Sample4.vcf.gz.tbi:md5,dd86267fa36a440bb89816a257f8c8ee",
-                "Sample5.txt:md5,0a57028c88b7c8dd84bf3e71124535d5",
-                "Sample5.vcf.gz:md5,7db658e85f56476764d55c3374e30d79",
-                "Sample5.vcf.gz.tbi:md5,6ab0f42cfc06efb932e5e32f0d82e838",
-                "Sample6.txt:md5,336b9c5d084e6621b5b3318df5f4f7ef",
-                "Sample6.vcf.gz:md5,62fd045b4416211161e7b08c7567425b",
-                "Sample6.vcf.gz.tbi:md5,e5ebae832f6214e96eedf816294dfc16",
-                "Sample7.txt:md5,d23e94e198d52705e83d1ed70808228e",
-                "Sample7.vcf.gz:md5,2976797e6b22972d9698425196e3efc9",
-                "Sample7.vcf.gz.tbi:md5,cadbf8e2bf4ee479a1b7cbc70f611bbb",
-                "Sample8.txt:md5,21f5b8655fde9ba03ada26e68d534863",
-                "Sample8.vcf.gz:md5,516d99f4394a15c53a36ca685f604e43",
-                "Sample8.vcf.gz.tbi:md5,7a72b84784f6f67164ce3dc5eb1f5843",
-                "Sample9.txt:md5,42af143a14bda01ed47bf7cce26d7da3",
-                "Sample9.vcf.gz:md5,a77d040d2605349d63ece68ca905efbd",
-                "Sample9.vcf.gz.tbi:md5,1b362fb03ab52409b044c97516600606",
-                "prep_F.autosomal.txt:md5,22e278e546bcf03f0b74de412700e29e",
-                "prep_F.chrX.txt:md5,eea46de1aa301fc26aad326c9eeacb09",
-                "prep_M.autosomal.txt:md5,7550fedab93afa2197cf0329ff158e85",
-                "prep_M.chrX.txt:md5,b6c11f33928e914d1f69a247aed91b37",
                 "samplesheet.csv:md5,815bb5477f2ef2b34e9540e001aeeeb1"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-30T11:25:41.853906"
+        "timestamp": "2025-07-02T11:43:19.645273"
     },
     "exomedepth_bam": {
         "content": [
-            94,
+            11,
             {
-                "BEDGOVCF": {
-                    "bedgovcf": "0.1.0"
-                },
-                "CUSTOM_MERGECNV": {
-                    "head": 9.3,
-                    "tail": 9.3,
-                    "sort": 9.3
-                },
-                "CUSTOM_MERGECOUNTS": {
-                    "paste": 9.3,
-                    "mv": 9.3,
-                    "cp": 9.3
-                },
-                "EXOMEDEPTH_CALL": {
-                    "ExomeDepth": "1.1.16",
-                    "R": "Rscript (R) version 4.3.1 (2023-06-16)"
-                },
                 "MOSDEPTH": {
                     "mosdepth": "0.3.10"
                 },
-                "TABIX_TABIX": {
-                    "tabix": 1.21
-                },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v1.3.1dev"
+                    "nf-cmgg/exomecnv": "v2.0-dev"
                 }
             },
             [
-                "exomedepth",
-                "exomedepth/cnv_call",
-                "exomedepth/cnv_call/Sample1.txt",
-                "exomedepth/cnv_call/Sample1.vcf.gz",
-                "exomedepth/cnv_call/Sample1.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample10.txt",
-                "exomedepth/cnv_call/Sample10.vcf.gz",
-                "exomedepth/cnv_call/Sample10.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample2.txt",
-                "exomedepth/cnv_call/Sample2.vcf.gz",
-                "exomedepth/cnv_call/Sample2.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample3.txt",
-                "exomedepth/cnv_call/Sample3.vcf.gz",
-                "exomedepth/cnv_call/Sample3.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample4.txt",
-                "exomedepth/cnv_call/Sample4.vcf.gz",
-                "exomedepth/cnv_call/Sample4.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample5.txt",
-                "exomedepth/cnv_call/Sample5.vcf.gz",
-                "exomedepth/cnv_call/Sample5.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample6.txt",
-                "exomedepth/cnv_call/Sample6.vcf.gz",
-                "exomedepth/cnv_call/Sample6.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample7.txt",
-                "exomedepth/cnv_call/Sample7.vcf.gz",
-                "exomedepth/cnv_call/Sample7.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample8.txt",
-                "exomedepth/cnv_call/Sample8.vcf.gz",
-                "exomedepth/cnv_call/Sample8.vcf.gz.tbi",
-                "exomedepth/cnv_call/Sample9.txt",
-                "exomedepth/cnv_call/Sample9.vcf.gz",
-                "exomedepth/cnv_call/Sample9.vcf.gz.tbi",
-                "exomedepth/counts",
-                "exomedepth/counts/prep_F.autosomal.txt",
-                "exomedepth/counts/prep_F.chrX.txt",
-                "exomedepth/counts/prep_M.autosomal.txt",
-                "exomedepth/counts/prep_M.chrX.txt",
+                "multiqc",
+                "multiqc/multiqc_data",
+                "multiqc/multiqc_data/multiqc.log",
+                "multiqc/multiqc_data/multiqc_citations.txt",
+                "multiqc/multiqc_data/multiqc_data.json",
+                "multiqc/multiqc_data/multiqc_software_versions.txt",
+                "multiqc/multiqc_data/multiqc_sources.txt",
+                "multiqc/multiqc_report.html",
                 "pipeline_info",
                 "pipeline_info/nf_core_pipeline_software_mqc_versions.yml",
                 "samplesheet.csv"
             ],
             [
-                "Sample1.txt:md5,87b00328fb2d8a139e824a3b20491141",
-                "Sample1.vcf.gz:md5,850a36fbb44a32ec85df424ac23a9d16",
-                "Sample1.vcf.gz.tbi:md5,c78054feb54ba70f016f170464d267ba",
-                "Sample10.txt:md5,ab14fc3d50a06417c3a78b5585f33821",
-                "Sample10.vcf.gz:md5,6cf5396846734057bbb9bd63ba1ad08a",
-                "Sample10.vcf.gz.tbi:md5,4cb176febbc8c26d717a6c6e67b9c905",
-                "Sample2.txt:md5,2976bc92a8898dccae91f4c48b1ba408",
-                "Sample2.vcf.gz:md5,236bc974f0c586c666b0688a7373e20f",
-                "Sample2.vcf.gz.tbi:md5,fe4261165b7531e3c21adc90918d0f78",
-                "Sample3.txt:md5,708f200a4ff7a2042db043153ede4a96",
-                "Sample3.vcf.gz:md5,029f754aba3d136c84a112123e730ccf",
-                "Sample3.vcf.gz.tbi:md5,5967f1ae800cfd6a7540817423bd4f21",
-                "Sample4.txt:md5,79254fecdcc924b0569c20b6f74f10b5",
-                "Sample4.vcf.gz:md5,b60c10d2b19bd3755f9d7d7b62c6fa51",
-                "Sample4.vcf.gz.tbi:md5,dd86267fa36a440bb89816a257f8c8ee",
-                "Sample5.txt:md5,0a57028c88b7c8dd84bf3e71124535d5",
-                "Sample5.vcf.gz:md5,7db658e85f56476764d55c3374e30d79",
-                "Sample5.vcf.gz.tbi:md5,6ab0f42cfc06efb932e5e32f0d82e838",
-                "Sample6.txt:md5,336b9c5d084e6621b5b3318df5f4f7ef",
-                "Sample6.vcf.gz:md5,62fd045b4416211161e7b08c7567425b",
-                "Sample6.vcf.gz.tbi:md5,e5ebae832f6214e96eedf816294dfc16",
-                "Sample7.txt:md5,d23e94e198d52705e83d1ed70808228e",
-                "Sample7.vcf.gz:md5,2976797e6b22972d9698425196e3efc9",
-                "Sample7.vcf.gz.tbi:md5,cadbf8e2bf4ee479a1b7cbc70f611bbb",
-                "Sample8.txt:md5,21f5b8655fde9ba03ada26e68d534863",
-                "Sample8.vcf.gz:md5,516d99f4394a15c53a36ca685f604e43",
-                "Sample8.vcf.gz.tbi:md5,7a72b84784f6f67164ce3dc5eb1f5843",
-                "Sample9.txt:md5,42af143a14bda01ed47bf7cce26d7da3",
-                "Sample9.vcf.gz:md5,a77d040d2605349d63ece68ca905efbd",
-                "Sample9.vcf.gz.tbi:md5,1b362fb03ab52409b044c97516600606",
-                "prep_F.autosomal.txt:md5,22e278e546bcf03f0b74de412700e29e",
-                "prep_F.chrX.txt:md5,eea46de1aa301fc26aad326c9eeacb09",
-                "prep_M.autosomal.txt:md5,7550fedab93afa2197cf0329ff158e85",
-                "prep_M.chrX.txt:md5,b6c11f33928e914d1f69a247aed91b37",
                 "samplesheet.csv:md5,48c59f89cd1e4a598fef724096737c44"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.4"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-30T11:43:00.135509"
+        "timestamp": "2025-07-02T11:43:46.905379"
     }
 }
