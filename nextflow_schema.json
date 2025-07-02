@@ -17,8 +17,7 @@
                     "format": "file-path",
                     "exists": true,
                     "schema": "assets/schema_input.json",
-                    "mimetype": "text/csv",
-                    "pattern": "^\\S+\\.csv$",
+                    "pattern": "^\\S+\\.(csv|tsv|yaml|yml|json)$",
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row.",
                     "fa_icon": "fas fa-file-csv"
@@ -44,6 +43,13 @@
                 "exomedepth": {
                     "type": "boolean",
                     "description": "Option to execute the ExomeDepth tool"
+                },
+                "annotate": {
+                    "type": "boolean",
+                    "description": "Option to annotate the ExomeDepth VCFs and input VCFs with VEP",
+                    "default": false,
+                    "fa_icon": "fas fa-magic",
+                    "help_text": "If set to `true`, the pipeline will annotate the ExomeDepth VCFs and input VCFs with VEP. If set to `false`, the pipeline will not annotate the VCFs."
                 }
             }
         },
@@ -92,26 +98,7 @@
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
                     "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`.",
-                    "default": true
-                },
-                "genomes_base": {
-                    "type": "string",
-                    "default": "/references/",
-                    "description": "Directory base for CMGG reference store (used when `--genomes_ignore false` is specified)",
-                    "fa_icon": "fas fa-download",
-                    "format": "directory-path"
-                },
-                "genomes_ignore": {
-                    "type": "boolean",
-                    "hidden": true,
-                    "description": "Do not load the local references from the path specified with `--genomes_base`",
-                    "fa_icon": "fas fa-ban"
-                },
-                "cmgg_config_base": {
-                    "type": "string",
-                    "default": "/conf/",
-                    "description": "The config base path for the cmgg configs",
-                    "format": "directory-path"
+                    "default": false
                 }
             },
             "required": ["fasta", "fai"]
@@ -252,6 +239,12 @@
                     "description": "Validation of parameters fails when an unrecognised parameter is found.",
                     "hidden": true,
                     "help_text": "By default, when an unrecognised parameter is found, it returns a warinig."
+                },
+                "trace_report_suffix": {
+                    "type": "string",
+                    "fa_icon": "far calendar",
+                    "description": "Suffix to add to the trace report filename. Default is the date and time in the format yyyy-MM-dd_HH-mm-ss.",
+                    "hidden": true
                 }
             }
         },
@@ -276,9 +269,17 @@
                     "pattern": "^\\S+\\.bed$",
                     "mimetype": "text/plain",
                     "exists": true
+                },
+                "roi": {
+                    "type": "string",
+                    "description": "Path to the default merged ROI (regions of interest) BED file to be used for CNV analysis",
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.bed$",
+                    "mimetype": "text/plain",
+                    "exists": true
                 }
             },
-            "required": ["roi_auto", "roi_chrx"]
+            "AnyOf": [{ "required": ["roi_auto", "roi_chrx"] }, { "required": ["roi"] }]
         },
         "vep_parameters": {
             "title": "VEP parameters",
@@ -301,10 +302,6 @@
                     "format": "directory-path",
                     "description": "Path to the VEP cache",
                     "exists": true
-                },
-                "annotate": {
-                    "type": "boolean",
-                    "description": "Option to annotate on vcf input"
                 },
                 "vep_assembly": {
                     "type": "string",

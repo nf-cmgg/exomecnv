@@ -1,6 +1,27 @@
-bump_version: null
+repository_type: pipeline
+
+nf_core_version: 3.3.1
+
 lint:
-  actions_ci: false
+  files_unchanged:
+    - CODE_OF_CONDUCT.md
+    - assets/nf-core-exomecnv_logo_light.png
+    - docs/images/nf-core-exomecnv_logo_light.png
+    - docs/images/nf-core-exomecnv_logo_dark.png
+    - .github/ISSUE_TEMPLATE/bug_report.yml
+    - .github/CONTRIBUTING.md
+    - .github/PULL_REQUEST_TEMPLATE.md
+    - assets/email_template.txt
+    - docs/README.md
+  nextflow_config:
+    - manifest.name
+    - manifest.homePage
+    - validation.help.beforeText
+    - validation.help.afterText
+    - validation.summary.beforeText
+    - validation.summary.afterText
+  multiqc_config:
+    - report_comment
   files_exist:
     - CODE_OF_CONDUCT.md
     - assets/nf-core-exomecnv_logo_light.png
@@ -9,35 +30,14 @@ lint:
     - .github/ISSUE_TEMPLATE/config.yml
     - .github/workflows/awstest.yml
     - .github/workflows/awsfulltest.yml
-  files_unchanged:
-    - CODE_OF_CONDUCT.md
-    - assets/nf-core-exomecnv_logo_light.png
-    - docs/images/nf-core-exomecnv_logo_light.png
-    - docs/images/nf-core-exomecnv_logo_dark.png
-    - .github/ISSUE_TEMPLATE/bug_report.yml
-    - LICENSE
-    - .github/CONTRIBUTING.md
-    - .github/PULL_REQUEST_TEMPLATE.md
-    - .github/workflows/linting_comment.yml
-    - .github/workflows/linting.yml
-    - .gitignore
-    - .github/workflows/branch.yml
-  multiqc_config:
-    - report_comment
-  nextflow_config:
-    - manifest.name
-    - manifest.homePage
-nf_core_version: 3.0.2
-org_path: null
-repository_type: pipeline
+
 template:
-  author: nvnieuwk
-  description: A nextflow pipeline for calling exome CNVs
-  force: false
-  is_nfcore: false
-  name: exomecnv
   org: nf-cmgg
+  name: exomecnv
+  description: A nextflow pipeline for calling CNVs in targetted data
+  author: Toon Rosseel, Matthias De Smet
+  version: 2.0.0dev
+  force: true
   outdir: .
-  skip_features: null
-  version: 1.1.0
-update: null
+  skip_features: []
+  is_nfcore: false

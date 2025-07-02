@@ -1,9 +1,9 @@
-name: exomedepth_cnv_call
+name: exomedepth_call
 channels:
   - conda-forge
   - bioconda
   - defaults
 
 dependencies:
-  - conda-forge::r-base=4.3.1
-  - bioconda::r-exomedepth=1.1.16
+  - conda-forge::r-base=4.4
+  - bioconda::r-exomedepth=1.1.18

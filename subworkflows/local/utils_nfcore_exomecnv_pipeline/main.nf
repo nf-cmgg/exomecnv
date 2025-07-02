@@ -35,7 +35,7 @@ workflow PIPELINE_INITIALISATION {
 
     main:
 
-    def ch_versions = Channel.empty()
+    ch_versions = Channel.empty()
 
     //
     // Print version and exit if required and dump pipeline parameters to JSON file
@@ -74,7 +74,7 @@ workflow PIPELINE_INITIALISATION {
 
     def pools = [:]
     def inputList = samplesheetToList(input, "${projectDir}/assets/schema_input.json")
-    inputList.each { meta, _cram, _crai, vcf, _tbi ->
+    inputList.each { meta, _cram, _crai, _bed, _bed_index, vcf, _vcf_index ->
         // Don't account for inputs that have a VCF file
         if (vcf) { return }
 
@@ -93,20 +93,14 @@ workflow PIPELINE_INITIALISATION {
 
     Channel
         .fromList(inputList)
-        .map { meta, cram, crai, vcf, tbi ->
-            if (vcf) {
-                return [ meta, cram, crai, vcf, tbi ]
-            } else {
-                def new_meta = meta + [
-                    samples:pools[meta.batch].samples.join(","),
-                    families:pools[meta.batch].families.join(",")
-                ]
-                return [ new_meta, cram, crai, vcf, tbi ]
-            }
+        .map { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
+            def new_meta = meta + [
+                samples:pools[meta.batch].samples.join(","),
+                families:pools[meta.batch].families.join(",")
+            ]
+            return [ new_meta, cram, crai, bed, bed_index, vcf, vcf_index ]
         }
         .set { ch_samplesheet }
-
-    file(input).copyTo("${outdir}/samplesheet.csv")
 
     emit:
     samplesheet = ch_samplesheet
@@ -131,7 +125,8 @@ workflow PIPELINE_COMPLETION {
     multiqc_report  //  string: Path to MultiQC report
 
     main:
-    def summary_params = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
+    summary_params = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
+    def multiqc_reports = multiqc_report.toList()
 
     //
     // Completion email and summary
@@ -145,7 +140,7 @@ workflow PIPELINE_COMPLETION {
                 plaintext_email,
                 outdir,
                 monochrome_logs,
-                multiqc_report.toList()
+                multiqc_reports.getVal(),
             )
         }
 
@@ -241,7 +236,7 @@ def toolBibliographyText() {
 }
 
 def methodsDescriptionText(mqc_methods_yaml) {
-    // Convert  to a named map so can be used as with familar NXF ${workflow} variable syntax in the MultiQC YML file
+    // Convert  to a named map so can be used as with familiar NXF ${workflow} variable syntax in the MultiQC YML file
     def meta = [:]
     meta.workflow = workflow.toMap()
     meta["manifest_map"] = workflow.manifest.toMap()
@@ -276,4 +271,3 @@ def methodsDescriptionText(mqc_methods_yaml) {
 
     return description_html.toString()
 }
-

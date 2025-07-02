@@ -3,11 +3,16 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.3.1dev [YYYY-MM-DD]
+## v2.0.0dev [YYYY-MM-DD]
 
 ### `Improvements`
 
-- Replace counting step with `samtools bedcov`: no more conversion to BAM files required :rocket:
+- Replace counting step with `mosdepth`: no more conversion to BAM files required :rocket:
+- Allow `*.per-base.bed.gz` inputs, skipping bam/cram handling entirely.
+- Bump modules to the latest versions
+- Disable tests for previously tested nf-core modules
+- Fix tests, migrate CI from `filter` to `tag` based scatter
+- Deprecate use of split ROI files in favor of a single ROI file
 
 ## v1.2.2 Dynamic De Bruyne [2025-01-20]
 
