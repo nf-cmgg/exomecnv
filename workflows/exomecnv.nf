@@ -120,8 +120,7 @@ workflow EXOMECNV {
         ch_sorted_vcf_index = BCFTOOLS_SORT.out.vcf.join(BCFTOOLS_SORT.out.tbi, failOnMismatch:true, failOnDuplicate:true)
 
         // Add the exome depth VCFs to the channel
-        ch_cnv_vcf.mix(ch_sorted_vcf_index)
-        ch_cnv_vcf.dump(tag: "EXOMEDEPTH VCF:", pretty:true)
+        ch_cnv_vcf = ch_cnv_vcf.mix(ch_sorted_vcf_index)
     }
 
     // Annotate exomedepth VCFs and input VCFs
@@ -137,7 +136,6 @@ workflow EXOMECNV {
     }
 
     // Collate and save software versions
-
     softwareVersionsToYAML(ch_versions)
         .collectFile(storeDir: "${outdir}/pipeline_info", name: 'nf_core_pipeline_software_mqc_versions.yml', sort: true, newLine: true)
         .set { ch_collated_versions }
