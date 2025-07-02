@@ -82,4 +82,3 @@ countspath = paste(args[5],".txt",sep="")
 write.table(ExomeCount.dafr,countspath,sep="\t",col.names=TRUE,row.names=FALSE,quote=FALSE)
 
 cat("\n\n---Finished---\n")
-

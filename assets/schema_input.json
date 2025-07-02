@@ -69,20 +69,8 @@
             }
         },
         "anyOf": [
-            {"required": [
-                    "sample",
-                    "batch",
-                    "family",
-                    "cram"
-                ]
-            },
-            {"required": [
-                    "sample",
-                    "batch",
-                    "family",
-                    "bed"
-                ]
-            }
+            { "required": ["sample", "batch", "family", "cram"] },
+            { "required": ["sample", "batch", "family", "bed"] }
         ]
     },
     "uniqueEntries": ["sample"]
