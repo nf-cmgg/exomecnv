@@ -91,7 +91,7 @@ workflow EXOMECNV {
     MOSDEPTH.out.per_base_bed.dump(tag: "MOSDEPTH PER BASE BED:", pretty:true)
 
 
-    def ch_cnv_vcf = Channel.empty()
+    def ch_cnv_vcf = ch_input.vcf
     if (exomedepth) {
         // Generate the ExomeDepth subworkflow input
         ch_perbase = MOSDEPTH.out.per_base_bed
@@ -117,15 +117,17 @@ workflow EXOMECNV {
         )
         ch_versions = ch_versions.mix(BCFTOOLS_SORT.out.versions)
 
+        ch_sorted_vcf_index = BCFTOOLS_SORT.out.vcf.join(BCFTOOLS_SORT.out.tbi, failOnMismatch:true, failOnDuplicate:true)
+
         // Add the exome depth VCFs to the channel
-        ch_cnv_vcf.mix(BCFTOOLS_SORT.out.vcf.join(BCFTOOLS_SORT.out.tbi, failOnMismatch:true, failOnDuplicate:true))
+        ch_cnv_vcf.mix(ch_sorted_vcf_index)
+        ch_cnv_vcf.dump(tag: "EXOMEDEPTH VCF:", pretty:true)
     }
 
     // Annotate exomedepth VCFs and input VCFs
-    def ch_annotate_input = ch_cnv_vcf.mix(ch_input.vcf)
     if(annotate) {
         VCF_ANNOTATE_VEP(
-            ch_annotate_input,
+            ch_cnv_vcf,
             ch_fasta,
             ch_vep_cache,
             vep_assembly,

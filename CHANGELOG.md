@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump modules to the latest versions
 - Disable tests for previously tested nf-core modules
 - Fix tests, migrate CI from `filter` to `tag` based scatter
+- Deprecate use of split ROI files in favor of a single ROI file
 
 ## v1.2.2 Dynamic De Bruyne [2025-01-20]
 
