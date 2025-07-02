@@ -12,7 +12,6 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_exom
 // Modules
 include { MULTIQC           } from '../modules/nf-core/multiqc/main'
 include { MOSDEPTH          } from '../modules/nf-core/mosdepth/main.nf'
-include { CUSTOM_MERGECNV   } from '../modules/local/custom/mergecnv/main.nf'
 include { BEDGOVCF          } from '../modules/nf-core/bedgovcf/main.nf'
 include { BCFTOOLS_SORT     } from '../modules/nf-core/bcftools/sort/main.nf'
 
