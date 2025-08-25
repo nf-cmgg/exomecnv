@@ -24,7 +24,7 @@
                             ],
                             "chr": "autosomal"
                         },
-                        "Sample1.null.txt:md5,e30ef43b125d67bc3070f3beea3f0587"
+                        "Sample1.null.txt:md5,15e7b5fef592e6c1a0cd6956492f4413"
                     ]
                 ],
                 "1": [
@@ -52,7 +52,7 @@
                             ],
                             "chr": "autosomal"
                         },
-                        "Sample1.null.txt:md5,e30ef43b125d67bc3070f3beea3f0587"
+                        "Sample1.null.txt:md5,15e7b5fef592e6c1a0cd6956492f4413"
                     ]
                 ],
                 "versions": [
@@ -62,9 +62,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.3"
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2025-06-04T09:40:50.590079572"
+        "timestamp": "2025-08-25T13:44:37.980772002"
     },
     "homo_sapiens - reformat - stub": {
         "content": [
