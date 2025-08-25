@@ -254,22 +254,6 @@
             "description": "Options specific for the ExomeDepth execution",
             "default": "",
             "properties": {
-                "roi_auto": {
-                    "type": "string",
-                    "description": "Path to the default ROI (regions of interest) BED file of autosomal (merged) regions to be used for CNV analysis",
-                    "format": "file-path",
-                    "pattern": "^\\S+\\.bed$",
-                    "mimetype": "text/plain",
-                    "exists": true
-                },
-                "roi_chrx": {
-                    "type": "string",
-                    "description": "Path to the default ROI (regions of interest) BED file of chrX (merged) regions to be used for CNV analysis",
-                    "format": "file-path",
-                    "pattern": "^\\S+\\.bed$",
-                    "mimetype": "text/plain",
-                    "exists": true
-                },
                 "roi": {
                     "type": "string",
                     "description": "Path to the default merged ROI (regions of interest) BED file to be used for CNV analysis",
@@ -279,7 +263,7 @@
                     "exists": true
                 }
             },
-            "AnyOf": [{ "required": ["roi_auto", "roi_chrx"] }, { "required": ["roi"] }]
+            "required": ["roi"]
         },
         "vep_parameters": {
             "title": "VEP parameters",

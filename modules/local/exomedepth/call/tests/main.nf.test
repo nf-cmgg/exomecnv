@@ -22,7 +22,7 @@ nextflow_process {
                 ])
                 input[1] = Channel.value([
                     [ id:'exon' ],
-                    file(params.roi_auto)
+                    file(params.roi)
                 ])
                 """
             }
@@ -51,7 +51,7 @@ nextflow_process {
                 ])
                 input[1] = Channel.value([
                     [ id:'exon' ],
-                    file(params.roi_auto)
+                    file(params.roi)
                 ])
                 """
             }

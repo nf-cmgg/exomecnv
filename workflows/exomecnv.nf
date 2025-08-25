@@ -32,8 +32,6 @@ workflow EXOMECNV {
     outdir
     fasta
     fai
-    roi_auto
-    roi_chrx
     roi_merged
     vep_cache
     bedgovcf_yaml
