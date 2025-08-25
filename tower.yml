@@ -2,4 +2,4 @@ reports:
   multiqc_report.html:
     display: "MultiQC HTML report"
   samplesheet.csv:
-    display: "Auto-created samplesheet with collated metadata and FASTQ paths"
+    display: "Auto-created samplesheet with collated metadata and file paths"
