@@ -14,7 +14,7 @@ nextflow_process {
             process {
                 """
                 input[0] = Channel.of([
-                    [ id: 'test', chromosome: 'chrX' ],
+                    [ id: 'test', chromosome: 'merged' ],
                     file(params.merged_counts, checkIfExists:true),
                     "Sample1",
                     "Sample1,Sample2,Sample3,Sample4,Sample5",
@@ -43,7 +43,7 @@ nextflow_process {
             process {
                 """
                 input[0] = Channel.of([
-                    [ id: 'test', chromosome: 'chrX' ],
+                    [ id: 'test', chromosome: 'merged' ],
                     file(params.merged_counts, checkIfExists:true),
                     "Sample1",
                     "Sample1,Sample2,Sample3,Sample4,Sample5",
