@@ -1,4 +1,4 @@
-//REFORMAT COUNT FILES (add header and remove 5th column)
+//REFORMAT COUNT FILES (add header)
 process CUSTOM_REFORMATCOUNTS {
     tag "$meta.id"
 
