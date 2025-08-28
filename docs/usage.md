@@ -13,7 +13,8 @@ You will need to create a samplesheet with information about the samples you wou
 ### Full samplesheet
 
 Required fields are: "sample", "batch","family" and "bed","bed_index OR "cram","crai".
--  The pipeline will auto-detect whether a sample contains `vcf` files using the information provided in the samplesheet. In that case, it will skip the ExomeDepth workflow for these samples and only execute EnsemblVEP.
+
+- The pipeline will auto-detect whether a sample contains `vcf` files using the information provided in the samplesheet. In that case, it will skip the ExomeDepth workflow for these samples and only execute EnsemblVEP.
 - If `bed`and `cram` files are provide, the pipeline will only use the `bed` files
 
 A final `samplesheet.csv` samplesheet file consisting mosdepth `*per-base.bed.gz` count files may look like this:
@@ -28,6 +29,7 @@ Sample5,prep_F,Fam4,/path/to/bed/Sample5,/path/to/bed_index/Sample5
 Sample6,prep_F,Fam5,/path/to/bed/Sample6,/path/to/bed_index/Sample6
 
 ```
+
 A final `samplesheet.json` samplesheet file consisting mosdepth `*per-base.bed.gz` count files and `*cram` mapping files may look like this:
 
 ```json title="samplesheet.json"
@@ -49,10 +51,11 @@ A final `samplesheet.json` samplesheet file consisting mosdepth `*per-base.bed.g
     "crai": "/path/to/cram/Sample2",
     "bed": "/path/to/bed/Sample2",
     "bed_index": "/path/to/bed_index/Sample2"
-  },
+  }
   //...
 ]
 ```
+
 A final samplesheet file consisting of both samples to run the full workflow and samples to only re-annotate with EnsemblVEP may look something like the one below.
 
 ```csv title="samplesheet_vcf.csv"
@@ -68,17 +71,17 @@ Sample6,prep_F,Fam5,/path/to/cram/Sample6,/path/to/crai/Sample6,/path/to/vcf/Sam
 
 ### All samplesheet options
 
-| Column   | Description                                                                                                                                                                                              |     |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
-| `sample` | Custom sample name. Cannot contain spaces and has to be unique.                                                                                                                                          |     |
-| `batch`  | Batch name for the current sample. Samples sharing the same batch will be merged together during the pipeline since CNV calling in the ExomeDepth workflow is executed per batch. Cannot contain spaces. |     |
-| `family` | Family name for the current sample. Samples sharing this family name will be excluded from the reference set to ensure that CNVs common to this family are not excluded. Cannot contain spaces.          |     |
-| `bed`   | Path to the mosdepth per-base BED file to be used by the pipeline for the current sample.                                                                                                                        |     |
-| `bed_index`   | Path to the mosdepth per-base BED  index file.
-| `cram`   | Path to the CRAM (or BAM) file to be used by the pipeline for the current sample.                                                                                                                        |     |
-| `crai`   | Path to the CRAM (or BAI) index file.                                                                                                                                                                    |     |
-| `vcf`    | Path to the VCF file to be used by the pipeline for the current sample. When this is provided, the pipeline will skip to the annotation.                                                                 |     |
-| `tbi`    | Path to the TBI index file.                                                                                                                                                                              |     |
+| Column      | Description                                                                                                                                                                                              |     |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| `sample`    | Custom sample name. Cannot contain spaces and has to be unique.                                                                                                                                          |     |
+| `batch`     | Batch name for the current sample. Samples sharing the same batch will be merged together during the pipeline since CNV calling in the ExomeDepth workflow is executed per batch. Cannot contain spaces. |     |
+| `family`    | Family name for the current sample. Samples sharing this family name will be excluded from the reference set to ensure that CNVs common to this family are not excluded. Cannot contain spaces.          |     |
+| `bed`       | Path to the mosdepth per-base BED file to be used by the pipeline for the current sample.                                                                                                                |     |
+| `bed_index` | Path to the mosdepth per-base BED index file.                                                                                                                                                            |
+| `cram`      | Path to the CRAM (or BAM) file to be used by the pipeline for the current sample.                                                                                                                        |     |
+| `crai`      | Path to the CRAM (or BAI) index file.                                                                                                                                                                    |     |
+| `vcf`       | Path to the VCF file to be used by the pipeline for the current sample. When this is provided, the pipeline will skip to the annotation.                                                                 |     |
+| `tbi`       | Path to the TBI index file.                                                                                                                                                                              |     |
 
 An [example samplesheet with mosdepth BED files](../assets/samplesheet_bed.csv) and an [example samplesheet with CRAM files](../assets/samplesheet.csv) has been provided with the pipeline.
 
