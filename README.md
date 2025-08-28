@@ -53,7 +53,7 @@ nextflow run nf-cmgg/exomecnv \
    --annotate
 ```
 
-to execute the ExomeDepth workflow, followed by an EnsemblVEP annotation. The `--annotate` parameter is optional. If not provided, only the ExomeDepth workflow will be executed. If `--exomedepth` is not provided, ExomeDepth will be skipped and only the EnsemblVEP annotation on VCF/TBI files provided in the samplesheet.
+to execute the ExomeDepth workflow, followed by an EnsemblVEP annotation. The `--annotate` parameter is optional. If not provided, only the ExomeDepth workflow will be executed.
 
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_;
