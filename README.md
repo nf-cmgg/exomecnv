@@ -17,16 +17,12 @@
 ## Pipeline Summary
 
 1. Input samplesheet check
-2. Convert CRAM to BAM if CRAM files are provided (optional)
-3. ExomeDepth counting per sample (autosomal and chrX are separated)
-4. Merge count files per batch (autosomal and chrX remain separated)
-5. ExomeDepth CNV calling per sample (autosomal and chrX remain separated)
-6. Merge CNV calling files per sample (autosomal and chrX are merged)
-7. Convert merged files to VCF
-8. Generate index files for these VCF files
-9. Annotate VCF files with EnsemblVEP
+2. `Mosdepth` read counting per sample if CRAM/BAM files are provided
+3. `ExomeDepth` CNV calling per sample
+4. Convert ExomeDepth output files to VCF with `bedgovcf` + sort VCF with `bcftools`
+5. Annotate VCF files with `EnsemblVEP`
 
-<img src="Exomedepth2.png" width="500">
+<img src="docs/images/exomedepth.png" width="500">
 
 ## Usage
 
@@ -38,12 +34,12 @@ First, prepare a samplesheet with your input data that looks as follows:
 `samplesheet.csv`:
 
 ```csv
-sample,batch,family,cram,crai,vcf,tbi
-sample1,prep_M,Fam1,/path/to/sample1.cram,/path/to/sample1.crai
-sample2,prep_F,Fam2,/path/to/sample2.cram,/path/to/sample2.crai,/path/to/sample2.vcf,/path/to/sample2.vcf.tbi
+sample,batch,family,bed,bed_index,vcf,tbi
+Sample1,prep_M,Fam1,/path/to/bed/Sample1.per-base.bed.gz,/path/to/bed_index/Sample1.per-base.bed.gz.csi
+Sample2,prep_F,Fam2,/path/to/bed/Sample2.per-base.bed.gz,/path/to/bed_index/Sample2.per-base.bed.gz.csi,/path/to/Sample2.vcf,/path/to/Sample2.vcf.tbi
 ```
 
-Each row represents a sample with the associated batch and family, followed by the optional paths to the CRAM/CRAI and/or VCF/TBI files, depending on which tasks should be executed.
+Each row represents a sample with the associated batch and family, followed by the paths to the BED/BED_INDEX, CRAM/CRAI or VCF/TBI files, depending on which tasks should be executed.
 
 Now, you can run the pipeline using:
 
@@ -57,18 +53,7 @@ nextflow run nf-cmgg/exomecnv \
    --annotate
 ```
 
-to execute the ExomeDepth workflow, followed by an EnsemblVEP annotation on CRAM/CRAI (or BAM/BAI) files provided in the samplesheet. The --annotate parameter is optional. If not provided, only the ExomeDepth workflow will be executed.
-It is also possible to run the pipeline using:
-
-```bash
-nextflow run nf-cmgg/exomecnv \
-   -profile <docker/conda> \
-   --input /path/to/samplesheet.csv \
-   --outdir /path/to/outdir \
-   --vep_cache /path/to/vep_cache
-```
-
-to skip the ExomeDepth workflow and only execute the EnsemblVEP annotation on VCF/TBI files provided in the samplesheet.
+to execute the ExomeDepth workflow, followed by an EnsemblVEP annotation. The `--annotate` parameter is optional. If not provided, only the ExomeDepth workflow will be executed. If `--exomedepth` is not provided, ExomeDepth will be skipped and only the EnsemblVEP annotation on VCF/TBI files provided in the samplesheet.
 
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_;
