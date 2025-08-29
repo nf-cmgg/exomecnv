@@ -64,8 +64,6 @@ workflow {
         params.outdir,
         params.fasta ?: getGenomeAttribute('fasta'),
         params.fai ?: getGenomeAttribute('fai'),
-        params.roi_auto ?: getGenomeAttribute('roi_auto'),
-        params.roi_chrx ?: getGenomeAttribute('roi_chrx'),
         params.roi ?: getGenomeAttribute('roi'),
         params.vep_cache ?: getGenomeAttribute('vep_cache'),
         "${projectDir}/assets/exomedepth.yaml",

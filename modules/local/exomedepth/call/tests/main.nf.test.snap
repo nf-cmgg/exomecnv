@@ -6,9 +6,9 @@
                     [
                         {
                             "id": "test",
-                            "chromosome": "chrX"
+                            "chromosome": "merged"
                         },
-                        "test.chrX.txt:md5,95d7dd4531a537019f8e908e3f042a70"
+                        "test.merged.txt:md5,a6c15d0f525e2da57849e7b973f83214"
                     ]
                 ],
                 "1": [
@@ -18,9 +18,9 @@
                     [
                         {
                             "id": "test",
-                            "chromosome": "chrX"
+                            "chromosome": "merged"
                         },
-                        "test.chrX.txt:md5,95d7dd4531a537019f8e908e3f042a70"
+                        "test.merged.txt:md5,a6c15d0f525e2da57849e7b973f83214"
                     ]
                 ],
                 "versions": [
@@ -30,9 +30,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2025-07-02T14:09:40.317984"
+        "timestamp": "2025-08-25T16:26:27.550481279"
     },
     "homo_sapiens - bed, merged_counts - stub": {
         "content": [
@@ -41,9 +41,9 @@
                     [
                         {
                             "id": "test",
-                            "chromosome": "chrX"
+                            "chromosome": "merged"
                         },
-                        "test.chrX.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.merged.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
@@ -53,9 +53,9 @@
                     [
                         {
                             "id": "test",
-                            "chromosome": "chrX"
+                            "chromosome": "merged"
                         },
-                        "test.chrX.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.merged.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
@@ -65,8 +65,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.5"
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2025-07-01T12:04:31.205062"
+        "timestamp": "2025-08-25T16:28:33.332341335"
     }
 }
