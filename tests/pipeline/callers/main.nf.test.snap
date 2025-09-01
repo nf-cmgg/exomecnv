@@ -29,7 +29,7 @@
                     "mosdepth": "0.3.10"
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v2.0.0dev"
+                    "nf-cmgg/exomecnv": "v2.0.0"
                 }
             },
             [
@@ -96,8 +96,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nextflow": "25.04.0"
         },
-        "timestamp": "2025-07-02T13:21:56.926432"
+        "timestamp": "2025-09-01T16:50:59.320838727"
     }
 }

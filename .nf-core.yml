@@ -4,41 +4,41 @@ nf_core_version: 3.3.2
 
 lint:
   files_unchanged:
-    - CODE_OF_CONDUCT.md
-    - assets/nf-core-exomecnv_logo_light.png
-    - docs/images/nf-core-exomecnv_logo_light.png
-    - docs/images/nf-core-exomecnv_logo_dark.png
-    - .github/ISSUE_TEMPLATE/bug_report.yml
-    - .github/CONTRIBUTING.md
-    - .github/PULL_REQUEST_TEMPLATE.md
-    - assets/email_template.txt
-    - docs/README.md
-    - .github/workflows/linting_comment.yml
-    - .github/workflows/linting.yml
+  - CODE_OF_CONDUCT.md
+  - assets/nf-core-exomecnv_logo_light.png
+  - docs/images/nf-core-exomecnv_logo_light.png
+  - docs/images/nf-core-exomecnv_logo_dark.png
+  - .github/ISSUE_TEMPLATE/bug_report.yml
+  - .github/CONTRIBUTING.md
+  - .github/PULL_REQUEST_TEMPLATE.md
+  - assets/email_template.txt
+  - docs/README.md
+  - .github/workflows/linting_comment.yml
+  - .github/workflows/linting.yml
   nextflow_config:
-    - manifest.name
-    - manifest.homePage
-    - validation.help.beforeText
-    - validation.help.afterText
-    - validation.summary.beforeText
-    - validation.summary.afterText
+  - manifest.name
+  - manifest.homePage
+  - validation.help.beforeText
+  - validation.help.afterText
+  - validation.summary.beforeText
+  - validation.summary.afterText
   multiqc_config:
-    - report_comment
+  - report_comment
   files_exist:
-    - CODE_OF_CONDUCT.md
-    - assets/nf-core-exomecnv_logo_light.png
-    - docs/images/nf-core-exomecnv_logo_light.png
-    - docs/images/nf-core-exomecnv_logo_dark.png
-    - .github/ISSUE_TEMPLATE/config.yml
-    - .github/workflows/awstest.yml
-    - .github/workflows/awsfulltest.yml
+  - CODE_OF_CONDUCT.md
+  - assets/nf-core-exomecnv_logo_light.png
+  - docs/images/nf-core-exomecnv_logo_light.png
+  - docs/images/nf-core-exomecnv_logo_dark.png
+  - .github/ISSUE_TEMPLATE/config.yml
+  - .github/workflows/awstest.yml
+  - .github/workflows/awsfulltest.yml
 
 template:
   org: nf-cmgg
   name: exomecnv
   description: A nextflow pipeline for calling CNVs in targetted data
   author: Toon Rosseel, Matthias De Smet
-  version: 2.0.0dev
+  version: 2.0.0
   force: true
   outdir: .
   skip_features: []
