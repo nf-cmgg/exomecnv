@@ -1,4 +1,5 @@
-//REFORMAT COUNT FILES (add header)
+// REFORMAT COUNT FILES
+// add header + make start coordinates 1-based + remove 1nt regions
 process CUSTOM_REFORMATCOUNTS {
     tag "$meta.id"
 
@@ -23,12 +24,20 @@ process CUSTOM_REFORMATCOUNTS {
         gzip -d -f $tsv
     fi
 
+    # make 1-based
+    awk 'BEGIN{OFS="\\t"} {\$2=\$2+1; print}' "${unzipped_tsv}" > "${prefix}.tmp.txt"
+
+    # remove regions that are only 1 nucleotide long
+    awk '(\$3-\$2)!=0' "${prefix}.tmp.txt" > "${prefix}.filtered.tmp.txt"
+
     { echo -e "chromosome\\tstart\\tend\\texon\\t${meta.id}"; \
-    cut --complement -f6 $unzipped_tsv ; } > "${prefix}.txt"
+    cut --complement -f6 "${prefix}.filtered.tmp.txt"; } > "${prefix}.txt"
+
+    rm ${prefix}.tmp.txt "${prefix}.filtered.tmp.txt"
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        echo: \$(echo --version | sed '1!d; s/echo (GNU coreutils) //')
+        echo: \$(/bin/echo --version | sed '1!d; s/echo (GNU coreutils) //')
         cut: \$(cut --version | sed '1!d; s/cut (GNU coreutils) //')
     END_VERSIONS
     """
