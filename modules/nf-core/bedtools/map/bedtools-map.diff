@@ -1,5 +1,4 @@
 Changes in component 'nf-core/bedtools/map'
-'modules/nf-core/bedtools/map/environment.yml' is unchanged
 'modules/nf-core/bedtools/map/meta.yml' is unchanged
 Changes in 'bedtools/map/main.nf':
 --- modules/nf-core/bedtools/map/main.nf
@@ -25,7 +24,8 @@ Changes in 'bedtools/map/main.nf':
      cat <<-END_VERSIONS > versions.yml
      "${task.process}":
 
+'modules/nf-core/bedtools/map/environment.yml' is unchanged
+'modules/nf-core/bedtools/map/tests/main.nf.test' is unchanged
 'modules/nf-core/bedtools/map/tests/main.nf.test.snap' is unchanged
 'modules/nf-core/bedtools/map/tests/nextflow.config' is unchanged
-'modules/nf-core/bedtools/map/tests/main.nf.test' is unchanged
 ************************************************************

@@ -12,15 +12,17 @@
 
 ## Introduction
 
-**nf-cmgg/exomecnv** is a bioinformatics pipeline that can be used to call copy number variations (CNVs) from exome sequencing data with ExomeDepth and annotate these with EnsemblVEP. It takes a samplesheet with CRAM or BAM files and their index files as input, generates read count data, calls CNVs and ends with an annotation. It is also possible to take a samplesheet with VCF files and their index files as input and only execute the annotation.
+**nf-cmgg/exomecnv** is a bioinformatics pipeline that can be used to call copy number variations (CNVs) from exome sequencing data with ExomeDepth and annotate these with EnsemblVEP. It takes a samplesheet with mosdepth `*per-base.bed.gz`, `*cram` or `*bam` files and their index files as input, generates read count data in a region of interest `bed` file, calls CNVs and ends with an annotation. It is also possible to take a samplesheet with VCF files and their index files as input and only execute the annotation step.
 
 ## Pipeline Summary
 
 1. Input samplesheet check
 2. `Mosdepth` read counting per sample if CRAM/BAM files are provided
-3. `ExomeDepth` CNV calling per sample
-4. Convert ExomeDepth output files to VCF with `bedgovcf` + sort VCF with `bcftools`
-5. Annotate VCF files with `EnsemblVEP`
+3. Extract mean coverage from the mosdepth per-base coverage `bed` files for the ROI regions with `bedtools map`
+4. Merge count files per batch
+5. `ExomeDepth` CNV calling per sample
+6. Convert ExomeDepth output files to VCF with `bedgovcf` + sort VCF with `bcftools`
+7. Annotate VCF files with `EnsemblVEP`
 
 <img src="docs/images/exomedepth.png" width="500">
 
