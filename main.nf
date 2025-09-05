@@ -62,11 +62,10 @@ workflow {
         // file inputs
         PIPELINE_INITIALISATION.out.samplesheet,
         params.outdir,
-        params.fasta,
-        params.fai,
-        params.roi_auto,
-        params.roi_chrx,
-        params.vep_cache,
+        params.fasta ?: getGenomeAttribute('fasta'),
+        params.fai ?: getGenomeAttribute('fai'),
+        params.roi ?: getGenomeAttribute('roi'),
+        params.vep_cache ?: getGenomeAttribute('vep_cache'),
         "${projectDir}/assets/exomedepth.yaml",
         params.multiqc_config,
         params.multiqc_logo,
@@ -96,11 +95,6 @@ workflow {
         params.hook_url,
         EXOMECNV.out.multiqc_report
     )
-    //
-    // WORKFLOW: Run pipeline
-    //
-
-
 }
 
 /*

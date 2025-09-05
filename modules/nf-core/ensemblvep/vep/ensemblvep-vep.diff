@@ -1,4 +1,15 @@
-Changes in module 'nf-core/ensemblvep/vep'
+Changes in component 'nf-core/ensemblvep/vep'
+Changes in 'ensemblvep/vep/environment.yml':
+--- modules/nf-core/ensemblvep/vep/environment.yml
++++ modules/nf-core/ensemblvep/vep/environment.yml
+@@ -4,4 +4,4 @@
+   - conda-forge
+   - bioconda
+ dependencies:
+-  - bioconda::ensembl-vep=113.4
++  - bioconda::ensembl-vep=105.0
+
+'modules/nf-core/ensemblvep/vep/meta.yml' is unchanged
 Changes in 'ensemblvep/vep/main.nf':
 --- modules/nf-core/ensemblvep/vep/main.nf
 +++ modules/nf-core/ensemblvep/vep/main.nf
@@ -6,68 +17,17 @@ Changes in 'ensemblvep/vep/main.nf':
  
      conda "${moduleDir}/environment.yml"
      container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
--        'https://depot.galaxyproject.org/singularity/ensembl-vep:113.0--pl5321h2a3209d_0' :
--        'biocontainers/ensembl-vep:113.0--pl5321h2a3209d_0' }"
+-        'https://depot.galaxyproject.org/singularity/ensembl-vep:113.4--pl5321h2a3209d_0' :
+-        'biocontainers/ensembl-vep:113.4--pl5321h2a3209d_0' }"
 +        'https://depot.galaxyproject.org/singularity/ensembl-vep:105.0--pl5321h4a94de4_1' :
 +        'biocontainers/ensembl-vep:105.0--pl5321h4a94de4_1' }"
  
      input:
      tuple val(meta), path(vcf), path(custom_extra_files)
 
-'modules/nf-core/ensemblvep/vep/environment.yml' is unchanged
-'modules/nf-core/ensemblvep/vep/meta.yml' is unchanged
-'modules/nf-core/ensemblvep/vep/tests/tags.yml' is unchanged
+'modules/nf-core/ensemblvep/vep/tests/main.nf.test.snap' is unchanged
 'modules/nf-core/ensemblvep/vep/tests/tab.gz.config' is unchanged
 'modules/nf-core/ensemblvep/vep/tests/vcf.config' is unchanged
-Changes in 'ensemblvep/vep/tests/main.nf.test':
---- modules/nf-core/ensemblvep/vep/tests/main.nf.test
-+++ modules/nf-core/ensemblvep/vep/tests/main.nf.test
-@@ -107,7 +107,7 @@
-             assertAll(
-                 { assert process.success },
-                 { assert snapshot(process.out.versions).match() },
--                { assert path(process.out.tab.get(0).get(1)).linesGzip.contains("## ENSEMBL VARIANT EFFECT PREDICTOR v113.0") }
-+                { assert path(process.out.tab.get(0).get(1)).linesGzip.contains("## ENSEMBL VARIANT EFFECT PREDICTOR v105.0") }
-             )
-         }
-     }
-
-Changes in 'ensemblvep/vep/tests/main.nf.test.snap':
---- modules/nf-core/ensemblvep/vep/tests/main.nf.test.snap
-+++ modules/nf-core/ensemblvep/vep/tests/main.nf.test.snap
-@@ -2,25 +2,25 @@
-     "test_ensemblvep_vep_fasta_tab_gz": {
-         "content": [
-             [
--                "versions.yml:md5,4fbfeb73f0d4b4aa039f17be8ba9e1f2"
-+                "versions.yml:md5,c6d58a35e7be5e6ab46a3f9757f6e259"
-             ]
-         ],
-         "meta": {
--            "nf-test": "0.9.0",
--            "nextflow": "24.04.4"
-+            "nf-test": "0.9.1",
-+            "nextflow": "24.10.1"
-         },
--        "timestamp": "2024-10-21T09:12:23.474703494"
-+        "timestamp": "2024-12-06T15:11:50.757491834"
-     },
-     "test_ensemblvep_vep_fasta_vcf": {
-         "content": [
-             [
--                "versions.yml:md5,4fbfeb73f0d4b4aa039f17be8ba9e1f2"
-+                "versions.yml:md5,c6d58a35e7be5e6ab46a3f9757f6e259"
-             ]
-         ],
-         "meta": {
--            "nf-test": "0.9.0",
--            "nextflow": "24.04.4"
-+            "nf-test": "0.9.1",
-+            "nextflow": "24.10.1"
-         },
--        "timestamp": "2024-10-21T09:11:54.343590485"
-+        "timestamp": "2024-12-06T15:11:30.705471783"
-     }
- }
 'modules/nf-core/ensemblvep/vep/tests/nextflow.config' is unchanged
+'modules/nf-core/ensemblvep/vep/tests/main.nf.test' is unchanged
 ************************************************************

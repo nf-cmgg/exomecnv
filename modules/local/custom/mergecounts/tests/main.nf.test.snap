@@ -6,15 +6,15 @@
                     [
                         {
                             "id": "Sample1",
-                            "chromosome": "test",
-                            "sam": [
+                            "chromosome": "merged",
+                            "samples": [
                                 "Sample1",
                                 "Sample2",
                                 "Sample3",
                                 "Sample4",
                                 "Sample5"
                             ],
-                            "fam": [
+                            "families": [
                                 "Fam1",
                                 "Fam2",
                                 "Fam3",
@@ -22,7 +22,7 @@
                                 "Fam5"
                             ]
                         },
-                        "Sample1.test.txt:md5,911202604c02c755cdd6ac4b0bccfd79"
+                        "Sample1.merged.txt:md5,8958d6e5d097113f6af0111900d81332"
                     ]
                 ],
                 "1": [
@@ -32,15 +32,15 @@
                     [
                         {
                             "id": "Sample1",
-                            "chromosome": "test",
-                            "sam": [
+                            "chromosome": "merged",
+                            "samples": [
                                 "Sample1",
                                 "Sample2",
                                 "Sample3",
                                 "Sample4",
                                 "Sample5"
                             ],
-                            "fam": [
+                            "families": [
                                 "Fam1",
                                 "Fam2",
                                 "Fam3",
@@ -48,7 +48,7 @@
                                 "Fam5"
                             ]
                         },
-                        "Sample1.test.txt:md5,911202604c02c755cdd6ac4b0bccfd79"
+                        "Sample1.merged.txt:md5,8958d6e5d097113f6af0111900d81332"
                     ]
                 ],
                 "versions": [
@@ -57,10 +57,10 @@
             }
         ],
         "meta": {
-            "nf-test": "0.9.1",
-            "nextflow": "24.10.1"
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.0"
         },
-        "timestamp": "2024-11-26T13:20:32.229071491"
+        "timestamp": "2025-09-05T10:39:56.61406686"
     },
     "homo_sapiens - counts - stub": {
         "content": [
@@ -69,15 +69,15 @@
                     [
                         {
                             "id": "Sample1",
-                            "chromosome": "test",
-                            "sam": [
+                            "chromosome": "merged",
+                            "samples": [
                                 "Sample1",
                                 "Sample2",
                                 "Sample3",
                                 "Sample4",
                                 "Sample5"
                             ],
-                            "fam": [
+                            "families": [
                                 "Fam1",
                                 "Fam2",
                                 "Fam3",
@@ -85,7 +85,7 @@
                                 "Fam5"
                             ]
                         },
-                        "Sample1.test.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "Sample1.merged.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
@@ -95,15 +95,15 @@
                     [
                         {
                             "id": "Sample1",
-                            "chromosome": "test",
-                            "sam": [
+                            "chromosome": "merged",
+                            "samples": [
                                 "Sample1",
                                 "Sample2",
                                 "Sample3",
                                 "Sample4",
                                 "Sample5"
                             ],
-                            "fam": [
+                            "families": [
                                 "Fam1",
                                 "Fam2",
                                 "Fam3",
@@ -111,7 +111,7 @@
                                 "Fam5"
                             ]
                         },
-                        "Sample1.test.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "Sample1.merged.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
@@ -120,9 +120,9 @@
             }
         ],
         "meta": {
-            "nf-test": "0.9.1",
-            "nextflow": "24.10.1"
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.0"
         },
-        "timestamp": "2024-11-26T13:20:40.723101561"
+        "timestamp": "2025-09-05T10:40:06.356812228"
     }
 }

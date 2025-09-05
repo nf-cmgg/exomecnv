@@ -12,23 +12,17 @@ The directories listed below will be created in the results directory after the 
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-- [Cram Prepare](#cram-prepare)
-- [ExomeDepth count](#exomedepth-count)
+- [Read count](#read-count)
 - [Count merge](#count-merge)
 - [ExomeDepth CNV call](#exomedepth-cnv-call)
-- [CNV merge](#cnv-merge)
 - [BedGoVcf](#bedgovcf)
 - [Tabix](#tabix)
 - [EnsemblVEP](#ensemblvep)
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
-### Cram Prepare
+### Read count
 
-If CRAM/CRAI files were provided in the samplesheet, they will be converted into BAM/BAI first before continuing with the pipeline.
-
-### ExomeDepth count
-
-ExomeDepth will generate 2 count files for each sample: 1 for autosomal chromosomes (`<sample>_autosomal.txt`) and 1 for chrX (`<sample>_chrX.txt`). They are not not written out in the `publishDir`.
+The counting step will generate a count file for each sample (`<sample>.merged.txt`). They are not not written out in the `publishDir`.
 
 ### Count merge
 
@@ -39,31 +33,17 @@ All samples sharing the same batch will be merged together since CNV calling in 
 
 - `exomedepth/`
   - `counts/`
-    - `<batch>_autosomal.txt`: Count file for autosomal chromosomes per batch
-    - `<batch>_chrX.txt`: Count file for chrX per batch
+    - `<batch>.merged.txt`: Count file per batch ("merged" stands for both autosomal and chrX regions)
 
 </details>
 
 ### ExomeDepth CNV call
 
-ExomeDepth will generate 2 CNV files for each sample: 1 for autosomal chromosomes (`<sample>_autosomal.txt`) and 1 for chrX (`<sample>_chrX.txt`). They are not not written out in the `publishDir`.
-
-### CNV merge
-
-The 2 CNV files will be merged into 1 summary file.
-
-<details markdown="1">
-<summary>Output files</summary>
-
-- `exomedepth/`
-  - `cnv_call/`
-    - `<sample>.txt`: Merged CNV file
-
-</details>
+ExomeDepth will generate 1 CNV file for each sample (`<sample>.merged.txt`). They are not not written out in the `publishDir`.
 
 ### BedGoVcf
 
-The merged CNV file is converted into a VCF file.
+The CNV file is converted into a VCF file.
 
 <details markdown="1">
 <summary>Output files</summary>

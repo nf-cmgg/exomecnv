@@ -4,23 +4,20 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { MULTIQC                } from '../modules/nf-core/multiqc/main'
-include { paramsSummaryMap       } from 'plugin/nf-schema'
-include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { paramsSummaryMap       } from 'plugin/nf-schema'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_exomecnv_pipeline'
 
 // Modules
-include { TABIX_TABIX       } from '../modules/nf-core/tabix/tabix/main'
-include { SAMTOOLS_CONVERT  } from '../modules/nf-core/samtools/convert/main'
-include { CUSTOM_MERGECNV   } from '../modules/local/custom/mergecnv/main.nf'
+include { MULTIQC           } from '../modules/nf-core/multiqc/main'
+include { MOSDEPTH          } from '../modules/nf-core/mosdepth/main.nf'
 include { BEDGOVCF          } from '../modules/nf-core/bedgovcf/main.nf'
+include { BCFTOOLS_SORT     } from '../modules/nf-core/bcftools/sort/main.nf'
 
 // Subworkflows
-include { CRAM_CNV_EXOMEDEPTH as CRAM_CNV_EXOMEDEPTH_X      } from '../subworkflows/local/cram_cnv_exomedepth/main'
-include { CRAM_CNV_EXOMEDEPTH as CRAM_CNV_EXOMEDEPTH_AUTO   } from '../subworkflows/local/cram_cnv_exomedepth/main'
-include { VCF_ANNOTATE_VEP                                  } from '../subworkflows/local/vcf_annotate_vep/main'
-
+include { CNV_EXOMEDEPTH            } from '../subworkflows/local/cnv_exomedepth/main'
+include { VCF_ANNOTATE_ENSEMBLVEP   } from '../subworkflows/nf-core/vcf_annotate_ensemblvep/main'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -35,8 +32,7 @@ workflow EXOMECNV {
     outdir
     fasta
     fai
-    roi_auto
-    roi_chrx
+    roi_merged
     vep_cache
     bedgovcf_yaml
     multiqc_config
@@ -57,117 +53,84 @@ workflow EXOMECNV {
     main:
     def ch_versions = Channel.empty()
     def ch_multiqc_files = Channel.empty()
-
-    def ch_fasta = Channel.fromPath(fasta)
-        .map{ path ->
-            def new_meta = [id:"reference"]
-            [new_meta, path]
-        }
-        .collect()
-
-    def ch_fai = Channel.fromPath(fai)
-        .map{ path ->
-            def new_meta = [id:"reference"]
-            [new_meta, path]
-        }
-        .collect()
-
-    def ch_roi_auto = Channel.fromPath(roi_auto)
-        .map{ bed -> [[id:"autosomal"], bed]}
-        .collect()
-
-    def ch_roi_x    = Channel.fromPath(roi_chrx)
-        .map{ bed -> [[id:"chrX"], bed]}
-        .collect()
-
+    def ch_fasta = Channel.value([ [id: "reference"], file(fasta, checkIfExists:true) ])
+    def ch_fai = Channel.value([[id: "reference"], file(fai, checkIfExists:true) ])
+    def ch_roi_merged = roi_merged ? Channel.value([[id: "merged"], file(roi_merged, checkIfExists:true)]) : Channel.empty()
     def ch_vep_cache = Channel.fromPath(vep_cache).collect()
 
-    def ch_input = ch_samplesheet.branch { meta, cram, crai, vcf, tbi ->
+    def ch_input = ch_samplesheet.branch { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
+            // return a channel with vcf for annotation
             vcf: vcf
-                return [ meta, vcf, tbi ]
-            no_vcf: !vcf
+                return [ meta, vcf, vcf_index ]
+            // return a channel with per-base beds, skipping bam/cram conversion
+            bed: bed
+                return [ meta, bed, bed_index ]
+            // return a channel with bam/cram files when no vcf or bed is provided
+            cram: !vcf && !bed
                 return [ meta, cram, crai ]
         }
 
-    // ExomeDepth
-    def ch_exomedepth_vcf = Channel.empty()
-    if (exomedepth) {
-        def ch_cram_bam = ch_input.no_vcf.branch { _meta, file, _index ->
-            cram: file.extension == "cram"
-            bam:  file.extension == "bam"
-        }
+    ch_input.vcf.dump (tag: "VCF INPUT:", pretty:true)
+    ch_input.bed.dump (tag: "BED INPUT:", pretty:true)
+    ch_input.cram.dump(tag: "BAM/CRAM INPUT:", pretty:true)
 
-        SAMTOOLS_CONVERT(
-            ch_cram_bam.cram,
-            ch_fasta,
+    // Generate the raw per-base counts for samples that do not have a VCF or BED file
+    MOSDEPTH(
+        ch_input.cram.map { meta, cram, crai ->
+            return [meta, cram, crai, []]
+        },
+        ch_fasta.join(ch_fai, failOnMismatch:true, failOnDuplicate:true).collect()
+    )
+    ch_versions = ch_versions.mix(MOSDEPTH.out.versions.first())
+    MOSDEPTH.out.per_base_bed.dump(tag: "MOSDEPTH PER BASE BED:", pretty:true)
+
+
+    def ch_cnv_vcf = ch_input.vcf
+    if (exomedepth) {
+        // Generate the ExomeDepth subworkflow input
+        ch_perbase = MOSDEPTH.out.per_base_bed
+            .join(MOSDEPTH.out.per_base_csi, failOnMismatch:true, failOnDuplicate:true)
+            .mix(ch_input.bed)
+
+        CNV_EXOMEDEPTH(
+            ch_perbase,
+            ch_roi_merged,
             ch_fai
         )
-        ch_versions = ch_versions.mix(SAMTOOLS_CONVERT.out.versions.first())
+        ch_versions = ch_versions.mix(CNV_EXOMEDEPTH.out.versions)
 
-        def ch_exomedepth_input = ch_cram_bam.bam
-            .mix(
-                SAMTOOLS_CONVERT.out.bam.join(SAMTOOLS_CONVERT.out.bai, failOnMismatch:true, failOnDuplicate:true)
-            )
-
-        CRAM_CNV_EXOMEDEPTH_X(
-            ch_exomedepth_input,
-            ch_roi_x,
-            "chrX"
-        )
-        ch_versions = ch_versions.mix(CRAM_CNV_EXOMEDEPTH_X.out.versions)
-
-        CRAM_CNV_EXOMEDEPTH_AUTO(
-            ch_exomedepth_input,
-            ch_roi_auto,
-            "autosomal"
-        )
-        ch_versions = ch_versions.mix(CRAM_CNV_EXOMEDEPTH_X.out.versions)
-
-        def ch_merge_input = CRAM_CNV_EXOMEDEPTH_X.out.cnv
-            .join(CRAM_CNV_EXOMEDEPTH_AUTO.out.cnv)
-
-        CUSTOM_MERGECNV(
-            ch_merge_input
-        )
-        ch_versions = ch_versions.mix(CUSTOM_MERGECNV.out.versions.first())
-
-        def bedgovcf_input = CUSTOM_MERGECNV.out.merge
-            .map{ meta, bed ->
-                [meta, bed, file(bedgovcf_yaml, checkIfExists:true)]
-            }
-
+        // Convert bed files to VCF format
         BEDGOVCF(
-            bedgovcf_input,
+            CNV_EXOMEDEPTH.out.cnv.map{ meta, bed -> [meta, bed, file(bedgovcf_yaml, checkIfExists:true)]},
             ch_fai
         )
         ch_versions = ch_versions.mix(BEDGOVCF.out.versions.first())
 
-        // Index files for VCF
-
-        TABIX_TABIX(
+        BCFTOOLS_SORT(
             BEDGOVCF.out.vcf
         )
-        ch_versions = ch_versions.mix(TABIX_TABIX.out.versions)
+        ch_versions = ch_versions.mix(BCFTOOLS_SORT.out.versions)
 
-        ch_exomedepth_vcf = BEDGOVCF.out.vcf
-            .join(TABIX_TABIX.out.tbi, failOnMismatch:true, failOnDuplicate:true)
+        ch_sorted_vcf_index = BCFTOOLS_SORT.out.vcf.join(BCFTOOLS_SORT.out.tbi, failOnMismatch:true, failOnDuplicate:true)
+
+        // Add the exome depth VCFs to the channel
+        ch_cnv_vcf = ch_cnv_vcf.mix(ch_sorted_vcf_index)
     }
 
     // Annotate exomedepth VCFs and input VCFs
-    def ch_annotate_input = ch_exomedepth_vcf.mix(ch_input.vcf)
     if(annotate) {
-        VCF_ANNOTATE_VEP(
-            ch_annotate_input,
+        VCF_ANNOTATE_ENSEMBLVEP(
+            ch_cnv_vcf,
             ch_fasta,
-            ch_vep_cache,
             vep_assembly,
             species,
-            vep_cache_version
+            vep_cache_version,
+            ch_vep_cache,
+            []
         )
     }
 
     // Collate and save software versions
-
     softwareVersionsToYAML(ch_versions)
         .collectFile(storeDir: "${outdir}/pipeline_info", name: 'nf_core_pipeline_software_mqc_versions.yml', sort: true, newLine: true)
         .set { ch_collated_versions }
@@ -195,8 +158,8 @@ workflow EXOMECNV {
     )
 
     emit:
-    multiqc_report = Channel.empty() // channel: /path/to/multiqc_report.html
-    versions       = ch_versions                 // channel: [ path(versions.yml) ]
+    multiqc_report = Channel.empty()    // channel: /path/to/multiqc_report.html
+    versions       = ch_versions        // channel: [ path(versions.yml) ]
 }
 
 /*

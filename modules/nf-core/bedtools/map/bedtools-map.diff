@@ -1,0 +1,31 @@
+Changes in component 'nf-core/bedtools/map'
+'modules/nf-core/bedtools/map/meta.yml' is unchanged
+Changes in 'bedtools/map/main.nf':
+--- modules/nf-core/bedtools/map/main.nf
++++ modules/nf-core/bedtools/map/main.nf
+@@ -21,7 +21,9 @@
+     script:
+     def args = task.ext.args ?: ''
+     def prefix = task.ext.prefix ?: "${meta.id}"
+-    extension = intervals1.getExtension()
++    // Check if intervals1 is gzipped and set the extension accordingly
++    extension = !intervals1.endsWith(".gz") ? intervals1.getExtension() : intervals1.replace('.gz', '').getExtension()
++    extension += ".gz"
+     def sizes = chrom_sizes ? "-g ${chrom_sizes}" : ''
+     if ("$intervals1" == "${prefix}.${extension}" ||
+         "$intervals2" == "${prefix}.${extension}")
+@@ -33,7 +35,7 @@
+         -b $intervals2 \\
+         $args \\
+         $sizes \\
+-        > ${prefix}.${extension}
++    | gzip -c > ${prefix}.${extension}
+ 
+     cat <<-END_VERSIONS > versions.yml
+     "${task.process}":
+
+'modules/nf-core/bedtools/map/environment.yml' is unchanged
+'modules/nf-core/bedtools/map/tests/main.nf.test' is unchanged
+'modules/nf-core/bedtools/map/tests/main.nf.test.snap' is unchanged
+'modules/nf-core/bedtools/map/tests/nextflow.config' is unchanged
+************************************************************

@@ -1,0 +1,136 @@
+{
+    "homo_sapiens - reformat": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "Sample1",
+                            "batch": "prep_M",
+                            "family": "Fam1",
+                            "samples": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "families": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ],
+                            "chromosome": "merged"
+                        },
+                        "Sample1.merged.txt:md5,5ec821d63fd7d5ace910f8b03ae7137a"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,1fc282562f70ae81332ac5efb8314e49"
+                ],
+                "header": [
+                    [
+                        {
+                            "id": "Sample1",
+                            "batch": "prep_M",
+                            "family": "Fam1",
+                            "samples": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "families": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ],
+                            "chromosome": "merged"
+                        },
+                        "Sample1.merged.txt:md5,5ec821d63fd7d5ace910f8b03ae7137a"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,1fc282562f70ae81332ac5efb8314e49"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.0"
+        },
+        "timestamp": "2025-09-05T10:41:45.98232331"
+    },
+    "homo_sapiens - reformat - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "Sample1",
+                            "batch": "prep_M",
+                            "family": "Fam1",
+                            "samples": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "families": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ],
+                            "chromosome": "merged"
+                        },
+                        "Sample1.merged.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,3e09d87978796a478b6bd8edd09c4985"
+                ],
+                "header": [
+                    [
+                        {
+                            "id": "Sample1",
+                            "batch": "prep_M",
+                            "family": "Fam1",
+                            "samples": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "families": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ],
+                            "chromosome": "merged"
+                        },
+                        "Sample1.merged.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,3e09d87978796a478b6bd8edd09c4985"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.0"
+        },
+        "timestamp": "2025-09-05T10:41:53.276535237"
+    }
+}
