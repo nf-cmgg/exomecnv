@@ -66,11 +66,18 @@
                 "errorMessage": "index of VCF file is optional but must be provided when only annotating",
                 "format": "file-path",
                 "exists": true
+            },
+            "roi": {
+                "type": "string",
+                "pattern": "^\\S+\\.bed$",
+                "errorMessage": "ROI BED file must be provided, cannot contain spaces and must have extension '.bed'",
+                "format": "file-path",
+                "exists": true
             }
         },
         "anyOf": [
-            { "required": ["sample", "batch", "family", "cram"] },
-            { "required": ["sample", "batch", "family", "bed"] }
+            { "required": ["sample", "batch", "family", "cram", "roi"] },
+            { "required": ["sample", "batch", "family", "bed", "roi"] }
         ]
     },
     "uniqueEntries": ["sample"]

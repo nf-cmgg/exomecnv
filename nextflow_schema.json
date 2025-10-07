@@ -248,23 +248,6 @@
                 }
             }
         },
-        "exomedepth_parameters": {
-            "title": "ExomeDepth parameters",
-            "type": "object",
-            "description": "Options specific for the ExomeDepth execution",
-            "default": "",
-            "properties": {
-                "roi": {
-                    "type": "string",
-                    "description": "Path to the default merged ROI (regions of interest) BED file to be used for CNV analysis",
-                    "format": "file-path",
-                    "pattern": "^\\S+\\.bed$",
-                    "mimetype": "text/plain",
-                    "exists": true
-                }
-            },
-            "required": ["roi"]
-        },
         "vep_parameters": {
             "title": "VEP parameters",
             "type": "object",
@@ -308,9 +291,6 @@
         },
         {
             "$ref": "#/$defs/generic_options"
-        },
-        {
-            "$ref": "#/$defs/exomedepth_parameters"
         },
         {
             "$ref": "#/$defs/vep_parameters"
