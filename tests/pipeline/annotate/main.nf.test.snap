@@ -26,7 +26,7 @@
                     "R": "Rscript (R) version 4.4.3 (2025-02-28)"
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v2.0.0"
+                    "nf-cmgg/exomecnv": "v2.0.1"
                 }
             },
             [
@@ -128,7 +128,7 @@
                 "prep_M.merged.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ],
             [
-                
+
             ]
         ],
         "meta": {
@@ -167,7 +167,7 @@
                     "mosdepth": "0.3.10"
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v2.0.0"
+                    "nf-cmgg/exomecnv": "v2.0.1"
                 }
             },
             [
@@ -269,7 +269,7 @@
                 "prep_M.merged.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ],
             [
-                
+
             ]
         ],
         "meta": {

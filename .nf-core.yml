@@ -38,7 +38,7 @@ template:
   name: exomecnv
   description: A nextflow pipeline for calling CNVs in targetted data
   author: Toon Rosseel, Matthias De Smet
-  version: 2.0.0
+  version: 2.0.1
   force: true
   outdir: .
   skip_features: []
