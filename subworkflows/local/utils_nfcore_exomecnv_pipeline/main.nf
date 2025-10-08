@@ -80,20 +80,8 @@ workflow PIPELINE_INITIALISATION {
 
         def pool = meta.batch
         if (!pools.containsKey(pool)) {
-            pools[pool] = [samples:[], families:[], roi: meta.roi]
-        } else {
-            // Check ROI consistency
-            def currentRoi = pools[pool].roi
-            if (currentRoi && meta.roi && currentRoi != meta.roi) {
-                log.error "ROI mismatch detected for pool '${pool}': existing ROI='${currentRoi}', new ROI='${meta.roi}' (sample: ${meta.id})"
-                throw new IllegalArgumentException("ROI mismatch in pool '${pool}' — all samples must share the same ROI")
-            }
-            // If roi wasn't set yet, inherit from meta
-            if (!currentRoi && meta.roi) {
-                pools[pool].roi = meta.roi
-            }
+            pools[pool] = [samples:[], families:[]]
         }
-
 
         def sample = meta.id
         if (!pools[pool].samples.contains(sample)) {
