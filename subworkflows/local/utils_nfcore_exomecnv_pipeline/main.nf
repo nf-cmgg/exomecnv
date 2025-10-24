@@ -109,7 +109,7 @@ workflow PIPELINE_INITIALISATION {
         .map { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
             def new_meta = meta + [
                 samples:pools[meta.batch].samples.join(","),
-                families:pools[meta.batch].families.join(",")
+                families:pools[meta.batch].families.join(","),
                 roi:rois.get(meta.batch, roi_default)
             ]
             return [ new_meta, cram, crai, bed, bed_index, vcf, vcf_index ]
