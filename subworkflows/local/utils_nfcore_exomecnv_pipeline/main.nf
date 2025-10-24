@@ -32,6 +32,8 @@ workflow PIPELINE_INITIALISATION {
     nextflow_cli_args //   array: List of positional nextflow CLI args
     outdir            //  string: The output directory where the results will be saved
     input             //  string: Path to input samplesheet
+    roi_default       //  string: Path to default ROI BED file
+    roi               //  string: Path to samplesheet with ROI BED files
 
     main:
 
@@ -74,6 +76,9 @@ workflow PIPELINE_INITIALISATION {
 
     def pools = [:]
     def inputList = samplesheetToList(input, "${projectDir}/assets/schema_input.json")
+    def rois = [:]
+    def roiList = samplesheetToList(roi, "${projectDir}/assets/schema_roi.json")
+
     inputList.each { meta, _cram, _crai, _bed, _bed_index, vcf, _vcf_index ->
         // Don't account for inputs that have a VCF file
         if (vcf) { return }
@@ -91,12 +96,21 @@ workflow PIPELINE_INITIALISATION {
         pools[pool].families.add(meta.family)
     }
 
+    roiList.each { meta, bed_roi ->
+
+        def pool = meta.batch
+        if (!rois.containsKey(pool)) {
+            rois[pool] = [roi: bed_roi]
+        }
+    }
+
     Channel
         .fromList(inputList)
         .map { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
             def new_meta = meta + [
                 samples:pools[meta.batch].samples.join(","),
                 families:pools[meta.batch].families.join(",")
+                roi:rois.get(meta.batch, roi_default)
             ]
             return [ new_meta, cram, crai, bed, bed_index, vcf, vcf_index ]
         }

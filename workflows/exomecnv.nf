@@ -32,7 +32,6 @@ workflow EXOMECNV {
     outdir
     fasta
     fai
-    roi_merged
     vep_cache
     bedgovcf_yaml
     multiqc_config
@@ -55,7 +54,6 @@ workflow EXOMECNV {
     def ch_multiqc_files = Channel.empty()
     def ch_fasta = Channel.value([ [id: "reference"], file(fasta, checkIfExists:true) ])
     def ch_fai = Channel.value([[id: "reference"], file(fai, checkIfExists:true) ])
-    def ch_roi_merged = roi_merged ? Channel.value([[id: "merged"], file(roi_merged, checkIfExists:true)]) : Channel.empty()
     def ch_vep_cache = Channel.fromPath(vep_cache).collect()
 
     def ch_input = ch_samplesheet.branch { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
@@ -94,7 +92,6 @@ workflow EXOMECNV {
 
         CNV_EXOMEDEPTH(
             ch_perbase,
-            ch_roi_merged,
             ch_fai
         )
         ch_versions = ch_versions.mix(CNV_EXOMEDEPTH.out.versions)

@@ -52,6 +52,8 @@ workflow {
         args,
         params.outdir,
         params.input,
+        getGenomeAttribute('roi'),
+        params.roi,
     )
 
     //
@@ -64,7 +66,6 @@ workflow {
         params.outdir,
         params.fasta ?: getGenomeAttribute('fasta'),
         params.fai ?: getGenomeAttribute('fai'),
-        params.roi ?: getGenomeAttribute('roi'),
         params.vep_cache ?: getGenomeAttribute('vep_cache'),
         "${projectDir}/assets/exomedepth.yaml",
         params.multiqc_config,

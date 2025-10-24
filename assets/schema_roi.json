@@ -1,0 +1,27 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/nf-cmgg/exomecnv/master/assets/schema_roi.json",
+    "title": "nf-cmgg/exomecnv pipeline - params.roi schema",
+    "description": "Schema for the file provided with params.roi",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "batch": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Batch name must be provided and cannot contain spaces",
+                "meta": ["batch"]
+            },
+            "roi": {
+                "type": "string",
+                "pattern": "^\\S+\\.bed$",
+                "errorMessage": "Roi file must be provided and cannot contain spaces",
+                "format": "file-path",
+                "exists": true
+            }
+        },
+        "required": ["batch", "roi"]
+    },
+    "uniqueEntries": ["batch"]
+}
