@@ -33,11 +33,11 @@ workflow PIPELINE_INITIALISATION {
     outdir            //  string: The output directory where the results will be saved
     input             //  string: Path to input samplesheet
     roi_default       //  string: Path to default ROI BED file
-    roi               //  string: Path to samplesheet with ROI BED files
+    roi_sheet         //  string: Path to samplesheet with ROI BED files
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // Print version and exit if required and dump pipeline parameters to JSON file
@@ -77,7 +77,7 @@ workflow PIPELINE_INITIALISATION {
     def pools = [:]
     def inputList = samplesheetToList(input, "${projectDir}/assets/schema_input.json")
     def rois = [:]
-    def roiList = samplesheetToList(roi, "${projectDir}/assets/schema_roi.json")
+    def roiList = samplesheetToList(roi_sheet, "${projectDir}/assets/schema_roi.json")
 
     inputList.each { meta, _cram, _crai, _bed, _bed_index, vcf, _vcf_index ->
         // Don't account for inputs that have a VCF file
@@ -100,19 +100,22 @@ workflow PIPELINE_INITIALISATION {
 
         def pool = meta.batch
         if (!rois.containsKey(pool)) {
-            rois[pool] = [roi: bed_roi]
+            rois[pool] = bed_roi
         }
     }
 
-    Channel
+    channel
         .fromList(inputList)
         .map { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
+            def roi_bed = rois.get(meta.batch, roi_default)
+            if(!roi_bed) {
+                error("Could not find a BED file for batch '${meta.batch}' in the ROI sheet (${roi_sheet}) and no default was given.")
+            }
             def new_meta = meta + [
                 samples:pools[meta.batch].samples.join(","),
-                families:pools[meta.batch].families.join(","),
-                roi:rois.get(meta.batch, roi_default)
+                families:pools[meta.batch].families.join(",")
             ]
-            return [ new_meta, cram, crai, bed, bed_index, vcf, vcf_index ]
+            return [ new_meta, cram, crai, bed, bed_index, vcf, vcf_index, roi_bed ]
         }
         .set { ch_samplesheet }
 

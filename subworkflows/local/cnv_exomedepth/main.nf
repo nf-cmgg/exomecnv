@@ -22,13 +22,11 @@ workflow CNV_EXOMEDEPTH {
     ch_fai      // meta, path
 
     main:
-    def ch_versions = Channel.empty()
-    def ch_count_input = ch_perbase.combine(ch_roi.map{ meta, bed -> ["chromosome": meta.id , "bed": bed]})
+    def ch_versions = channel.empty()
+    def ch_count_input = ch_perbase.join(ch_roi, failOnMismatch: true, failOnDuplicate: true)
         .map { meta, perbase, _index, roi ->
-            def chromosome = roi.chromosome
-            def bed = roi.bed
-            def new_meta = meta + [chromosome:chromosome]
-            return [ new_meta, bed, perbase]
+            def new_meta = meta + [roi:roi]
+            return [ new_meta, roi, perbase ]
         }
 
     // Calculate the mean coverage from the per-base coverage files for the exons in the ROI
@@ -59,25 +57,21 @@ workflow CNV_EXOMEDEPTH {
 
     def ch_counts = CUSTOM_MERGECOUNTS.out.merge
         .map { meta, txt ->
-            [meta, txt, meta.samples.tokenize(","), meta.samples, meta.families]
+            def new_meta = meta - meta.subMap("roi")
+            [new_meta, txt, meta.samples.tokenize(","), meta.samples, meta.families, meta.roi]
         }
         .transpose(by:2)
-        .map { meta, txt, sample, samples, families ->
+        .map { meta, txt, sample, samples, families, roi ->
             def new_meta = meta + [id:sample]
-            [ new_meta, txt, sample, samples, families ]
+            [ new_meta, txt, sample, samples, families, roi ]
         }
 
     EXOMEDEPTH_CALL(
         ch_counts,
-        ch_roi
     )
     ch_versions = ch_versions.mix(EXOMEDEPTH_CALL.out.versions.first())
 
     def ch_cnv_out = EXOMEDEPTH_CALL.out.cnvcall
-        .map { meta, txt ->
-            def new_meta = meta - meta.subMap("chromosome")
-            [ new_meta, txt ]
-        }
 
     emit:
     versions = ch_versions

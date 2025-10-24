@@ -22,7 +22,7 @@
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with multiple columns, and a header row.",
                     "fa_icon": "fas fa-file-csv"
                 },
-                "roi": {
+                "roi_sheet": {
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
@@ -94,6 +94,12 @@
                     "pattern": "^\\S+\\.fai$",
                     "description": "Path to FASTA genome index file.",
                     "fa_icon": "far fa-file-code"
+                },
+                "roi": {
+                    "type": "string",
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.bed$",
+                    "description": "The default ROI BED file to be used when no file is linked to a batch in the --roi_sheet file."
                 },
                 "igenomes_base": {
                     "type": "string",
