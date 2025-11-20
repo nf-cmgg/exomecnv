@@ -15,6 +15,7 @@ lint:
     - docs/README.md
     - .github/workflows/linting_comment.yml
     - .github/workflows/linting.yml
+    - .prettierignore
   nextflow_config:
     - manifest.name
     - manifest.homePage
