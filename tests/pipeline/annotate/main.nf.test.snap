@@ -94,8 +94,8 @@
                 "exomedepth/cnv_call_vep/Sample9.vep.vcf.gz.tbi",
                 "exomedepth/cnv_call_vep/Sample9.vep_summary.html",
                 "exomedepth/counts",
-                "exomedepth/counts/prep_F.merged.txt",
-                "exomedepth/counts/prep_M.merged.txt",
+                "exomedepth/counts/prep_F.txt",
+                "exomedepth/counts/prep_M.txt",
                 "multiqc",
                 "multiqc/multiqc_data",
                 "multiqc/multiqc_plots",
@@ -124,18 +124,18 @@
                 "Sample8.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "Sample9.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
                 "Sample9.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "prep_F.merged.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "prep_M.merged.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                "prep_F.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "prep_M.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ],
             [
-
+                
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.0"
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-09-03T09:11:34.289132891"
+        "timestamp": "2025-11-20T11:34:42.555159378"
     },
     "exomedepth_cram + annotate": {
         "content": [
@@ -235,8 +235,8 @@
                 "exomedepth/cnv_call_vep/Sample9.vep.vcf.gz.tbi",
                 "exomedepth/cnv_call_vep/Sample9.vep_summary.html",
                 "exomedepth/counts",
-                "exomedepth/counts/prep_F.merged.txt",
-                "exomedepth/counts/prep_M.merged.txt",
+                "exomedepth/counts/prep_F.txt",
+                "exomedepth/counts/prep_M.txt",
                 "multiqc",
                 "multiqc/multiqc_data",
                 "multiqc/multiqc_plots",
@@ -265,17 +265,17 @@
                 "Sample8.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "Sample9.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
                 "Sample9.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "prep_F.merged.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "prep_M.merged.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                "prep_F.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "prep_M.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
             ],
             [
-
+                
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.0"
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-09-01T16:47:37.156678284"
+        "timestamp": "2025-11-20T11:33:48.409403373"
     }
 }
