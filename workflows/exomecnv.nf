@@ -84,7 +84,7 @@ workflow EXOMECNV {
         ch_input.cram.map { meta, cram, crai ->
             return [meta, cram, crai, []]
         },
-        ch_fasta.join(ch_fai, failOnMismatch:true, failOnDuplicate:true).collect()
+        ch_fasta
     )
     ch_versions = ch_versions.mix(MOSDEPTH.out.versions.first())
     MOSDEPTH.out.per_base_bed.dump(tag: "MOSDEPTH PER BASE BED:", pretty:true)
