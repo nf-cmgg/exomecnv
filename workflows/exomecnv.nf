@@ -32,7 +32,6 @@ workflow EXOMECNV {
     outdir
     fasta
     fai
-    roi_merged
     vep_cache
     bedgovcf_yaml
     multiqc_config
@@ -51,14 +50,20 @@ workflow EXOMECNV {
     vep_cache_version
 
     main:
-    def ch_versions = Channel.empty()
-    def ch_multiqc_files = Channel.empty()
-    def ch_fasta = Channel.value([ [id: "reference"], file(fasta, checkIfExists:true) ])
-    def ch_fai = Channel.value([[id: "reference"], file(fai, checkIfExists:true) ])
-    def ch_roi_merged = roi_merged ? Channel.value([[id: "merged"], file(roi_merged, checkIfExists:true)]) : Channel.empty()
-    def ch_vep_cache = Channel.fromPath(vep_cache).collect()
+    def ch_versions = channel.empty()
+    def ch_multiqc_files = channel.empty()
+    def ch_fasta = channel.value([ [id: "reference"], file(fasta, checkIfExists:true) ])
+    def ch_fai = channel.value([[id: "reference"], file(fai, checkIfExists:true) ])
+    def ch_vep_cache = channel.fromPath(vep_cache).collect()
 
-    def ch_input = ch_samplesheet.branch { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
+    def ch_input_map = ch_samplesheet
+        .multiMap { meta, cram, crai, bed, bed_index, vcf, vcf_index, roi ->
+            inputs: [ meta, cram, crai, bed, bed_index, vcf, vcf_index, roi ]
+            roi: [ meta, roi ]
+        }
+
+    def ch_input = ch_input_map.inputs
+        .branch { meta, cram, crai, bed, bed_index, vcf, vcf_index, roi ->
             // return a channel with vcf for annotation
             vcf: vcf
                 return [ meta, vcf, vcf_index ]
@@ -79,7 +84,7 @@ workflow EXOMECNV {
         ch_input.cram.map { meta, cram, crai ->
             return [meta, cram, crai, []]
         },
-        ch_fasta.join(ch_fai, failOnMismatch:true, failOnDuplicate:true).collect()
+        ch_fasta
     )
     ch_versions = ch_versions.mix(MOSDEPTH.out.versions.first())
     MOSDEPTH.out.per_base_bed.dump(tag: "MOSDEPTH PER BASE BED:", pretty:true)
@@ -94,7 +99,7 @@ workflow EXOMECNV {
 
         CNV_EXOMEDEPTH(
             ch_perbase,
-            ch_roi_merged,
+            ch_input_map.roi,
             ch_fai
         )
         ch_versions = ch_versions.mix(CNV_EXOMEDEPTH.out.versions)
@@ -137,13 +142,13 @@ workflow EXOMECNV {
 
     // MODULE: MultiQC
 
-    def ch_multiqc_config                     = Channel.fromPath("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-    def ch_multiqc_custom_config              = multiqc_config ? Channel.fromPath(multiqc_config, checkIfExists: true) : Channel.empty()
-    def ch_multiqc_logo                       = multiqc_logo ? Channel.fromPath(multiqc_logo, checkIfExists: true) : Channel.empty()
+    def ch_multiqc_config                     = channel.fromPath("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
+    def ch_multiqc_custom_config              = multiqc_config ? channel.fromPath(multiqc_config, checkIfExists: true) : channel.empty()
+    def ch_multiqc_logo                       = multiqc_logo ? channel.fromPath(multiqc_logo, checkIfExists: true) : channel.empty()
     def summary_params                        = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
-    def ch_workflow_summary                   = Channel.value(paramsSummaryMultiqc(summary_params))
+    def ch_workflow_summary                   = channel.value(paramsSummaryMultiqc(summary_params))
     def ch_multiqc_custom_methods_description = multiqc_methods_description ? file(multiqc_methods_description, checkIfExists: true) : file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
-    def ch_methods_description                = Channel.value(methodsDescriptionText(ch_multiqc_custom_methods_description))
+    def ch_methods_description                = channel.value(methodsDescriptionText(ch_multiqc_custom_methods_description))
         ch_multiqc_files                      = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
         ch_multiqc_files                      = ch_multiqc_files.mix(ch_collated_versions)
         ch_multiqc_files                      = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: false))
@@ -158,7 +163,7 @@ workflow EXOMECNV {
     )
 
     emit:
-    multiqc_report = Channel.empty()    // channel: /path/to/multiqc_report.html
+    multiqc_report = channel.empty()    // channel: /path/to/multiqc_report.html
     versions       = ch_versions        // channel: [ path(versions.yml) ]
 }
 

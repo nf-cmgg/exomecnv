@@ -19,6 +19,7 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_exom
 params.fasta     = getGenomeAttribute('fasta')
 params.fai       = getGenomeAttribute('fai')
 params.vep_cache = getGenomeAttribute('vep_cache')
+params.roi       = getGenomeAttribute('roi')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,6 +53,8 @@ workflow {
         args,
         params.outdir,
         params.input,
+        params.roi,
+        params.roi_sheet,
     )
 
     //
@@ -62,10 +65,9 @@ workflow {
         // file inputs
         PIPELINE_INITIALISATION.out.samplesheet,
         params.outdir,
-        params.fasta ?: getGenomeAttribute('fasta'),
-        params.fai ?: getGenomeAttribute('fai'),
-        params.roi ?: getGenomeAttribute('roi'),
-        params.vep_cache ?: getGenomeAttribute('vep_cache'),
+        params.fasta,
+        params.fai,
+        params.vep_cache,
         "${projectDir}/assets/exomedepth.yaml",
         params.multiqc_config,
         params.multiqc_logo,

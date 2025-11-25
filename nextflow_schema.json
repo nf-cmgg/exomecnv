@@ -19,7 +19,17 @@
                     "schema": "assets/schema_input.json",
                     "pattern": "^\\S+\\.(csv|tsv|yaml|yml|json)$",
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
-                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row.",
+                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with multiple columns, and a header row.",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "roi_sheet": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "schema": "assets/schema_roi.json",
+                    "pattern": "^\\S+\\.(csv|tsv|yaml|yml|json)$",
+                    "description": "Path to comma-separated file containing information about the regios of interest per batch/pool/group in the experiment.",
+                    "help_text": "You will need to create a design file with information about the regios of interest per batches in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 2 columns, and a header row.",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "outdir": {
@@ -84,6 +94,12 @@
                     "pattern": "^\\S+\\.fai$",
                     "description": "Path to FASTA genome index file.",
                     "fa_icon": "far fa-file-code"
+                },
+                "roi": {
+                    "type": "string",
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.bed$",
+                    "description": "The default ROI BED file to be used when no file is linked to a batch in the --roi_sheet file."
                 },
                 "igenomes_base": {
                     "type": "string",
@@ -248,23 +264,6 @@
                 }
             }
         },
-        "exomedepth_parameters": {
-            "title": "ExomeDepth parameters",
-            "type": "object",
-            "description": "Options specific for the ExomeDepth execution",
-            "default": "",
-            "properties": {
-                "roi": {
-                    "type": "string",
-                    "description": "Path to the default merged ROI (regions of interest) BED file to be used for CNV analysis",
-                    "format": "file-path",
-                    "pattern": "^\\S+\\.bed$",
-                    "mimetype": "text/plain",
-                    "exists": true
-                }
-            },
-            "required": ["roi"]
-        },
         "vep_parameters": {
             "title": "VEP parameters",
             "type": "object",
@@ -308,9 +307,6 @@
         },
         {
             "$ref": "#/$defs/generic_options"
-        },
-        {
-            "$ref": "#/$defs/exomedepth_parameters"
         },
         {
             "$ref": "#/$defs/vep_parameters"

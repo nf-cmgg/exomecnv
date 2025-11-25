@@ -8,8 +8,7 @@ process EXOMEDEPTH_CALL {
         'biocontainers/r-exomedepth:1.1.18--r44hb2a3317_0' }"
 
     input:
-    tuple val(meta), path(countfile), val(sample), val(samples), val(families) // meta:id, chr, sam, fam, sample
-    tuple val(meta2), path(exon_target) // meta.id=chrx/autosomal
+    tuple val(meta), path(countfile), val(sample), val(samples), val(families), path(exon_target)
 
     output:
     tuple val(meta), path("*.txt"), emit: cnvcall
