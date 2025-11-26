@@ -1,0 +1,53 @@
+nextflow_process {
+
+    name "Test Process GREP_SPLITBED"
+    script "../main.nf"
+    process "GREP_SPLITBED"
+
+    tag "modules"
+    tag "modules_local"
+    tag "grep_splitbed"
+
+    test("homo_sapiens - bed, merged_counts") {
+
+        when {
+            process {
+                """
+                input[0] = Channel.of([
+                    [ id: 'test' ],
+                    file(params.roi)
+                ])
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("homo_sapiens - bed, merged_counts - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = Channel.of([
+                    [ id: 'test' ],
+                    file(params.roi)
+                ])
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+}
