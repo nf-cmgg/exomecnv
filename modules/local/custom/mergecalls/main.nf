@@ -25,7 +25,7 @@ process CUSTOM_MERGECALLS {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         cat: \$(cat --version | sed '1!d; s/cat (GNU coreutils) //')
-        grep: \$(grep --version | sed '1!d; s/grep (GNU grep) //')
+        grep: \$(grep 2>&1 | head -1 | sed 's/BusyBox v//;s/ (.*//')
         sort: \$(sort --version | sed '1!d; s/sort (GNU coreutils) //')
         head: \$(head --version | sed '1!d; s/head (GNU coreutils) //')
     END_VERSIONS
@@ -39,7 +39,7 @@ process CUSTOM_MERGECALLS {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         cat: \$(cat --version | sed '1!d; s/cat (GNU coreutils) //')
-        grep: \$(grep --version | sed '1!d; s/grep (GNU grep) //')
+        grep: \$(grep 2>&1 | head -1 | sed 's/BusyBox v//;s/ (.*//')
         sort: \$(sort --version | sed '1!d; s/sort (GNU coreutils) //')
         head: \$(head --version | sed '1!d; s/head (GNU coreutils) //')
     END_VERSIONS
