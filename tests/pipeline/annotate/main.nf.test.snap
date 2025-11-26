@@ -18,12 +18,11 @@
                     "cp": 9.3
                 },
                 "CUSTOM_REFORMATCOUNTS": {
-                    "echo": "--version",
-                    "cut": "cp (GNU coreutils) 9.3"
+                    "cut": 9.3
                 },
                 "EXOMEDEPTH_CALL": {
                     "ExomeDepth": "1.1.18",
-                    "R": "Rscript (R) version 4.4.3 (2025-02-28)"
+                    "R": "4.4.3"
                 },
                 "Workflow": {
                     "nf-cmgg/exomecnv": "v2.0.1"
@@ -125,7 +124,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-20T12:45:04.024965046"
+        "timestamp": "2025-11-26T14:26:41.010872745"
     },
     "exomedepth_cram + annotate": {
         "content": [
@@ -146,12 +145,11 @@
                     "cp": 9.3
                 },
                 "CUSTOM_REFORMATCOUNTS": {
-                    "echo": "--version",
-                    "cut": "cp (GNU coreutils) 9.3"
+                    "cut": 9.3
                 },
                 "EXOMEDEPTH_CALL": {
                     "ExomeDepth": "1.1.18",
-                    "R": "Rscript (R) version 4.4.3 (2025-02-28)"
+                    "R": "4.4.3"
                 },
                 "MOSDEPTH": {
                     "mosdepth": "0.3.10"
@@ -256,6 +254,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-11-20T12:44:05.026828592"
+        "timestamp": "2025-11-26T14:25:49.117397397"
     }
 }
