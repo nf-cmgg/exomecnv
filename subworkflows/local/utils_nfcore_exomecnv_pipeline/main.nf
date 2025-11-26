@@ -46,7 +46,7 @@ workflow PIPELINE_INITIALISATION {
         version,
         true,
         outdir,
-        workflow.profile.tokenize(',').intersect(['conda', 'mamba']).size() >= 1
+        workflow.profile,
     )
 
     //
@@ -76,7 +76,7 @@ workflow PIPELINE_INITIALISATION {
 
     def pools = [:]
     def inputList = samplesheetToList(input, "${projectDir}/assets/schema_input.json")
-    def rois = [:]
+    def rois_map = [:]
     def roiList = samplesheetToList(roi_sheet, "${projectDir}/assets/schema_roi.json")
 
     inputList.each { meta, _cram, _crai, _bed, _bed_index, vcf, _vcf_index ->
@@ -99,28 +99,28 @@ workflow PIPELINE_INITIALISATION {
     roiList.each { meta, bed_roi ->
 
         def pool = meta.batch
-        if (!rois.containsKey(pool)) {
-            rois[pool] = bed_roi
+        if (!rois_map.containsKey(pool)) {
+            rois_map[pool] = bed_roi
         }
     }
 
     channel
         .fromList(inputList)
         .map { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
-            def roi_bed = rois.get(meta.batch, roi_default)
-            if(!roi_bed) {
+            if(!rois_map.get(meta.batch, roi_default)) {
                 error("Could not find a BED file for batch '${meta.batch}' in the ROI sheet (${roi_sheet}) and no default was given.")
             }
             def new_meta = meta + [
                 samples:pools[meta.batch].samples.join(","),
                 families:pools[meta.batch].families.join(",")
             ]
-            return [ new_meta, cram, crai, bed, bed_index, vcf, vcf_index, roi_bed ]
+            return [ new_meta, cram, crai, bed, bed_index, vcf, vcf_index ]
         }
         .set { ch_samplesheet }
 
     emit:
     samplesheet = ch_samplesheet
+    rois        = channel.value(rois_map)
     versions    = ch_versions
 }
 
