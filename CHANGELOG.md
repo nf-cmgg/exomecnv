@@ -3,6 +3,13 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.0.2 Vintage Verthongen [2025-12-02]
+
+### `Bug fixes`
+
+- Fix vcf input handling in samplesheet processing
+- The `sample` column is now the only required column when using VCF input
+
 ## v2.0.1 Warrior Witsel [2025-10-07]
 
 ### `Bug fixes`
