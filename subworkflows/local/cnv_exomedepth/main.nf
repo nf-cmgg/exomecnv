@@ -27,10 +27,68 @@ workflow CNV_EXOMEDEPTH {
 
     main:
     def ch_versions = channel.empty()
-    def ch_count_input = ch_perbase.combine(ch_roi)
-        .map { meta, perbase, _index, roi_map ->
-            return [ meta, roi_map.get(meta.batch, roi_default), perbase ]
-        }
+    def default_name = "f632d51cf1eede42b6b8c0eb965f438a"
+
+    def ch_count_input = channel.empty()
+    if(splitx) {
+        def split_input = ch_roi
+            .flatMap { roi_map ->
+                return roi_map.collect { entry -> [[id: entry.key], entry.value] }
+            }
+            .mix(channel.fromPath(roi_default).map { file -> [[id: default_name], file] } )
+
+        GREP_SPLITBED(
+            split_input
+        )
+        ch_versions = ch_versions.mix(GREP_SPLITBED.out.versions.first())
+
+        def ch_roi_x = GREP_SPLITBED.out.bed_chrx.collect { meta, file -> [["${meta.id}", file]]}.view()
+            .map { items ->
+                def map = [:]
+                items.each { entry ->
+                    map[entry[0]] = entry[1]
+                }
+                return map
+            }.view()
+
+        def ch_roi_auto = GREP_SPLITBED.out.bed_autosomal.collect { meta, file -> [["${meta.id}", file]]}
+            .map { items ->
+                def map = [:]
+                items.each { entry ->
+                    map[entry[0]] = entry[1]
+                }
+                return map
+            }
+
+        def ch_x_count_input = ch_perbase.combine(ch_roi_x)
+            .map { meta, perbase, _index, roi_map ->
+                def roi = roi_map.get(meta.batch) ?: roi_map.get(default_name)
+                def new_meta = meta + [region:'chrx', roi:roi]
+                return [ new_meta, roi, perbase ]
+            }
+
+        def ch_auto_count_input = ch_perbase.combine(ch_roi_auto)
+            .map { meta, perbase, _index, roi_map ->
+                def roi = roi_map.get(meta.batch) ?: roi_map.get(default_name)
+                def new_meta = meta + [region:'autosomal', roi:roi]
+                return [ new_meta, roi, perbase ]
+            }
+
+        ch_count_input = ch_x_count_input
+            .mix(ch_auto_count_input)
+            .filter { _meta, roi, _perbase ->
+                // Ensure that the ROI is not empty or we are in stub run mode
+                return roi.size() > 0 || workflow.stubRun
+            }
+
+    } else {
+        ch_count_input = ch_perbase.combine(ch_roi)
+            .map { meta, perbase, _index, roi_map ->
+                def roi = roi_map.get(meta.batch, roi_default)
+                def new_meta = meta + [roi:roi]
+                return [ new_meta, roi, perbase ]
+            }
+    }
 
     // Calculate the mean coverage from the per-base coverage files for the exons in the ROI
     BEDTOOLS_MAP (
@@ -68,47 +126,11 @@ workflow CNV_EXOMEDEPTH {
             [ new_meta, txt, sample, samples, families ]
         }
 
-    def ch_exomedepth_input = channel.empty()
-    if(splitx) {
-        // Rare name will be used for the default ROI to reduce the chance of name collisions
-        def rare_name = "f632d51cf1eede42b6b8c0eb965f438a"
-        def ch_all_rois = channel.fromPath(roi_default).map { file -> [[id:rare_name], file] }
-            .mix(ch_roi.map { map -> map.collect { entry -> [[id: entry.key], entry.value] }}.flatMap() )
-
-        GREP_SPLITBED (
-            ch_all_rois
-        )
-        ch_versions = ch_versions.mix(GREP_SPLITBED.out.versions.first())
-
-        def ch_autosomal_input = ch_counts.combine(GREP_SPLITBED.out.bed_autosomal.collect { item -> [item] }.map { items -> [items] })
-            .map { meta, txt, sample, samples, families, autosomal_list ->
-                def new_meta = meta + [region:'autosomal']
-                def roi = autosomal_list.find { entry -> entry[0].id == meta.batch } ?: autosomal_list.find { entry -> entry[0].id == rare_name }
-                [ new_meta, txt, sample, samples, families, roi[1] ]
-            }
-            .filter { _meta, _txt, _sample, _samples, _families, roi ->
-                // Remove any entries with an empty ROI
-                roi.size() > 0
-            }
-
-        def ch_chrx_input = ch_counts.combine(GREP_SPLITBED.out.bed_chrx.collect { item -> [item] }.map { items -> [items] })
-            .map { meta, txt, sample, samples, families, chrx_list ->
-                def new_meta = meta + [region:'chrx']
-                def roi = chrx_list.find { entry -> entry[0].id == meta.batch } ?: chrx_list.find { entry -> entry[0].id == rare_name }
-                [ new_meta, txt, sample, samples, families, roi[1] ]
-            }
-            .filter { _meta, _txt, _sample, _samples, _families, roi ->
-                // Remove any entries with an empty ROI
-                roi.size() > 0
-            }
-
-        ch_exomedepth_input = ch_autosomal_input.mix(ch_chrx_input)
-    } else {
-        ch_exomedepth_input = ch_counts.combine(ch_roi)
-            .map { meta, txt, sample, samples, families, roi_map ->
-                [ meta, txt, sample, samples, families, roi_map.get(meta.batch, roi_default) ]
-            }
-    }
+    def ch_exomedepth_input = ch_counts
+        .map { meta, txt, sample, samples, families ->
+            def new_meta = meta - meta.subMap("roi")
+            [ new_meta, txt, sample, samples, families, meta.roi ]
+        }
 
     EXOMEDEPTH_CALL(
         ch_exomedepth_input
