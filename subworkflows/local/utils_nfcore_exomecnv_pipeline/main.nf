@@ -94,10 +94,10 @@ workflow PIPELINE_INITIALISATION {
     Channel
         .fromList(inputList)
         .map { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
-            def new_meta = meta + [
+            def new_meta = !vcf ? meta + [
                 samples:pools[meta.batch].samples.join(","),
                 families:pools[meta.batch].families.join(",")
-            ]
+            ] : meta
             return [ new_meta, cram, crai, bed, bed_index, vcf, vcf_index ]
         }
         .set { ch_samplesheet }
