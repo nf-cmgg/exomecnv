@@ -42,14 +42,14 @@ workflow CNV_EXOMEDEPTH {
         )
         ch_versions = ch_versions.mix(GREP_SPLITBED.out.versions.first())
 
-        def ch_roi_x = GREP_SPLITBED.out.bed_chrx.collect { meta, file -> [["${meta.id}", file]]}.view()
+        def ch_roi_x = GREP_SPLITBED.out.bed_chrx.collect { meta, file -> [["${meta.id}", file]]}
             .map { items ->
                 def map = [:]
                 items.each { entry ->
                     map[entry[0]] = entry[1]
                 }
                 return map
-            }.view()
+            }
 
         def ch_roi_auto = GREP_SPLITBED.out.bed_autosomal.collect { meta, file -> [["${meta.id}", file]]}
             .map { items ->
