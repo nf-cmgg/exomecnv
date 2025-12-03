@@ -10,6 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `--splitx` parameter to split the regions of interest bed file into autosomal and chrX regions. This will make sure that the calling happens once for autosomes and once for chrX.
 - Added `--roi_sheet` parameter to provide ROI BED files for each batch. The `--roi` parameter will be used as default in case the batch isn't present in this file.
 
+## v2.0.2 Vintage Verthongen [2025-12-03]
+
+### `Bug fixes`
+
+- Fix vcf input handling in samplesheet processing
+- The `sample` column is now the only required column when using VCF input
+- Added `.cnvs` to the output files for Galaxy compatibility
+
 ## v2.0.1 Warrior Witsel [2025-10-07]
 
 ### `Bug fixes`
