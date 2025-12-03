@@ -20,7 +20,7 @@ process CUSTOM_MERGECALLS {
     header=\$(head -1 ${files[0]})
     echo "\$header" >> ${prefix}.txt
 
-    cat $files | grep -v "\$header" || true | LC_ALL=C sort -k7,7V -k5,5n -k6,6n >> ${prefix}.txt
+    cat $files | { grep -v "\$header" || :; } | LC_ALL=C sort -k7,7V -k5,5n -k6,6n >> ${prefix}.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
