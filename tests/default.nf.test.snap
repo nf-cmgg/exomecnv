@@ -70,18 +70,18 @@
                 "pipeline_info"
             ],
             [
-                "Sample1.cnvs.vcf.gz:md5,f1d60073d78215772e5df0e8351e0ebf",
-                "Sample1.cnvs.vcf.gz.tbi:md5,7d9ca945a8cd0aa8038f0abf9568e3cf",
+                "Sample1.cnvs.vcf.gz:md5,506daea1a28d79b76732d3c1bc4df1fa",
+                "Sample1.cnvs.vcf.gz.tbi:md5,446bdb314f27848fbbe7e2826f667766",
                 "Sample10.cnvs.vcf.gz:md5,7ea93e8494d1d04817ad76742a70dab5",
                 "Sample10.cnvs.vcf.gz.tbi:md5,4cb176febbc8c26d717a6c6e67b9c905",
-                "Sample2.cnvs.vcf.gz:md5,622ca680691184b8f0f262594c30863c",
-                "Sample2.cnvs.vcf.gz.tbi:md5,71fd3e30fcfac40f1fb8027577e46fa8",
-                "Sample3.cnvs.vcf.gz:md5,8c13d3540ec3c241dd6417773d16eece",
-                "Sample3.cnvs.vcf.gz.tbi:md5,70174c214538e65ca6310c39eda72d9f",
-                "Sample4.cnvs.vcf.gz:md5,bef0f3d51418bd6d9b752786ff84ba36",
-                "Sample4.cnvs.vcf.gz.tbi:md5,7bc432502c79e36276d60d247d40604a",
-                "Sample5.cnvs.vcf.gz:md5,b741158d85c93ba69e3185eb95ec42c3",
-                "Sample5.cnvs.vcf.gz.tbi:md5,15572bdad0d2d5294ab403e6bf7ff3ba",
+                "Sample2.cnvs.vcf.gz:md5,3201ddf170ef252ed63620c638ca5296",
+                "Sample2.cnvs.vcf.gz.tbi:md5,c99c58ed4ad8e31a6ce6f6de14715269",
+                "Sample3.cnvs.vcf.gz:md5,9bf252474cec022d1419e8113f714730",
+                "Sample3.cnvs.vcf.gz.tbi:md5,a46e5952f41f69a49af355ee66bce7f2",
+                "Sample4.cnvs.vcf.gz:md5,039b2445f96ece8b9dc39c3e41f95ecc",
+                "Sample4.cnvs.vcf.gz.tbi:md5,c99c58ed4ad8e31a6ce6f6de14715269",
+                "Sample5.cnvs.vcf.gz:md5,2feb01963916cf578c11e4f730ae5b6f",
+                "Sample5.cnvs.vcf.gz.tbi:md5,c3f6b822d7f3c89ca0371f63f398fa7c",
                 "Sample6.cnvs.vcf.gz:md5,fb743fb45933960589069bd8df2c2a26",
                 "Sample6.cnvs.vcf.gz.tbi:md5,9dd93f302cabe245abd5d249a57c1866",
                 "Sample7.cnvs.vcf.gz:md5,579da3870355eaf16f10bb433de3cff2",
@@ -90,14 +90,14 @@
                 "Sample8.cnvs.vcf.gz.tbi:md5,e2a8c69b8ff693ec525d85482bf76985",
                 "Sample9.cnvs.vcf.gz:md5,9261e6f7c2f2231ca26de872cbd55670",
                 "Sample9.cnvs.vcf.gz.tbi:md5,e51f4702088b4b17e012326c266410ad",
-                "prep_F.merged.txt:md5,4af0f1ac07cf0eb2fa0760232935ca55",
-                "prep_M.merged.txt:md5,c2f33f9beb913908bbec8fd7865d6fe9"
+                "prep_F.txt:md5,4af0f1ac07cf0eb2fa0760232935ca55",
+                "prep_M.txt:md5,5498ba71b0d162c80b90750438242dc7"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.10.0"
         },
-        "timestamp": "2025-12-03T09:47:32.62968105"
+        "timestamp": "2025-12-03T10:54:29.666986673"
     }
 }
