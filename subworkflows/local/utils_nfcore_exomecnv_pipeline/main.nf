@@ -111,10 +111,10 @@ workflow PIPELINE_INITIALISATION {
             if(!roi_bed) {
                 error("Could not find a BED file for batch '${meta.batch}' in the ROI sheet (${roi_sheet}) and no default was given.")
             }
-            def new_meta = meta + [
+            def new_meta = !vcf ? meta + [
                 samples:pools[meta.batch].samples.join(","),
                 families:pools[meta.batch].families.join(",")
-            ]
+            ] : meta
             return [ new_meta, cram, crai, bed, bed_index, vcf, vcf_index, roi_bed ]
         }
         .set { ch_samplesheet }
