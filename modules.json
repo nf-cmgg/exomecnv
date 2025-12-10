@@ -61,12 +61,7 @@
                     },
                     "utils_nfschema_plugin": {
                         "branch": "master",
-                        "git_sha": "2fd2cd6d0e7b273747f32e465fdc6bcc3ae0814e",
-                        "installed_by": ["subworkflows"]
-                    },
-                    "vcf_annotate_ensemblvep": {
-                        "branch": "master",
-                        "git_sha": "61846a0d757ff9c0682ba3e28ab0441afd95ad7e",
+                        "git_sha": "4b406a74dc0449c0401ed87d5bfff4252fd277fd",
                         "installed_by": ["subworkflows"]
                     }
                 }
