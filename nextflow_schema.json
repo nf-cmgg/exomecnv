@@ -5,6 +5,7 @@
     "description": "A nextflow pipeline for calling exome CNVs",
     "type": "object",
     "$defs": {
+    "$defs": {
         "input_output_options": {
             "title": "Input/output options",
             "type": "object",

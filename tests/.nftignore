@@ -8,3 +8,5 @@ multiqc/multiqc_data/llms-full.txt
 multiqc/multiqc_report.html
 pipeline_info/*.{html,json,txt,yml}
 exomedepth/*/versions.yml
+.DS_Store
+fastqc/*_fastqc.{html,zip}
