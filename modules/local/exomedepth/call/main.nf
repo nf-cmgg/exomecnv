@@ -12,12 +12,11 @@ process EXOMEDEPTH_CALL {
 
     output:
     tuple val(meta), path("*.txt"), emit: cnvcall
-    path "versions.yml", emit:versions
+    tuple val("${task.process}"), val('ExomeDepth'), val('1.1.18'), topic: versions, emit: versions_exomedepth
+    tuple val("${task.process}"), val('R'), eval("Rscript --version 2>&1 | cut -d' ' -f4"), topic: versions, emit: versions_r
 
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def VERSION = '1.1.18'
-
     """
     ExomeDepth_cnv_calling.R \\
         $sample \\
@@ -26,24 +25,11 @@ process EXOMEDEPTH_CALL {
         $prefix \\
         $samples \\
         $families
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        ExomeDepth: ${VERSION}
-        R: \$(Rscript --version 2>&1 | cut -d' ' -f4)
-    END_VERSIONS
     """
 
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def VERSION = '1.1.18'
     """
     touch ${prefix}.txt
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        ExomeDepth: ${VERSION}
-        R: \$(Rscript --version 2>&1 | cut -d' ' -f4)
-    END_VERSIONS
     """
 }

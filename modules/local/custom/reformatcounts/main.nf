@@ -12,8 +12,8 @@ process CUSTOM_REFORMATCOUNTS {
     tuple val(meta), path(tsv)
 
     output:
-    tuple val(meta), path("*.txt"), emit:header
-    path "versions.yml", emit:versions
+    tuple val(meta), path("*.txt"), emit: header
+    tuple val("${task.process}"), val('cut'), eval("cut --version | sed '1!d; s/cut (GNU coreutils) //'"), topic: versions , emit: versions_cut
 
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
@@ -34,21 +34,11 @@ process CUSTOM_REFORMATCOUNTS {
     cut --complement -f6 "${prefix}.filtered.tmp.txt"; } > "${prefix}.txt"
 
     rm ${prefix}.tmp.txt "${prefix}.filtered.tmp.txt"
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        cut: \$(cut --version | sed '1!d; s/cut (GNU coreutils) //')
-    END_VERSIONS
     """
 
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     touch ${prefix}.txt
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        cut: \$(cut --version | sed '1!d; s/cut (GNU coreutils) //')
-    END_VERSIONS
     """
 }

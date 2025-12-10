@@ -12,7 +12,10 @@ process CUSTOM_MERGECALLS {
 
     output:
     tuple val(meta), path("*.txt"), emit:merge
-    path "versions.yml", emit:versions
+    tuple val("${task.process}"), val('cat'), eval("cat --version | sed '1!d; s/cat (GNU coreutils) //'"), topic: versions , emit: versions_cat
+    tuple val("${task.process}"), val('grep'), eval("grep 2>&1 | head -1 | sed 's/BusyBox v//;s/ (.*//'"), topic: versions , emit: versions_grep
+    tuple val("${task.process}"), val('sort'), eval("sort --version | sed '1!d; s/sort (GNU coreutils) //'"), topic: versions , emit: versions_sort
+    tuple val("${task.process}"), val('head'), eval("head --version | sed '1!d; s/head (GNU coreutils) //'"), topic: versions , emit: versions_head
 
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
@@ -21,27 +24,11 @@ process CUSTOM_MERGECALLS {
     echo "\$header" >> ${prefix}.txt
 
     cat $files | { grep -v "\$header" || :; } | LC_ALL=C sort -k7,7V -k5,5n -k6,6n >> ${prefix}.txt
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        cat: \$(cat --version | sed '1!d; s/cat (GNU coreutils) //')
-        grep: \$(grep 2>&1 | head -1 | sed 's/BusyBox v//;s/ (.*//')
-        sort: \$(sort --version | sed '1!d; s/sort (GNU coreutils) //')
-        head: \$(head --version | sed '1!d; s/head (GNU coreutils) //')
-    END_VERSIONS
     """
 
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     touch ${prefix}.txt
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        cat: \$(cat --version | sed '1!d; s/cat (GNU coreutils) //')
-        grep: \$(grep 2>&1 | head -1 | sed 's/BusyBox v//;s/ (.*//')
-        sort: \$(sort --version | sed '1!d; s/sort (GNU coreutils) //')
-        head: \$(head --version | sed '1!d; s/head (GNU coreutils) //')
-    END_VERSIONS
     """
 }

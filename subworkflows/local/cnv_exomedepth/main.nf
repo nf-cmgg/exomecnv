@@ -40,7 +40,6 @@ workflow CNV_EXOMEDEPTH {
         GREP_SPLITBED(
             split_input
         )
-        ch_versions = ch_versions.mix(GREP_SPLITBED.out.versions.first())
 
         def ch_roi_x = GREP_SPLITBED.out.bed_chrx.collect { meta, file -> [["${meta.id}", file]]}
             .map { items ->
@@ -102,7 +101,6 @@ workflow CNV_EXOMEDEPTH {
     CUSTOM_REFORMATCOUNTS (
         BEDTOOLS_MAP.out.mapped
     )
-    ch_versions = ch_versions.mix(CUSTOM_REFORMATCOUNTS.out.versions.first())
     def ch_grouped_counts_header = CUSTOM_REFORMATCOUNTS.out.header
         .map { meta, tsv ->
             def new_meta = meta + [id:meta.batch] - meta.subMap("family")
@@ -113,8 +111,6 @@ workflow CNV_EXOMEDEPTH {
     CUSTOM_MERGECOUNTS(
         ch_grouped_counts_header
     )
-
-    ch_versions = ch_versions.mix(CUSTOM_MERGECOUNTS.out.versions.first())
 
     def ch_counts = CUSTOM_MERGECOUNTS.out.merge
         .map { meta, txt ->
@@ -135,7 +131,6 @@ workflow CNV_EXOMEDEPTH {
     EXOMEDEPTH_CALL(
         ch_exomedepth_input
     )
-    ch_versions = ch_versions.mix(EXOMEDEPTH_CALL.out.versions.first())
 
     def ch_cnv_out = channel.empty()
     if (splitx) {
@@ -149,7 +144,6 @@ workflow CNV_EXOMEDEPTH {
         CUSTOM_MERGECALLS(
             ch_merge_input
         )
-        ch_versions = ch_versions.mix(CUSTOM_MERGECALLS.out.versions.first())
         ch_cnv_out = CUSTOM_MERGECALLS.out.merge
     } else {
         ch_cnv_out = EXOMEDEPTH_CALL.out.cnvcall
