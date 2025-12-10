@@ -88,6 +88,8 @@ workflow EXOMECNV {
 
 
     def ch_cnv_vcf = ch_input.vcf
+    def count_files = channel.empty()
+    def cnv_vcfs_created = channel.empty()
     if (exomedepth) {
         // Generate the ExomeDepth subworkflow input
         ch_perbase = MOSDEPTH.out.per_base_bed
@@ -102,6 +104,7 @@ workflow EXOMECNV {
             splitx
         )
         ch_versions = ch_versions.mix(CNV_EXOMEDEPTH.out.versions)
+        count_files = CNV_EXOMEDEPTH.out.counts
 
         // Convert bed files to VCF format
         BEDGOVCF(
@@ -115,13 +118,14 @@ workflow EXOMECNV {
         )
         ch_versions = ch_versions.mix(BCFTOOLS_SORT.out.versions)
 
-        ch_sorted_vcf_index = BCFTOOLS_SORT.out.vcf.join(BCFTOOLS_SORT.out.tbi, failOnMismatch:true, failOnDuplicate:true)
+        cnv_vcfs_created = BCFTOOLS_SORT.out.vcf.join(BCFTOOLS_SORT.out.tbi, failOnMismatch:true, failOnDuplicate:true)
 
         // Add the exome depth VCFs to the channel
-        ch_cnv_vcf = ch_cnv_vcf.mix(ch_sorted_vcf_index)
+        ch_cnv_vcf = ch_cnv_vcf.mix(cnv_vcfs_created)
     }
 
     // Annotate exomedepth VCFs and input VCFs
+    def vep_vcfs = channel.empty()
     if(annotate) {
         VCF_ANNOTATE_ENSEMBLVEP(
             ch_cnv_vcf,
@@ -132,6 +136,8 @@ workflow EXOMECNV {
             ch_vep_cache,
             []
         )
+        ch_versions = ch_versions.mix(VCF_ANNOTATE_ENSEMBLVEP.out.versions)
+        vep_vcfs = VCF_ANNOTATE_ENSEMBLVEP.out.vcf_tbi
     }
 
     //
@@ -205,7 +211,12 @@ workflow EXOMECNV {
     )
 
     emit:
-    multiqc_report = channel.empty()    // channel: /path/to/multiqc_report.html
+    counts         = count_files
+    cnv_call       = cnv_vcfs_created
+    cnv_call_vep   = vep_vcfs
+    multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
+    multiqc_data   = MULTIQC.out.data.toList()   // channel: /path/to/multiqc_data/
+    multiqc_plots  = MULTIQC.out.plots.toList()  // channel: /path/to/multiqc_plots/
     versions       = ch_versions        // channel: [ path(versions.yml) ]
 }
 

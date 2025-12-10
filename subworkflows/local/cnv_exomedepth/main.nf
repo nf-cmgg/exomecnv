@@ -158,4 +158,5 @@ workflow CNV_EXOMEDEPTH {
     emit:
     versions = ch_versions
     cnv = ch_cnv_out
+    counts = CUSTOM_MERGECOUNTS.out.merge
 }

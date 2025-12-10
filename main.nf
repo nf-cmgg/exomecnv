@@ -43,6 +43,7 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_exom
 //
 workflow {
 
+    main:
     //
     // SUBWORKFLOW: Run initialisation tasks
     //
@@ -102,6 +103,36 @@ workflow {
         params.hook_url,
         EXOMECNV.out.multiqc_report
     )
+
+    publish:
+    counts = EXOMECNV.out.counts
+    cnv_call = EXOMECNV.out.cnv_call
+    cnv_call_vep = EXOMECNV.out.cnv_call_vep
+    multiqc_report = EXOMECNV.out.multiqc_report
+    multiqc_data = EXOMECNV.out.multiqc_data
+    multiqc_plots = EXOMECNV.out.multiqc_plots
+
+}
+
+output {
+    counts {
+        path "exomedepth/counts/"
+    }
+    cnv_call {
+        path "exomedepth/cnv_call/"
+    }
+    cnv_call_vep {
+        path "exomedepth/cnv_call_vep/"
+    }
+    multiqc_report {
+        path "multiqc/"
+    }
+    multiqc_data {
+        path "multiqc/"
+    }
+    multiqc_plots {
+        path "multiqc/"
+    }
 }
 
 /*
