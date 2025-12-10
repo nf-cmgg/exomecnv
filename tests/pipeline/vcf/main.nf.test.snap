@@ -45,7 +45,7 @@
                 "multiqc/multiqc_plots",
                 "multiqc/multiqc_report.html",
                 "pipeline_info",
-                "pipeline_info/nf_core_pipeline_software_mqc_versions.yml"
+                "pipeline_info/exomecnv_software_mqc_versions.yml"
             ],
             [
                 "Sample1.cnvs.vep.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
