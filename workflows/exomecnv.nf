@@ -126,6 +126,7 @@ workflow EXOMECNV {
 
     // Annotate exomedepth VCFs and input VCFs
     def vep_vcfs = channel.empty()
+    def annotation_summary = channel.empty()
     if(annotate) {
         VCF_ANNOTATE_ENSEMBLVEP(
             ch_cnv_vcf,
@@ -138,6 +139,7 @@ workflow EXOMECNV {
         )
         ch_versions = ch_versions.mix(VCF_ANNOTATE_ENSEMBLVEP.out.versions)
         vep_vcfs = VCF_ANNOTATE_ENSEMBLVEP.out.vcf_tbi
+        annotation_summary = VCF_ANNOTATE_ENSEMBLVEP.out.reports
     }
 
     //
@@ -214,6 +216,7 @@ workflow EXOMECNV {
     counts         = count_files
     cnv_call       = cnv_vcfs_created
     cnv_call_vep   = vep_vcfs
+    vep_summary    = annotation_summary
     multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
     multiqc_data   = MULTIQC.out.data.toList()   // channel: /path/to/multiqc_data/
     multiqc_plots  = MULTIQC.out.plots.toList()  // channel: /path/to/multiqc_plots/

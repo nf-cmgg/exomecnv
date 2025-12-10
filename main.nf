@@ -108,6 +108,7 @@ workflow {
     counts = EXOMECNV.out.counts
     cnv_call = EXOMECNV.out.cnv_call
     cnv_call_vep = EXOMECNV.out.cnv_call_vep
+    vep_summary = EXOMECNV.out.vep_summary
     multiqc_report = EXOMECNV.out.multiqc_report
     multiqc_data = EXOMECNV.out.multiqc_data
     multiqc_plots = EXOMECNV.out.multiqc_plots
@@ -122,6 +123,9 @@ output {
         path "exomedepth/cnv_call/"
     }
     cnv_call_vep {
+        path "exomedepth/cnv_call_vep/"
+    }
+    vep_summary {
         path "exomedepth/cnv_call_vep/"
     }
     multiqc_report {
