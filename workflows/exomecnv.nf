@@ -28,7 +28,8 @@ workflow EXOMECNV {
 
     take:
     // file inputs
-    ch_samplesheet // channel: samplesheet read in from --input
+    ch_samplesheet    // channel: samplesheet read in from --input
+    ch_roi_input_map  // channel: map of batch to ROI bed file
     outdir
     fasta
     fai
@@ -37,10 +38,12 @@ workflow EXOMECNV {
     multiqc_config
     multiqc_logo
     multiqc_methods_description
+    roi_default
 
     // booleans
     exomedepth
     annotate
+    splitx
 
     // strings
     vep_assembly
@@ -56,14 +59,8 @@ workflow EXOMECNV {
     def ch_fai = channel.value([[id: "reference"], file(fai, checkIfExists:true) ])
     def ch_vep_cache = channel.fromPath(vep_cache).collect()
 
-    def ch_input_map = ch_samplesheet
-        .multiMap { meta, cram, crai, bed, bed_index, vcf, vcf_index, roi ->
-            inputs: [ meta, cram, crai, bed, bed_index, vcf, vcf_index, roi ]
-            roi: [ meta, roi ]
-        }
-
-    def ch_input = ch_input_map.inputs
-        .branch { meta, cram, crai, bed, bed_index, vcf, vcf_index, roi ->
+    def ch_input = ch_samplesheet
+        .branch { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
             // return a channel with vcf for annotation
             vcf: vcf
                 return [ meta, vcf, vcf_index ]
@@ -99,8 +96,10 @@ workflow EXOMECNV {
 
         CNV_EXOMEDEPTH(
             ch_perbase,
-            ch_input_map.roi,
-            ch_fai
+            ch_roi_input_map,
+            ch_fai,
+            roi_default,
+            splitx
         )
         ch_versions = ch_versions.mix(CNV_EXOMEDEPTH.out.versions)
 

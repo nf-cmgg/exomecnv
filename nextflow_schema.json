@@ -60,6 +60,10 @@
                     "default": false,
                     "fa_icon": "fas fa-magic",
                     "help_text": "If set to `true`, the pipeline will annotate the ExomeDepth VCFs and input VCFs with VEP. If set to `false`, the pipeline will not annotate the VCFs."
+                },
+                "splitx": {
+                    "type": "boolean",
+                    "description": "Run ExomeDepth separately for autosomal and chrX regions"
                 }
             }
         },

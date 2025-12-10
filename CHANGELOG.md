@@ -3,6 +3,13 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.1.0dev
+
+### `New features`
+
+- Added `--splitx` parameter to split the regions of interest bed file into autosomal and chrX regions. This will make sure that the calling happens once for autosomes and once for chrX.
+- Added `--roi_sheet` parameter to provide ROI BED files for each batch. The `--roi` parameter will be used as default in case the batch isn't present in this file.
+
 ## v2.0.2 Vintage Verthongen [2025-12-03]
 
 ### `Bug fixes`

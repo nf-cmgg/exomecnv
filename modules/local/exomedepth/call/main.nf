@@ -30,7 +30,7 @@ process EXOMEDEPTH_CALL {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         ExomeDepth: ${VERSION}
-        R: \$(Rscript --version | sed 's/R scripting front-end //g')
+        R: \$(Rscript --version 2>&1 | cut -d' ' -f4)
     END_VERSIONS
     """
 
@@ -43,7 +43,7 @@ process EXOMEDEPTH_CALL {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         ExomeDepth: ${VERSION}
-        R: \$(Rscript --version | sed 's/R scripting front-end //g')
+        R: \$(Rscript --version 2>&1 | cut -d' ' -f4)
     END_VERSIONS
     """
 }

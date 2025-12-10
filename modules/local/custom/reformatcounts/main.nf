@@ -37,7 +37,6 @@ process CUSTOM_REFORMATCOUNTS {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        echo: \$(/bin/echo --version | sed '1!d; s/echo (GNU coreutils) //')
         cut: \$(cut --version | sed '1!d; s/cut (GNU coreutils) //')
     END_VERSIONS
     """
@@ -49,8 +48,7 @@ process CUSTOM_REFORMATCOUNTS {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        echo: \$(echo --version | sed '1!d; s/echo (GNU coreutils) //')
-        cut: \$(cp --version | sed '1!d; s/cut (GNU coreutils) //')
+        cut: \$(cut --version | sed '1!d; s/cut (GNU coreutils) //')
     END_VERSIONS
     """
 }
