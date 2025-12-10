@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `--splitx` parameter to split the regions of interest bed file into autosomal and chrX regions. This will make sure that the calling happens once for autosomes and once for chrX.
 - Added `--roi_sheet` parameter to provide ROI BED files for each batch. The `--roi` parameter will be used as default in case the batch isn't present in this file.
 
+### `Improvements`
+
+- Migrated the pipeline to nf-core template v3.5.1
+- Migrated the pipeline to workflow output definitions and thus bumping the minimal Nextflow version to 25.10.0
+
 ## v2.0.2 Vintage Verthongen [2025-12-03]
 
 ### `Bug fixes`

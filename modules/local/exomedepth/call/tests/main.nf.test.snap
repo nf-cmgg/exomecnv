@@ -12,7 +12,18 @@
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,a9e74a797a427a46c91a70058bdb2270"
+                    [
+                        "EXOMEDEPTH_CALL",
+                        "ExomeDepth",
+                        "1.1.18"
+                    ]
+                ],
+                "2": [
+                    [
+                        "EXOMEDEPTH_CALL",
+                        "R",
+                        "4.4.3"
+                    ]
                 ],
                 "cnvcall": [
                     [
@@ -23,16 +34,27 @@
                         "test.txt:md5,b569320ce2a2b024c0469b220aa17dc7"
                     ]
                 ],
-                "versions": [
-                    "versions.yml:md5,a9e74a797a427a46c91a70058bdb2270"
+                "versions_exomedepth": [
+                    [
+                        "EXOMEDEPTH_CALL",
+                        "ExomeDepth",
+                        "1.1.18"
+                    ]
+                ],
+                "versions_r": [
+                    [
+                        "EXOMEDEPTH_CALL",
+                        "R",
+                        "4.4.3"
+                    ]
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.10.0"
+            "nextflow": "25.10.2"
         },
-        "timestamp": "2025-11-26T15:19:53.986688413"
+        "timestamp": "2025-12-10T16:48:41.081737154"
     },
     "homo_sapiens - bed, merged_counts - stub": {
         "content": [
@@ -47,7 +69,18 @@
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,a9e74a797a427a46c91a70058bdb2270"
+                    [
+                        "EXOMEDEPTH_CALL",
+                        "ExomeDepth",
+                        "1.1.18"
+                    ]
+                ],
+                "2": [
+                    [
+                        "EXOMEDEPTH_CALL",
+                        "R",
+                        "4.4.3"
+                    ]
                 ],
                 "cnvcall": [
                     [
@@ -58,15 +91,26 @@
                         "test.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
-                "versions": [
-                    "versions.yml:md5,a9e74a797a427a46c91a70058bdb2270"
+                "versions_exomedepth": [
+                    [
+                        "EXOMEDEPTH_CALL",
+                        "ExomeDepth",
+                        "1.1.18"
+                    ]
+                ],
+                "versions_r": [
+                    [
+                        "EXOMEDEPTH_CALL",
+                        "R",
+                        "4.4.3"
+                    ]
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.10.0"
+            "nextflow": "25.10.2"
         },
-        "timestamp": "2025-11-26T15:17:37.563784829"
+        "timestamp": "2025-12-10T16:48:50.143198255"
     }
 }

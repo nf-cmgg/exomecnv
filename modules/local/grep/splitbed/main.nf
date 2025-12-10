@@ -13,7 +13,7 @@ process GREP_SPLITBED {
     output:
     tuple val(meta), path("*.chrx.bed")     , emit: bed_chrx
     tuple val(meta), path("*.autosomal.bed"), emit: bed_autosomal
-    path  "versions.yml"                    , emit: versions
+    tuple val("${task.process}"), val('grep'), eval("grep --version | head -1 | sed -e 's/grep (GNU grep) //'"), topic: versions , emit: versions_grep
 
     when:
     task.ext.when == null || task.ext.when
@@ -24,11 +24,6 @@ process GREP_SPLITBED {
     # || true prevents failure when no regions are found
     grep -v -E '^chrX|^X' $bed > ${prefix}.autosomal.bed || true
     grep -E '^chrX|^X' $bed > ${prefix}.chrx.bed || true
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        grep: \$(grep --version | head -1 | sed -e "s/grep (GNU grep) //")
-    END_VERSIONS
     """
 
     stub:
@@ -36,10 +31,5 @@ process GREP_SPLITBED {
     """
     touch ${prefix}.autosomal.bed
     touch ${prefix}.chrx.bed
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        grep: \$(grep --version | head -1 | sed -e "s/grep (GNU grep) //")
-    END_VERSIONS
     """
 }

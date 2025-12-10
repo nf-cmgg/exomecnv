@@ -88,6 +88,8 @@ workflow EXOMECNV {
 
 
     def ch_cnv_vcf = ch_input.vcf
+    def count_files = channel.empty()
+    def cnv_vcfs_created = channel.empty()
     if (exomedepth) {
         // Generate the ExomeDepth subworkflow input
         ch_perbase = MOSDEPTH.out.per_base_bed
@@ -102,6 +104,7 @@ workflow EXOMECNV {
             splitx
         )
         ch_versions = ch_versions.mix(CNV_EXOMEDEPTH.out.versions)
+        count_files = CNV_EXOMEDEPTH.out.counts
 
         // Convert bed files to VCF format
         BEDGOVCF(
@@ -115,13 +118,15 @@ workflow EXOMECNV {
         )
         ch_versions = ch_versions.mix(BCFTOOLS_SORT.out.versions)
 
-        ch_sorted_vcf_index = BCFTOOLS_SORT.out.vcf.join(BCFTOOLS_SORT.out.tbi, failOnMismatch:true, failOnDuplicate:true)
+        cnv_vcfs_created = BCFTOOLS_SORT.out.vcf.join(BCFTOOLS_SORT.out.tbi, failOnMismatch:true, failOnDuplicate:true)
 
         // Add the exome depth VCFs to the channel
-        ch_cnv_vcf = ch_cnv_vcf.mix(ch_sorted_vcf_index)
+        ch_cnv_vcf = ch_cnv_vcf.mix(cnv_vcfs_created)
     }
 
     // Annotate exomedepth VCFs and input VCFs
+    def vep_vcfs = channel.empty()
+    def annotation_summary = channel.empty()
     if(annotate) {
         VCF_ANNOTATE_ENSEMBLVEP(
             ch_cnv_vcf,
@@ -132,6 +137,9 @@ workflow EXOMECNV {
             ch_vep_cache,
             []
         )
+        ch_versions = ch_versions.mix(VCF_ANNOTATE_ENSEMBLVEP.out.versions)
+        vep_vcfs = VCF_ANNOTATE_ENSEMBLVEP.out.vcf_tbi
+        annotation_summary = VCF_ANNOTATE_ENSEMBLVEP.out.reports
     }
 
     //
@@ -157,7 +165,7 @@ workflow EXOMECNV {
     softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
         .mix(topic_versions_string)
         .collectFile(
-            storeDir: "${params.outdir}/pipeline_info",
+            storeDir: "${outdir}/pipeline_info",
             name:  'exomecnv_software_'  + 'mqc_'  + 'versions.yml',
             sort: true,
             newLine: true
@@ -169,11 +177,11 @@ workflow EXOMECNV {
     //
     ch_multiqc_config        = channel.fromPath(
         "$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-    ch_multiqc_custom_config = params.multiqc_config ?
-        channel.fromPath(params.multiqc_config, checkIfExists: true) :
+    ch_multiqc_custom_config = multiqc_config ?
+        channel.fromPath(multiqc_config, checkIfExists: true) :
         channel.empty()
-    ch_multiqc_logo          = params.multiqc_logo ?
-        channel.fromPath(params.multiqc_logo, checkIfExists: true) :
+    ch_multiqc_logo          = multiqc_logo ?
+        channel.fromPath(multiqc_logo, checkIfExists: true) :
         channel.empty()
 
     summary_params      = paramsSummaryMap(
@@ -181,8 +189,8 @@ workflow EXOMECNV {
     ch_workflow_summary = channel.value(paramsSummaryMultiqc(summary_params))
     ch_multiqc_files = ch_multiqc_files.mix(
         ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
-    ch_multiqc_custom_methods_description = params.multiqc_methods_description ?
-        file(params.multiqc_methods_description, checkIfExists: true) :
+    ch_multiqc_custom_methods_description = multiqc_methods_description ?
+        file(multiqc_methods_description, checkIfExists: true) :
         file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
     ch_methods_description                = channel.value(
         methodsDescriptionText(ch_multiqc_custom_methods_description))
@@ -205,7 +213,13 @@ workflow EXOMECNV {
     )
 
     emit:
-    multiqc_report = channel.empty()    // channel: /path/to/multiqc_report.html
+    counts         = count_files
+    cnv_call       = cnv_vcfs_created
+    cnv_call_vep   = vep_vcfs
+    vep_summary    = annotation_summary
+    multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
+    multiqc_data   = MULTIQC.out.data.toList()   // channel: /path/to/multiqc_data/
+    multiqc_plots  = MULTIQC.out.plots.toList()  // channel: /path/to/multiqc_plots/
     versions       = ch_versions        // channel: [ path(versions.yml) ]
 }
 
