@@ -40,4 +40,4 @@ template:
   org: nf-cmgg
   outdir: .
   skip_features: []
-  version: 2.1.0dev
+  version: 2.1.0
