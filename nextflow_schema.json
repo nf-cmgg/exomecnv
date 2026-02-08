@@ -171,6 +171,54 @@
                 }
             }
         },
+        "cmgg_institutional_config_options": {
+            "title": "nf-cmgg config options",
+            "type": "object",
+            "fa_icon": "fas fa-university",
+            "description": "Parameters used to describe centralised config profiles. These should not be edited.",
+            "help_text": "The centralised nf-cmgg configuration profiles use a handful of pipeline parameters to describe themselves. This information is then printed to the Nextflow log when you run a pipeline. You should not need to change these values when you run a pipeline.",
+            "properties": {
+                "cmgg_custom_config_version": {
+                    "type": "string",
+                    "description": "Git commit id for nf-cmgg configs.",
+                    "default": "master",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "cmgg_custom_config_base": {
+                    "type": "string",
+                    "description": "Base directory for nf-cmgg configs.",
+                    "default": "https://raw.githubusercontent.com/nf-cmgg/configs/master",
+                    "hidden": true,
+                    "help_text": "If you're running offline, Nextflow will not be able to fetch the institutional config files from the internet. If you don't need them, then this is not a problem. If you do need them, you should download the files from the repo and tell Nextflow where to find them with this parameter.",
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "cmgg_config_profile_name": {
+                    "type": "string",
+                    "description": "nf-cmgg config name.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "cmgg_config_profile_description": {
+                    "type": "string",
+                    "description": "nf-cmgg config description.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "cmgg_config_profile_contact": {
+                    "type": "string",
+                    "description": "nf-cmgg config contact information.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "cmgg_config_profile_url": {
+                    "type": "string",
+                    "description": "nf-cmgg config URL link.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                }
+            }
+        },
         "generic_options": {
             "title": "Generic options",
             "type": "object",
@@ -320,6 +368,9 @@
         },
         {
             "$ref": "#/$defs/institutional_config_options"
+        },
+        {
+            "$ref": "#/$defs/cmgg_institutional_config_options"
         },
         {
             "$ref": "#/$defs/generic_options"
