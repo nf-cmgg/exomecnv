@@ -40,8 +40,7 @@
                         "git_sha": "6832b69ef7f98c54876d6436360b6b945370c615",
                         "installed_by": [
                             "modules"
-                        ],
-                        "patch": "modules/nf-core/mosdepth/mosdepth.diff"
+                        ]
                     },
                     "multiqc": {
                         "branch": "master",
