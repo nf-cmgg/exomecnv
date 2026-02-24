@@ -26,7 +26,6 @@ workflow CNV_EXOMEDEPTH {
     splitx      // boolean
 
     main:
-    def ch_versions = channel.empty()
     def default_name = "f632d51cf1eede42b6b8c0eb965f438a"
 
     def ch_count_input = channel.empty()
@@ -94,8 +93,6 @@ workflow CNV_EXOMEDEPTH {
         ch_count_input,
         ch_fai
     )
-    ch_versions = ch_versions.mix(BEDTOOLS_MAP.out.versions.first())
-
 
     //MODULE: Group counts per batch (count file for each batch)
     CUSTOM_REFORMATCOUNTS (
@@ -150,7 +147,6 @@ workflow CNV_EXOMEDEPTH {
     }
 
     emit:
-    versions = ch_versions
     cnv = ch_cnv_out
     counts = CUSTOM_MERGECOUNTS.out.merge
 }

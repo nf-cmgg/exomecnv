@@ -3,10 +3,11 @@
         "content": [
             {
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.21
+                    "bcftools": 1.22
                 },
                 "BEDGOVCF": {
-                    "bedgovcf": "0.1.0"
+                    "bedgovcf": "0.1.0",
+                    "bgzip": 1.2
                 },
                 "BEDTOOLS_MAP": {
                     "bedtools": "2.31.1"
@@ -24,7 +25,7 @@
                     "R": "4.4.3"
                 },
                 "MOSDEPTH": {
-                    "mosdepth": "0.3.10"
+                    "mosdepth": "0.3.11"
                 },
                 "Workflow": {
                     "nf-cmgg/exomecnv": "v2.1.0"
@@ -94,10 +95,10 @@
                 "prep_M.txt:md5,5498ba71b0d162c80b90750438242dc7"
             ]
         ],
+        "timestamp": "2026-02-23T15:46:01.51003268",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.2"
-        },
-        "timestamp": "2025-12-10T17:08:50.286003576"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
     }
 }
