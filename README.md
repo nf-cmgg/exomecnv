@@ -75,6 +75,16 @@ We thank the following people for their extensive assistance in the development 
 
 If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).
 
+## Development environment
+
+A [pixi](https://pixi.prefix.dev/latest/) development environment is available for this pipeline. Run the following command to install the environment:
+
+```
+pixi install
+```
+
+Then run `pixi shell` to enter the environment and start developing.
+
 ## Citations
 
 <!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
