@@ -5,9 +5,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## dev
 
+### `Changes`
+
+- Bumped minimal Nextflow version to 26.04.0
+
 ### `Improvements`
 
 - Migrated the pipeline's version handling to topic channels.
+- Migrated the pipeline to parameter types
 
 ## v2.1.0 Jewel Jashari
 
