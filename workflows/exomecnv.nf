@@ -54,9 +54,9 @@ workflow EXOMECNV {
 
     main:
     def ch_multiqc_files = channel.empty()
-    def ch_fasta = channel.value([ [id: "reference"], file(fasta, checkIfExists:true) ])
-    def ch_fai = channel.value([[id: "reference"], file(fai, checkIfExists:true) ])
-    def ch_vep_cache = channel.fromPath(vep_cache).collect()
+    def ch_fasta = channel.value([ [id: "reference"], fasta ])
+    def ch_fai = channel.value([[id: "reference"], fai ])
+    def ch_vep_cache = channel.value(vep_cache)
 
     def ch_input = ch_samplesheet
         .branch { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
@@ -105,7 +105,7 @@ workflow EXOMECNV {
 
         // Convert bed files to VCF format
         BEDGOVCF(
-            CNV_EXOMEDEPTH.out.cnv.map{ meta, bed -> [meta, bed, file(bedgovcf_yaml, checkIfExists:true)]},
+            CNV_EXOMEDEPTH.out.cnv.map{ meta, bed -> [meta, bed, bedgovcf_yaml]},
             ch_fai
         )
 
@@ -184,7 +184,7 @@ workflow EXOMECNV {
     ch_multiqc_files = ch_multiqc_files.mix(
         ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_custom_methods_description = multiqc_methods_description ?
-        file(multiqc_methods_description, checkIfExists: true) :
+        multiqc_methods_description :
         file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
     ch_methods_description                = channel.value(
         methodsDescriptionText(ch_multiqc_custom_methods_description))
