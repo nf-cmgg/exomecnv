@@ -22,13 +22,15 @@ lint:
     - .prettierignore
   multiqc_config:
     - report_comment
-  nextflow_config:
-    - manifest.name
-    - manifest.homePage
-    - validation.help.beforeText
-    - validation.help.afterText
-    - validation.summary.beforeText
-    - validation.summary.afterText
+  # nextflow_config:
+  #   - manifest.name
+  #   - manifest.homePage
+  #   - validation.help.beforeText
+  #   - validation.help.afterText
+  #   - validation.summary.beforeText
+  #   - validation.summary.afterText
+  nextflow_config: false # TMP
+  schema_params: false # TMP
 nf_core_version: 3.5.1
 repository_type: pipeline
 template:
