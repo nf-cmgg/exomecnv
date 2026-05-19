@@ -53,11 +53,10 @@ workflow EXOMECNV {
     vep_cache_version
 
     main:
-    def ch_versions = channel.empty()
     def ch_multiqc_files = channel.empty()
-    def ch_fasta = channel.value([ [id: "reference"], file(fasta, checkIfExists:true) ])
-    def ch_fai = channel.value([[id: "reference"], file(fai, checkIfExists:true) ])
-    def ch_vep_cache = channel.fromPath(vep_cache).collect()
+    def ch_fasta = channel.value([ [id: "reference"], fasta ])
+    def ch_fai = channel.value([[id: "reference"], fai ])
+    def ch_vep_cache = channel.value(vep_cache)
 
     def ch_input = ch_samplesheet
         .branch { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
@@ -83,7 +82,6 @@ workflow EXOMECNV {
         },
         ch_fasta
     )
-    ch_versions = ch_versions.mix(MOSDEPTH.out.versions.first())
     MOSDEPTH.out.per_base_bed.dump(tag: "MOSDEPTH PER BASE BED:", pretty:true)
 
 
@@ -103,20 +101,17 @@ workflow EXOMECNV {
             roi_default,
             splitx
         )
-        ch_versions = ch_versions.mix(CNV_EXOMEDEPTH.out.versions)
         count_files = CNV_EXOMEDEPTH.out.counts
 
         // Convert bed files to VCF format
         BEDGOVCF(
-            CNV_EXOMEDEPTH.out.cnv.map{ meta, bed -> [meta, bed, file(bedgovcf_yaml, checkIfExists:true)]},
+            CNV_EXOMEDEPTH.out.cnv.map{ meta, bed -> [meta, bed, bedgovcf_yaml]},
             ch_fai
         )
-        ch_versions = ch_versions.mix(BEDGOVCF.out.versions.first())
 
         BCFTOOLS_SORT(
             BEDGOVCF.out.vcf
         )
-        ch_versions = ch_versions.mix(BCFTOOLS_SORT.out.versions)
 
         cnv_vcfs_created = BCFTOOLS_SORT.out.vcf.join(BCFTOOLS_SORT.out.tbi, failOnMismatch:true, failOnDuplicate:true)
 
@@ -137,7 +132,6 @@ workflow EXOMECNV {
             ch_vep_cache,
             []
         )
-        ch_versions = ch_versions.mix(VCF_ANNOTATE_ENSEMBLVEP.out.versions)
         vep_vcfs = VCF_ANNOTATE_ENSEMBLVEP.out.vcf_tbi
         annotation_summary = VCF_ANNOTATE_ENSEMBLVEP.out.reports
     }
@@ -162,7 +156,7 @@ workflow EXOMECNV {
             "${process}:\n${tool_versions.join('\n')}"
         }
 
-    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+    softwareVersionsToYAML(topic_versions.versions_file)
         .mix(topic_versions_string)
         .collectFile(
             storeDir: "${outdir}/pipeline_info",
@@ -190,7 +184,7 @@ workflow EXOMECNV {
     ch_multiqc_files = ch_multiqc_files.mix(
         ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_custom_methods_description = multiqc_methods_description ?
-        file(multiqc_methods_description, checkIfExists: true) :
+        multiqc_methods_description :
         file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
     ch_methods_description                = channel.value(
         methodsDescriptionText(ch_multiqc_custom_methods_description))
@@ -220,7 +214,6 @@ workflow EXOMECNV {
     multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
     multiqc_data   = MULTIQC.out.data.toList()   // channel: /path/to/multiqc_data/
     multiqc_plots  = MULTIQC.out.plots.toList()  // channel: /path/to/multiqc_plots/
-    versions       = ch_versions        // channel: [ path(versions.yml) ]
 }
 
 /*

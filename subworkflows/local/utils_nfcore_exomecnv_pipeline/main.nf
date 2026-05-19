@@ -40,8 +40,6 @@ workflow PIPELINE_INITIALISATION {
 
     main:
 
-    ch_versions = channel.empty()
-
     //
     // Print version and exit if required and dump pipeline parameters to JSON file
     //
@@ -66,7 +64,8 @@ workflow PIPELINE_INITIALISATION {
         show_hidden,
         "",
         "",
-        command
+        command,
+        false
     )
 
     //
@@ -132,7 +131,6 @@ workflow PIPELINE_INITIALISATION {
     emit:
     samplesheet = ch_samplesheet
     rois        = channel.value(rois_map)
-    versions    = ch_versions
 }
 
 /*
