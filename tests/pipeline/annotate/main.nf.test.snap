@@ -4,7 +4,7 @@
             63,
             {
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BEDGOVCF": {
                     "bedgovcf": "0.1.0",
@@ -95,6 +95,7 @@
                 "multiqc/multiqc_data",
                 "multiqc/multiqc_data/.stub",
                 "multiqc/multiqc_plots",
+                "multiqc/multiqc_plots/.stub",
                 "multiqc/multiqc_report.html",
                 "pipeline_info",
                 "pipeline_info/exomecnv_software_mqc_versions.yml"
@@ -122,16 +123,17 @@
                 "Sample9.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "prep_F.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "prep_M.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
                 ".stub:md5,d41d8cd98f00b204e9800998ecf8427e"
             ],
             [
                 
             ]
         ],
-        "timestamp": "2026-02-23T15:48:22.450837318",
+        "timestamp": "2026-05-20T14:47:23.822978688",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     },
     "exomedepth_cram + annotate": {
@@ -139,7 +141,7 @@
             73,
             {
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BEDGOVCF": {
                     "bedgovcf": "0.1.0",
@@ -166,7 +168,8 @@
                     "R": "4.4.3"
                 },
                 "MOSDEPTH": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "Workflow": {
                     "nf-cmgg/exomecnv": "v2.1.0"
@@ -233,6 +236,7 @@
                 "multiqc/multiqc_data",
                 "multiqc/multiqc_data/.stub",
                 "multiqc/multiqc_plots",
+                "multiqc/multiqc_plots/.stub",
                 "multiqc/multiqc_report.html",
                 "pipeline_info",
                 "pipeline_info/exomecnv_software_mqc_versions.yml"
@@ -260,16 +264,17 @@
                 "Sample9.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "prep_F.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "prep_M.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
                 ".stub:md5,d41d8cd98f00b204e9800998ecf8427e"
             ],
             [
                 
             ]
         ],
-        "timestamp": "2026-02-23T15:47:10.474762648",
+        "timestamp": "2026-05-20T14:46:36.047616991",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     }
 }

@@ -56,7 +56,7 @@ workflow EXOMECNV {
     def ch_multiqc_files = channel.empty()
     def ch_fasta = channel.value([ [id: "reference"], fasta ])
     def ch_fai = channel.value([[id: "reference"], fai ])
-    def ch_vep_cache = channel.value(vep_cache)
+    def ch_vep_cache = channel.value([ [id: "vep_cache"], vep_cache ])
 
     def ch_input = ch_samplesheet
         .branch { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
