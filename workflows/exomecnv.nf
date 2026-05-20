@@ -80,7 +80,8 @@ workflow EXOMECNV {
         ch_input.cram.map { meta, cram, crai ->
             return [meta, cram, crai, []]
         },
-        ch_fasta
+        ch_fasta,
+        []
     )
     MOSDEPTH.out.per_base_bed.dump(tag: "MOSDEPTH PER BASE BED:", pretty:true)
 

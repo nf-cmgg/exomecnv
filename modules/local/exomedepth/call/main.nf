@@ -5,7 +5,7 @@ process EXOMEDEPTH_CALL {
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/r-exomedepth:1.1.18--r44hb2a3317_0' :
-        'biocontainers/r-exomedepth:1.1.18--r44hb2a3317_0' }"
+        'quay.io/biocontainers/r-exomedepth:1.1.18--r44hb2a3317_0' }"
 
     input:
     tuple val(meta), path(countfile), val(sample), val(samples), val(families), path(exon_target)
