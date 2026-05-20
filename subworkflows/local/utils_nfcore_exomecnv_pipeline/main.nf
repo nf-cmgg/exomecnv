@@ -28,17 +28,16 @@ workflow PIPELINE_INITIALISATION {
     take:
     version           // boolean: Display version and exit
     validate_params   // boolean: Boolean whether to validate parameters against the schema at runtime
-    monochrome_logs   // boolean: Do not use coloured log outputs
     nextflow_cli_args //   array: List of positional nextflow CLI args
     outdir            //  string: The output directory where the results will be saved
     input             //  string: Path to input samplesheet
     help              // boolean: Display help message and exit
     help_full         // boolean: Show the full help message
     show_hidden       // boolean: Show hidden parameters in the help message
+    roi_default       //  string: Path to default ROI BED file
+    roi_sheet         //  string: Path to samplesheet with ROI BED files
 
     main:
-
-    ch_versions = channel.empty()
 
     //
     // Print version and exit if required and dump pipeline parameters to JSON file
@@ -53,13 +52,6 @@ workflow PIPELINE_INITIALISATION {
     //
     // Validate parameters and generate parameter summary to stdout
     //
-
-    def before_text = ""
-    def after_text = ""
-    if (monochrome_logs) {
-        before_text = before_text.replaceAll(/\033\[[0-9;]*m/, '')
-    }
-
     command = "nextflow run ${workflow.manifest.name} -profile <docker/singularity/.../institute> --input samplesheet.csv --outdir <OUTDIR>"
 
     UTILS_NFSCHEMA_PLUGIN (
@@ -69,9 +61,10 @@ workflow PIPELINE_INITIALISATION {
         help,
         help_full,
         show_hidden,
-        before_text,
-        after_text,
-        command
+        "",
+        "",
+        command,
+        false
     )
 
     //
@@ -90,29 +83,53 @@ workflow PIPELINE_INITIALISATION {
     // Create channel from input file provided through params.input
     //
 
+    def pools = [:]
+    def inputList = samplesheetToList(input, "${projectDir}/assets/schema_input.json")
+    def rois_map = [:]
+    def roiList = samplesheetToList(roi_sheet, "${projectDir}/assets/schema_roi.json")
+
+    inputList.each { meta, _cram, _crai, _bed, _bed_index, vcf, _vcf_index ->
+        // Don't account for inputs that have a VCF file
+        if (vcf) { return }
+
+        def pool = meta.batch
+        if (!pools.containsKey(pool)) {
+            pools[pool] = [samples:[], families:[]]
+        }
+
+        def sample = meta.id
+        if (!pools[pool].samples.contains(sample)) {
+            pools[pool].samples.add(sample)
+        }
+
+        pools[pool].families.add(meta.family)
+    }
+
+    roiList.each { meta, bed_roi ->
+
+        def pool = meta.batch
+        if (!rois_map.containsKey(pool)) {
+            rois_map[pool] = bed_roi
+        }
+    }
+
     channel
-        .fromList(samplesheetToList(input, "${projectDir}/assets/schema_input.json"))
-        .map {
-            meta, fastq_1, fastq_2 ->
-                if (!fastq_2) {
-                    return [ meta.id, meta + [ single_end:true ], [ fastq_1 ] ]
-                } else {
-                    return [ meta.id, meta + [ single_end:false ], [ fastq_1, fastq_2 ] ]
-                }
-        }
-        .groupTuple()
-        .map { samplesheet ->
-            validateInputSamplesheet(samplesheet)
-        }
-        .map {
-            meta, fastqs ->
-                return [ meta, fastqs.flatten() ]
+        .fromList(inputList)
+        .map { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
+            if(!rois_map.get(meta.batch, roi_default)) {
+                error("Could not find a BED file for batch '${meta.batch}' in the ROI sheet (${roi_sheet}) and no default was given.")
+            }
+            def new_meta = !vcf ? meta + [
+                samples:pools[meta.batch].samples.join(","),
+                families:pools[meta.batch].families.join(",")
+            ] : meta
+            return [ new_meta, cram, crai, bed, bed_index, vcf, vcf_index ]
         }
         .set { ch_samplesheet }
 
     emit:
     samplesheet = ch_samplesheet
-    versions    = ch_versions
+    rois        = channel.value(rois_map)
 }
 
 /*
