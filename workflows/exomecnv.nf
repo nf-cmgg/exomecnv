@@ -186,7 +186,7 @@ workflow EXOMECNV {
     MULTIQC(
         ch_multiqc_files.flatten().collect().map { files ->
             [
-                [id: '{{ short_name }}'],
+                [id: 'exomecnv'],
                 files,
                 multiqc_config
                     ? file(multiqc_config, checkIfExists: true)
