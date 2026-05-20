@@ -4,7 +4,7 @@
             91,
             {
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BEDGOVCF": {
                     "bedgovcf": "0.1.0",
@@ -35,7 +35,8 @@
                     "grep": 3.12
                 },
                 "MOSDEPTH": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "Workflow": {
                     "nf-cmgg/exomecnv": "v2.1.0"
@@ -104,16 +105,17 @@
                 "Sample9.cnvs.vcf.gz.tbi:md5,e51f4702088b4b17e012326c266410ad",
                 "prep_F.autosomal.txt:md5,b18488e87c7c92b7422a857ae86af42a",
                 "prep_F.chrx.txt:md5,eb268cbb3c14f82d951413ebc3aab6e6",
-                "prep_M.autosomal.txt:md5,5498ba71b0d162c80b90750438242dc7"
+                "prep_M.autosomal.txt:md5,5498ba71b0d162c80b90750438242dc7",
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
             ],
             [
                 
             ]
         ],
-        "timestamp": "2026-02-23T15:54:07.438108159",
+        "timestamp": "2026-05-20T14:52:19.033013463",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     }
 }

@@ -1,8 +1,8 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/nf-cmgg/exomecnv/master/nextflow_schema.json",
+    "$id": "https://raw.githubusercontent.com/nf-cmgg/exomecnv/main/nextflow_schema.json",
     "title": "nf-cmgg/exomecnv pipeline parameters",
-    "description": "A nextflow pipeline for calling exome CNVs",
+    "description": "A nextflow pipeline for calling CNVs in targetted data",
     "type": "object",
     "$defs": {
         "input_output_options": {
@@ -219,13 +219,6 @@
                     "type": "boolean",
                     "description": "Do not use coloured log outputs.",
                     "fa_icon": "fas fa-palette",
-                    "hidden": true
-                },
-                "hook_url": {
-                    "type": "string",
-                    "description": "Incoming hook URL for messaging service",
-                    "fa_icon": "fas fa-people-group",
-                    "help_text": "Incoming hook URL for messaging service. Currently, MS Teams and Slack are supported.",
                     "hidden": true
                 },
                 "multiqc_config": {

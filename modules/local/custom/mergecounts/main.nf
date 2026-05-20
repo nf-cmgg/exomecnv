@@ -4,7 +4,7 @@ process CUSTOM_MERGECOUNTS {
 
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/coreutils:9.3' :
-        'biocontainers/coreutils:9.3' }"
+        'quay.io/biocontainers/coreutils:9.3' }"
     conda "${moduleDir}/environment.yml"
 
     input:
