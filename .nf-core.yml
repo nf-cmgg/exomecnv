@@ -1,26 +1,39 @@
 lint:
   files_exist:
-  - CODE_OF_CONDUCT.md
-  - assets/nf-core-nf-cmgg-exomecnv_logo_light.png
-  - docs/images/nf-core-nf-cmgg-exomecnv_logo_light.png
-  - docs/images/nf-core-nf-cmgg-exomecnv_logo_dark.png
-  - .github/ISSUE_TEMPLATE/config.yml
-  - .github/workflows/awstest.yml
-  - .github/workflows/awsfulltest.yml
+    - CODE_OF_CONDUCT.md
+    - assets/nf-core-exomecnv_logo_light.png
+    - docs/images/nf-core-exomecnv_logo_light.png
+    - docs/images/nf-core-exomecnv_logo_dark.png
+    - .github/ISSUE_TEMPLATE/config.yml
+    - .github/workflows/awstest.yml
+    - .github/workflows/awsfulltest.yml
   files_unchanged:
-  - CODE_OF_CONDUCT.md
-  - assets/nf-core-nf-cmgg-exomecnv_logo_light.png
-  - docs/images/nf-core-nf-cmgg-exomecnv_logo_light.png
-  - docs/images/nf-core-nf-cmgg-exomecnv_logo_dark.png
-  - .github/ISSUE_TEMPLATE/bug_report.yml
+    - CODE_OF_CONDUCT.md
+    - assets/nf-core-exomecnv_logo_light.png
+    - docs/images/nf-core-exomecnv_logo_light.png
+    - docs/images/nf-core-exomecnv_logo_dark.png
+    - .github/ISSUE_TEMPLATE/bug_report.yml
+    - .github/CONTRIBUTING.md
+    - .github/PULL_REQUEST_TEMPLATE.md
+    - assets/email_template.txt
+    - docs/README.md
+    - .github/workflows/linting_comment.yml
+    - .github/workflows/linting.yml
+    - .prettierignore
+    - .gitattributes
   multiqc_config:
-  - report_comment
-  nextflow_config:
-  - manifest.name
-  - manifest.homePage
+    - report_comment
+  nextflow_config: false
+  schema_params: false
+nf_core_version: 4.0.2
 repository_type: pipeline
 template:
-  author: nvnieuwk
-  description: A nextflow pipeline for calling exome CNVs
-  name: nf-cmgg-exomecnv
-  prefix: CenterForMedicalGeneticsGhent
+  author: Toon Rosseel, Matthias De Smet
+  description: A nextflow pipeline for calling CNVs in targetted data
+  force: false
+  is_nfcore: false
+  name: exomecnv
+  org: nf-cmgg
+  outdir: .
+  skip_features: []
+  version: 2.1.0
