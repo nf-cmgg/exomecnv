@@ -2,10 +2,10 @@ process CUSTOM_MERGECALLS {
     tag "$meta.id"
     label 'process_single'
 
-    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/coreutils:9.3' :
-        'quay.io/biocontainers/coreutils:9.3' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/c2/c262fc09eca59edb5a724080eeceb00fb06396f510aefb229c2d2c6897e63975/data' :
+        'community.wave.seqera.io/library/coreutils:9.5--ae99c88a9b28c264' }"
+    conda "${moduleDir}/environment.yml"
 
     input:
     tuple val(meta), path(files)
@@ -13,7 +13,7 @@ process CUSTOM_MERGECALLS {
     output:
     tuple val(meta), path("*.txt"), emit:merge
     tuple val("${task.process}"), val('cat'), eval("cat --version | sed '1!d; s/cat (GNU coreutils) //'"), topic: versions , emit: versions_cat
-    tuple val("${task.process}"), val('grep'), eval("grep 2>&1 | head -1 | sed 's/BusyBox v//;s/ (.*//'"), topic: versions , emit: versions_grep
+    tuple val("${task.process}"), val('grep'), eval("grep --version 2>&1 | head -n 1 | sed '1!d; s/grep (GNU grep) //'"), topic: versions , emit: versions_grep
     tuple val("${task.process}"), val('sort'), eval("sort --version | sed '1!d; s/sort (GNU coreutils) //'"), topic: versions , emit: versions_sort
     tuple val("${task.process}"), val('head'), eval("head --version | sed '1!d; s/head (GNU coreutils) //'"), topic: versions , emit: versions_head
 

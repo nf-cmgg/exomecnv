@@ -29,28 +29,28 @@
                     [
                         "CUSTOM_MERGECALLS",
                         "cat",
-                        "9.3"
+                        "9.5"
                     ]
                 ],
                 "2": [
                     [
                         "CUSTOM_MERGECALLS",
                         "grep",
-                        "1.36.1"
+                        "3.11"
                     ]
                 ],
                 "3": [
                     [
                         "CUSTOM_MERGECALLS",
                         "sort",
-                        "9.3"
+                        "9.5"
                     ]
                 ],
                 "4": [
                     [
                         "CUSTOM_MERGECALLS",
                         "head",
-                        "9.3"
+                        "9.5"
                     ]
                 ],
                 "merge": [
@@ -80,37 +80,37 @@
                     [
                         "CUSTOM_MERGECALLS",
                         "cat",
-                        "9.3"
+                        "9.5"
                     ]
                 ],
                 "versions_grep": [
                     [
                         "CUSTOM_MERGECALLS",
                         "grep",
-                        "1.36.1"
+                        "3.11"
                     ]
                 ],
                 "versions_head": [
                     [
                         "CUSTOM_MERGECALLS",
                         "head",
-                        "9.3"
+                        "9.5"
                     ]
                 ],
                 "versions_sort": [
                     [
                         "CUSTOM_MERGECALLS",
                         "sort",
-                        "9.3"
+                        "9.5"
                     ]
                 ]
             }
         ],
+        "timestamp": "2026-05-27T19:46:31.08048",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.2"
-        },
-        "timestamp": "2025-12-10T16:46:28.096278387"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.2"
+        }
     },
     "homo_sapiens - calls": {
         "content": [
@@ -142,28 +142,28 @@
                     [
                         "CUSTOM_MERGECALLS",
                         "cat",
-                        "9.3"
+                        "9.5"
                     ]
                 ],
                 "2": [
                     [
                         "CUSTOM_MERGECALLS",
                         "grep",
-                        "1.36.1"
+                        "3.11"
                     ]
                 ],
                 "3": [
                     [
                         "CUSTOM_MERGECALLS",
                         "sort",
-                        "9.3"
+                        "9.5"
                     ]
                 ],
                 "4": [
                     [
                         "CUSTOM_MERGECALLS",
                         "head",
-                        "9.3"
+                        "9.5"
                     ]
                 ],
                 "merge": [
@@ -193,36 +193,36 @@
                     [
                         "CUSTOM_MERGECALLS",
                         "cat",
-                        "9.3"
+                        "9.5"
                     ]
                 ],
                 "versions_grep": [
                     [
                         "CUSTOM_MERGECALLS",
                         "grep",
-                        "1.36.1"
+                        "3.11"
                     ]
                 ],
                 "versions_head": [
                     [
                         "CUSTOM_MERGECALLS",
                         "head",
-                        "9.3"
+                        "9.5"
                     ]
                 ],
                 "versions_sort": [
                     [
                         "CUSTOM_MERGECALLS",
                         "sort",
-                        "9.3"
+                        "9.5"
                     ]
                 ]
             }
         ],
+        "timestamp": "2026-05-27T19:46:21.477924",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.2"
-        },
-        "timestamp": "2025-12-10T16:46:18.410939296"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.2"
+        }
     }
 }

@@ -4,8 +4,8 @@ process CUSTOM_REFORMATCOUNTS {
     tag "$meta.id"
 
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/coreutils:9.3' :
-        'quay.io/biocontainers/coreutils:9.3' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/c2/c262fc09eca59edb5a724080eeceb00fb06396f510aefb229c2d2c6897e63975/data' :
+        'community.wave.seqera.io/library/coreutils:9.5--ae99c88a9b28c264' }"
     conda "${moduleDir}/environment.yml"
 
     input:
@@ -14,6 +14,7 @@ process CUSTOM_REFORMATCOUNTS {
     output:
     tuple val(meta), path("*.txt"), emit: header
     tuple val("${task.process}"), val('cut'), eval("cut --version | sed '1!d; s/cut (GNU coreutils) //'"), topic: versions , emit: versions_cut
+    // TODO: add version checks for gzip and awk if needed
 
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
