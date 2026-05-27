@@ -6,8 +6,9 @@ results/
 testing/
 testing*
 *.pyc
-.nf-test*
 null/
+.lineage/
+.nf-test*
 # pixi environments
 .pixi/*
 !.pixi/config.toml

@@ -23,16 +23,9 @@ lint:
     - .gitattributes
   multiqc_config:
     - report_comment
-  # nextflow_config:
-  #   - manifest.name
-  #   - manifest.homePage
-  #   - validation.help.beforeText
-  #   - validation.help.afterText
-  #   - validation.summary.beforeText
-  #   - validation.summary.afterText
-  nextflow_config: false # TMP
-  schema_params: false # TMP
-nf_core_version: 3.5.2
+  nextflow_config: false
+  schema_params: false
+nf_core_version: 4.0.2
 repository_type: pipeline
 template:
   author: Toon Rosseel, Matthias De Smet

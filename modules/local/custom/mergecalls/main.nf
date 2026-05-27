@@ -5,7 +5,7 @@ process CUSTOM_MERGECALLS {
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/coreutils:9.3' :
-        'biocontainers/coreutils:9.3' }"
+        'quay.io/biocontainers/coreutils:9.3' }"
 
     input:
     tuple val(meta), path(files)

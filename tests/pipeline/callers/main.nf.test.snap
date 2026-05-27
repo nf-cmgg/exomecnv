@@ -4,7 +4,7 @@
             53,
             {
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BEDGOVCF": {
                     "bedgovcf": "0.1.0",
@@ -90,13 +90,14 @@
                 "Sample9.cnvs.vcf.gz:md5,9261e6f7c2f2231ca26de872cbd55670",
                 "Sample9.cnvs.vcf.gz.tbi:md5,e51f4702088b4b17e012326c266410ad",
                 "prep_F.txt:md5,4af0f1ac07cf0eb2fa0760232935ca55",
-                "prep_M.txt:md5,5498ba71b0d162c80b90750438242dc7"
+                "prep_M.txt:md5,5498ba71b0d162c80b90750438242dc7",
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
             ]
         ],
-        "timestamp": "2026-02-23T15:51:53.289150698",
+        "timestamp": "2026-05-20T14:50:18.388173532",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     },
     "exomedepth_cram": {
@@ -104,7 +105,7 @@
             63,
             {
                 "BCFTOOLS_SORT": {
-                    "bcftools": 1.22
+                    "bcftools": "1.23.1"
                 },
                 "BEDGOVCF": {
                     "bedgovcf": "0.1.0",
@@ -126,7 +127,8 @@
                     "R": "4.4.3"
                 },
                 "MOSDEPTH": {
-                    "mosdepth": "0.3.11"
+                    "gzip": 1.14,
+                    "mosdepth": "0.3.14"
                 },
                 "Workflow": {
                     "nf-cmgg/exomecnv": "v2.1.0"
@@ -193,13 +195,14 @@
                 "Sample9.cnvs.vcf.gz:md5,9261e6f7c2f2231ca26de872cbd55670",
                 "Sample9.cnvs.vcf.gz.tbi:md5,e51f4702088b4b17e012326c266410ad",
                 "prep_F.txt:md5,4af0f1ac07cf0eb2fa0760232935ca55",
-                "prep_M.txt:md5,5498ba71b0d162c80b90750438242dc7"
+                "prep_M.txt:md5,5498ba71b0d162c80b90750438242dc7",
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
             ]
         ],
-        "timestamp": "2026-02-23T15:50:15.113474486",
+        "timestamp": "2026-05-20T14:49:01.862229111",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.1"
         }
     }
 }
