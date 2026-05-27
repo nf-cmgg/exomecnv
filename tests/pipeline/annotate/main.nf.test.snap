@@ -22,9 +22,9 @@
                     "cut": 9.5
                 },
                 "ENSEMBLVEP_VEP": {
-                    "ensemblvep": 105.0,
+                    "ensemblvep": 115.2,
                     "perl-math-cdf": 0.1,
-                    "tabix": 1.21
+                    "tabix": "1.23.1"
                 },
                 "EXOMEDEPTH_CALL": {
                     "ExomeDepth": "1.1.18",
@@ -159,9 +159,9 @@
                     "cut": 9.5
                 },
                 "ENSEMBLVEP_VEP": {
-                    "ensemblvep": 105.0,
+                    "ensemblvep": 115.2,
                     "perl-math-cdf": 0.1,
-                    "tabix": 1.21
+                    "tabix": "1.23.1"
                 },
                 "EXOMEDEPTH_CALL": {
                     "ExomeDepth": "1.1.18",

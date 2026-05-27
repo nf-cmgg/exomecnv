@@ -4,9 +4,9 @@
             11,
             {
                 "ENSEMBLVEP_VEP": {
-                    "ensemblvep": 105.0,
+                    "ensemblvep": 115.2,
                     "perl-math-cdf": 0.1,
-                    "tabix": 1.21
+                    "tabix": "1.23.1"
                 },
                 "Workflow": {
                     "nf-cmgg/exomecnv": "v2.0.3"
