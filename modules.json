@@ -24,7 +24,8 @@
                     "ensemblvep/vep": {
                         "branch": "master",
                         "git_sha": "251885fdb29eca03523d326aca5c827d1f6bdfeb",
-                        "installed_by": ["modules", "vcf_annotate_ensemblvep"]
+                        "installed_by": ["modules", "vcf_annotate_ensemblvep"],
+                        "patch": "modules/nf-core/ensemblvep/vep/ensemblvep-vep.diff"
                     },
                     "mosdepth": {
                         "branch": "master",
