@@ -4,16 +4,17 @@ process CUSTOM_REFORMATCOUNTS {
     tag "$meta.id"
 
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/coreutils:9.3' :
-        'biocontainers/coreutils:9.3' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/c2/c262fc09eca59edb5a724080eeceb00fb06396f510aefb229c2d2c6897e63975/data' :
+        'community.wave.seqera.io/library/coreutils:9.5--ae99c88a9b28c264' }"
     conda "${moduleDir}/environment.yml"
 
     input:
     tuple val(meta), path(tsv)
 
     output:
-    tuple val(meta), path("*.txt"), emit:header
-    path "versions.yml", emit:versions
+    tuple val(meta), path("*.txt"), emit: header
+    tuple val("${task.process}"), val('cut'), eval("cut --version | sed '1!d; s/cut (GNU coreutils) //'"), topic: versions , emit: versions_cut
+    // TODO: add version checks for gzip and awk if needed
 
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
@@ -34,23 +35,11 @@ process CUSTOM_REFORMATCOUNTS {
     cut --complement -f6 "${prefix}.filtered.tmp.txt"; } > "${prefix}.txt"
 
     rm ${prefix}.tmp.txt "${prefix}.filtered.tmp.txt"
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        echo: \$(/bin/echo --version | sed '1!d; s/echo (GNU coreutils) //')
-        cut: \$(cut --version | sed '1!d; s/cut (GNU coreutils) //')
-    END_VERSIONS
     """
 
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     touch ${prefix}.txt
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        echo: \$(echo --version | sed '1!d; s/echo (GNU coreutils) //')
-        cut: \$(cp --version | sed '1!d; s/cut (GNU coreutils) //')
-    END_VERSIONS
     """
 }

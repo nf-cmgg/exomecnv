@@ -11,9 +11,9 @@
 include { UTILS_NFSCHEMA_PLUGIN     } from '../../nf-core/utils_nfschema_plugin'
 include { paramsSummaryMap          } from 'plugin/nf-schema'
 include { samplesheetToList         } from 'plugin/nf-schema'
+include { paramsHelp                } from 'plugin/nf-schema'
 include { completionEmail           } from '../../nf-core/utils_nfcore_pipeline'
 include { completionSummary         } from '../../nf-core/utils_nfcore_pipeline'
-include { imNotification            } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NFCORE_PIPELINE     } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NEXTFLOW_PIPELINE   } from '../../nf-core/utils_nextflow_pipeline'
 
@@ -28,14 +28,16 @@ workflow PIPELINE_INITIALISATION {
     take:
     version           // boolean: Display version and exit
     validate_params   // boolean: Boolean whether to validate parameters against the schema at runtime
-    monochrome_logs   // boolean: Do not use coloured log outputs
     nextflow_cli_args //   array: List of positional nextflow CLI args
     outdir            //  string: The output directory where the results will be saved
     input             //  string: Path to input samplesheet
+    help              // boolean: Display help message and exit
+    help_full         // boolean: Show the full help message
+    show_hidden       // boolean: Show hidden parameters in the help message
+    roi_default       //  string: Path to default ROI BED file
+    roi_sheet         //  string: Path to samplesheet with ROI BED files
 
     main:
-
-    ch_versions = Channel.empty()
 
     //
     // Print version and exit if required and dump pipeline parameters to JSON file
@@ -50,10 +52,19 @@ workflow PIPELINE_INITIALISATION {
     //
     // Validate parameters and generate parameter summary to stdout
     //
+    command = "nextflow run ${workflow.manifest.name} -profile <docker/singularity/.../institute> --input samplesheet.csv --outdir <OUTDIR>"
+
     UTILS_NFSCHEMA_PLUGIN (
         workflow,
         validate_params,
-        null
+        null,
+        help,
+        help_full,
+        show_hidden,
+        "",
+        "",
+        command,
+        false
     )
 
     //
@@ -74,6 +85,9 @@ workflow PIPELINE_INITIALISATION {
 
     def pools = [:]
     def inputList = samplesheetToList(input, "${projectDir}/assets/schema_input.json")
+    def rois_map = [:]
+    def roiList = samplesheetToList(roi_sheet, "${projectDir}/assets/schema_roi.json")
+
     inputList.each { meta, _cram, _crai, _bed, _bed_index, vcf, _vcf_index ->
         // Don't account for inputs that have a VCF file
         if (vcf) { return }
@@ -91,9 +105,20 @@ workflow PIPELINE_INITIALISATION {
         pools[pool].families.add(meta.family)
     }
 
-    Channel
+    roiList.each { meta, bed_roi ->
+
+        def pool = meta.batch
+        if (!rois_map.containsKey(pool)) {
+            rois_map[pool] = bed_roi
+        }
+    }
+
+    channel
         .fromList(inputList)
         .map { meta, cram, crai, bed, bed_index, vcf, vcf_index ->
+            if(!rois_map.get(meta.batch, roi_default)) {
+                error("Could not find a BED file for batch '${meta.batch}' in the ROI sheet (${roi_sheet}) and no default was given.")
+            }
             def new_meta = !vcf ? meta + [
                 samples:pools[meta.batch].samples.join(","),
                 families:pools[meta.batch].families.join(",")
@@ -104,7 +129,7 @@ workflow PIPELINE_INITIALISATION {
 
     emit:
     samplesheet = ch_samplesheet
-    versions    = ch_versions
+    rois        = channel.value(rois_map)
 }
 
 /*
@@ -121,7 +146,6 @@ workflow PIPELINE_COMPLETION {
     plaintext_email // boolean: Send plain-text email instead of HTML
     outdir          //    path: Path to output directory where results will be published
     monochrome_logs // boolean: Disable ANSI colour codes in log output
-    hook_url        //  string: hook URL for notifications
     multiqc_report  //  string: Path to MultiQC report
 
     main:
@@ -145,13 +169,11 @@ workflow PIPELINE_COMPLETION {
         }
 
         completionSummary(monochrome_logs)
-        if (hook_url) {
-            imNotification(summary_params, hook_url)
-        }
+
     }
 
     workflow.onError {
-        log.error "Pipeline failed. Please refer to troubleshooting docs: https://nf-co.re/docs/usage/troubleshooting"
+        log.error "Pipeline failed. Please refer to troubleshooting docs for common issues: https://nf-co.re/docs/running/troubleshooting"
     }
 }
 

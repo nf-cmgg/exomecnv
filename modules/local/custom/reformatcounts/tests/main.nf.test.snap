@@ -24,11 +24,15 @@
                             ],
                             "chromosome": "merged"
                         },
-                        "Sample1.merged.txt:md5,5ec821d63fd7d5ace910f8b03ae7137a"
+                        "Sample1.txt:md5,4eb6fa7c089b4895dc5284b7abee1966"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,1fc282562f70ae81332ac5efb8314e49"
+                    [
+                        "CUSTOM_REFORMATCOUNTS",
+                        "cut",
+                        "9.5"
+                    ]
                 ],
                 "header": [
                     [
@@ -52,19 +56,23 @@
                             ],
                             "chromosome": "merged"
                         },
-                        "Sample1.merged.txt:md5,5ec821d63fd7d5ace910f8b03ae7137a"
+                        "Sample1.txt:md5,4eb6fa7c089b4895dc5284b7abee1966"
                     ]
                 ],
-                "versions": [
-                    "versions.yml:md5,1fc282562f70ae81332ac5efb8314e49"
+                "versions_cut": [
+                    [
+                        "CUSTOM_REFORMATCOUNTS",
+                        "cut",
+                        "9.5"
+                    ]
                 ]
             }
         ],
+        "timestamp": "2026-05-27T19:46:59.700143",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.0"
-        },
-        "timestamp": "2025-09-05T10:41:45.98232331"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.2"
+        }
     },
     "homo_sapiens - reformat - stub": {
         "content": [
@@ -91,11 +99,15 @@
                             ],
                             "chromosome": "merged"
                         },
-                        "Sample1.merged.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "Sample1.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,3e09d87978796a478b6bd8edd09c4985"
+                    [
+                        "CUSTOM_REFORMATCOUNTS",
+                        "cut",
+                        "9.5"
+                    ]
                 ],
                 "header": [
                     [
@@ -119,18 +131,22 @@
                             ],
                             "chromosome": "merged"
                         },
-                        "Sample1.merged.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "Sample1.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
-                "versions": [
-                    "versions.yml:md5,3e09d87978796a478b6bd8edd09c4985"
+                "versions_cut": [
+                    [
+                        "CUSTOM_REFORMATCOUNTS",
+                        "cut",
+                        "9.5"
+                    ]
                 ]
             }
         ],
+        "timestamp": "2026-05-27T19:47:07.273199",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.0"
-        },
-        "timestamp": "2025-09-05T10:41:53.276535237"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.2"
+        }
     }
 }

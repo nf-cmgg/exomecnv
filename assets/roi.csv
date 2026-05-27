@@ -1,0 +1,2 @@
+batch,roi
+prep_M,https://github.com/nf-cmgg/test-datasets/raw/refs/heads/exomecnv/data/genomics/homo_sapiens/genome/roi/Homo_sapiens.GRCh38.105.chr21_protein_coding_basic_sorted_merged_autosomal_chr.bed

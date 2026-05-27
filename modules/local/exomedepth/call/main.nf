@@ -5,20 +5,18 @@ process EXOMEDEPTH_CALL {
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/r-exomedepth:1.1.18--r44hb2a3317_0' :
-        'biocontainers/r-exomedepth:1.1.18--r44hb2a3317_0' }"
+        'quay.io/biocontainers/r-exomedepth:1.1.18--r44hb2a3317_0' }"
 
     input:
-    tuple val(meta), path(countfile), val(sample), val(samples), val(families) // meta:id, chr, sam, fam, sample
-    tuple val(meta2), path(exon_target) // meta.id=chrx/autosomal
+    tuple val(meta), path(countfile), val(sample), val(samples), val(families), path(exon_target)
 
     output:
     tuple val(meta), path("*.txt"), emit: cnvcall
-    path "versions.yml", emit:versions
+    tuple val("${task.process}"), val('ExomeDepth'), val('1.1.18'), topic: versions, emit: versions_exomedepth
+    tuple val("${task.process}"), val('R'), eval("Rscript --version 2>&1 | cut -d' ' -f4"), topic: versions, emit: versions_r
 
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def VERSION = '1.1.18'
-
     """
     ExomeDepth_cnv_calling.R \\
         $sample \\
@@ -27,24 +25,11 @@ process EXOMEDEPTH_CALL {
         $prefix \\
         $samples \\
         $families
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        ExomeDepth: ${VERSION}
-        R: \$(Rscript --version | sed 's/R scripting front-end //g')
-    END_VERSIONS
     """
 
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def VERSION = '1.1.18'
     """
     touch ${prefix}.txt
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        ExomeDepth: ${VERSION}
-        R: \$(Rscript --version | sed 's/R scripting front-end //g')
-    END_VERSIONS
     """
 }

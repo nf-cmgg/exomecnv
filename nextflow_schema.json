@@ -1,8 +1,8 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/nf-cmgg/exomecnv/master/nextflow_schema.json",
+    "$id": "https://raw.githubusercontent.com/nf-cmgg/exomecnv/main/nextflow_schema.json",
     "title": "nf-cmgg/exomecnv pipeline parameters",
-    "description": "A nextflow pipeline for calling exome CNVs",
+    "description": "A nextflow pipeline for calling CNVs in targetted data",
     "type": "object",
     "$defs": {
         "input_output_options": {
@@ -19,7 +19,17 @@
                     "schema": "assets/schema_input.json",
                     "pattern": "^\\S+\\.(csv|tsv|yaml|yml|json)$",
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
-                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row.",
+                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with multiple columns, and a header row.",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "roi_sheet": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "schema": "assets/schema_roi.json",
+                    "pattern": "^\\S+\\.(csv|tsv|yaml|yml|json)$",
+                    "description": "Path to comma-separated file containing information about the regios of interest per batch/pool/group in the experiment.",
+                    "help_text": "You will need to create a design file with information about the regios of interest per batches in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 2 columns, and a header row.",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "outdir": {
@@ -50,6 +60,10 @@
                     "default": false,
                     "fa_icon": "fas fa-magic",
                     "help_text": "If set to `true`, the pipeline will annotate the ExomeDepth VCFs and input VCFs with VEP. If set to `false`, the pipeline will not annotate the VCFs."
+                },
+                "splitx": {
+                    "type": "boolean",
+                    "description": "Run ExomeDepth separately for autosomal and chrX regions"
                 }
             }
         },
@@ -84,6 +98,12 @@
                     "pattern": "^\\S+\\.fai$",
                     "description": "Path to FASTA genome index file.",
                     "fa_icon": "far fa-file-code"
+                },
+                "roi": {
+                    "type": "string",
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.bed$",
+                    "description": "The default ROI BED file to be used when no file is linked to a batch in the --roi_sheet file."
                 },
                 "igenomes_base": {
                     "type": "string",
@@ -201,13 +221,6 @@
                     "fa_icon": "fas fa-palette",
                     "hidden": true
                 },
-                "hook_url": {
-                    "type": "string",
-                    "description": "Incoming hook URL for messaging service",
-                    "fa_icon": "fas fa-people-group",
-                    "help_text": "Incoming hook URL for messaging service. Currently, MS Teams and Slack are supported.",
-                    "hidden": true
-                },
                 "multiqc_config": {
                     "type": "string",
                     "format": "file-path",
@@ -245,25 +258,20 @@
                     "fa_icon": "far calendar",
                     "description": "Suffix to add to the trace report filename. Default is the date and time in the format yyyy-MM-dd_HH-mm-ss.",
                     "hidden": true
+                },
+                "help": {
+                    "type": ["boolean", "string"],
+                    "description": "Display the help message."
+                },
+                "help_full": {
+                    "type": "boolean",
+                    "description": "Display the full detailed help message."
+                },
+                "show_hidden": {
+                    "type": "boolean",
+                    "description": "Display hidden parameters in the help message (only works when --help or --help_full are provided)."
                 }
             }
-        },
-        "exomedepth_parameters": {
-            "title": "ExomeDepth parameters",
-            "type": "object",
-            "description": "Options specific for the ExomeDepth execution",
-            "default": "",
-            "properties": {
-                "roi": {
-                    "type": "string",
-                    "description": "Path to the default merged ROI (regions of interest) BED file to be used for CNV analysis",
-                    "format": "file-path",
-                    "pattern": "^\\S+\\.bed$",
-                    "mimetype": "text/plain",
-                    "exists": true
-                }
-            },
-            "required": ["roi"]
         },
         "vep_parameters": {
             "title": "VEP parameters",
@@ -308,9 +316,6 @@
         },
         {
             "$ref": "#/$defs/generic_options"
-        },
-        {
-            "$ref": "#/$defs/exomedepth_parameters"
         },
         {
             "$ref": "#/$defs/vep_parameters"

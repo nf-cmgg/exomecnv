@@ -8,11 +8,22 @@
                             "id": "test",
                             "chromosome": "merged"
                         },
-                        "test.merged.txt:md5,b569320ce2a2b024c0469b220aa17dc7"
+                        "test.txt:md5,b569320ce2a2b024c0469b220aa17dc7"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,75881ab2b8ddb0e7e60cbf9c2e1b432f"
+                    [
+                        "EXOMEDEPTH_CALL",
+                        "ExomeDepth",
+                        "1.1.18"
+                    ]
+                ],
+                "2": [
+                    [
+                        "EXOMEDEPTH_CALL",
+                        "R",
+                        "4.4.3"
+                    ]
                 ],
                 "cnvcall": [
                     [
@@ -20,19 +31,30 @@
                             "id": "test",
                             "chromosome": "merged"
                         },
-                        "test.merged.txt:md5,b569320ce2a2b024c0469b220aa17dc7"
+                        "test.txt:md5,b569320ce2a2b024c0469b220aa17dc7"
                     ]
                 ],
-                "versions": [
-                    "versions.yml:md5,75881ab2b8ddb0e7e60cbf9c2e1b432f"
+                "versions_exomedepth": [
+                    [
+                        "EXOMEDEPTH_CALL",
+                        "ExomeDepth",
+                        "1.1.18"
+                    ]
+                ],
+                "versions_r": [
+                    [
+                        "EXOMEDEPTH_CALL",
+                        "R",
+                        "4.4.3"
+                    ]
                 ]
             }
         ],
+        "timestamp": "2025-12-10T16:48:41.081737154",
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.0"
-        },
-        "timestamp": "2025-09-03T08:47:39.334288"
+            "nextflow": "25.10.2"
+        }
     },
     "homo_sapiens - bed, merged_counts - stub": {
         "content": [
@@ -43,11 +65,22 @@
                             "id": "test",
                             "chromosome": "merged"
                         },
-                        "test.merged.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,75881ab2b8ddb0e7e60cbf9c2e1b432f"
+                    [
+                        "EXOMEDEPTH_CALL",
+                        "ExomeDepth",
+                        "1.1.18"
+                    ]
+                ],
+                "2": [
+                    [
+                        "EXOMEDEPTH_CALL",
+                        "R",
+                        "4.4.3"
+                    ]
                 ],
                 "cnvcall": [
                     [
@@ -55,18 +88,29 @@
                             "id": "test",
                             "chromosome": "merged"
                         },
-                        "test.merged.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
-                "versions": [
-                    "versions.yml:md5,75881ab2b8ddb0e7e60cbf9c2e1b432f"
+                "versions_exomedepth": [
+                    [
+                        "EXOMEDEPTH_CALL",
+                        "ExomeDepth",
+                        "1.1.18"
+                    ]
+                ],
+                "versions_r": [
+                    [
+                        "EXOMEDEPTH_CALL",
+                        "R",
+                        "4.4.3"
+                    ]
                 ]
             }
         ],
+        "timestamp": "2025-12-10T16:48:50.143198255",
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "24.10.1"
-        },
-        "timestamp": "2025-08-25T16:28:33.332341335"
+            "nextflow": "25.10.2"
+        }
     }
 }

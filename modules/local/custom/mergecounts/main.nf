@@ -3,8 +3,8 @@ process CUSTOM_MERGECOUNTS {
     tag "$meta.id"
 
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/coreutils:9.3' :
-        'biocontainers/coreutils:9.3' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/c2/c262fc09eca59edb5a724080eeceb00fb06396f510aefb229c2d2c6897e63975/data' :
+        'community.wave.seqera.io/library/coreutils:9.5--ae99c88a9b28c264' }"
     conda "${moduleDir}/environment.yml"
 
     input:
@@ -12,7 +12,9 @@ process CUSTOM_MERGECOUNTS {
 
     output:
     tuple val(meta), path("*.txt"), emit:merge
-    path "versions.yml", emit:versions
+    tuple val("${task.process}"), val('paste'), eval("paste --version | sed '1!d; s/paste (GNU coreutils) //'"), topic: versions , emit: versions_paste
+    tuple val("${task.process}"), val('mv'), eval("mv --version | sed '1!d; s/mv (GNU coreutils) //'"), topic: versions , emit: versions_mv
+    tuple val("${task.process}"), val('cp'), eval("cp --version | sed '1!d; s/cp (GNU coreutils) //'"), topic: versions , emit: versions_cp
 
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
@@ -29,25 +31,11 @@ process CUSTOM_MERGECOUNTS {
             cp \$file ${prefix}.txt
         fi
     done
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        paste: \$(paste --version | sed '1!d; s/paste (GNU coreutils) //')
-        mv: \$(mv --version | sed '1!d; s/mv (GNU coreutils) //')
-        cp: \$(cp --version | sed '1!d; s/cp (GNU coreutils) //')
-    END_VERSIONS
     """
 
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     touch ${prefix}.txt
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        paste: \$(paste --version | sed '1!d; s/paste (GNU coreutils) //')
-        mv: \$(mv --version | sed '1!d; s/mv (GNU coreutils) //')
-        cp: \$(cp --version | sed '1!d; s/cp (GNU coreutils) //')
-    END_VERSIONS
     """
 }

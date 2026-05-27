@@ -1,0 +1,228 @@
+{
+    "homo_sapiens - calls - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "Sample1",
+                            "chromosome": "merged",
+                            "samples": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "families": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ]
+                        },
+                        "Sample1.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        "CUSTOM_MERGECALLS",
+                        "cat",
+                        "9.5"
+                    ]
+                ],
+                "2": [
+                    [
+                        "CUSTOM_MERGECALLS",
+                        "grep",
+                        "3.11"
+                    ]
+                ],
+                "3": [
+                    [
+                        "CUSTOM_MERGECALLS",
+                        "sort",
+                        "9.5"
+                    ]
+                ],
+                "4": [
+                    [
+                        "CUSTOM_MERGECALLS",
+                        "head",
+                        "9.5"
+                    ]
+                ],
+                "merge": [
+                    [
+                        {
+                            "id": "Sample1",
+                            "chromosome": "merged",
+                            "samples": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "families": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ]
+                        },
+                        "Sample1.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_cat": [
+                    [
+                        "CUSTOM_MERGECALLS",
+                        "cat",
+                        "9.5"
+                    ]
+                ],
+                "versions_grep": [
+                    [
+                        "CUSTOM_MERGECALLS",
+                        "grep",
+                        "3.11"
+                    ]
+                ],
+                "versions_head": [
+                    [
+                        "CUSTOM_MERGECALLS",
+                        "head",
+                        "9.5"
+                    ]
+                ],
+                "versions_sort": [
+                    [
+                        "CUSTOM_MERGECALLS",
+                        "sort",
+                        "9.5"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-05-27T19:46:31.08048",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.2"
+        }
+    },
+    "homo_sapiens - calls": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "Sample1",
+                            "chromosome": "merged",
+                            "samples": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "families": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ]
+                        },
+                        "Sample1.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
+                    ]
+                ],
+                "1": [
+                    [
+                        "CUSTOM_MERGECALLS",
+                        "cat",
+                        "9.5"
+                    ]
+                ],
+                "2": [
+                    [
+                        "CUSTOM_MERGECALLS",
+                        "grep",
+                        "3.11"
+                    ]
+                ],
+                "3": [
+                    [
+                        "CUSTOM_MERGECALLS",
+                        "sort",
+                        "9.5"
+                    ]
+                ],
+                "4": [
+                    [
+                        "CUSTOM_MERGECALLS",
+                        "head",
+                        "9.5"
+                    ]
+                ],
+                "merge": [
+                    [
+                        {
+                            "id": "Sample1",
+                            "chromosome": "merged",
+                            "samples": [
+                                "Sample1",
+                                "Sample2",
+                                "Sample3",
+                                "Sample4",
+                                "Sample5"
+                            ],
+                            "families": [
+                                "Fam1",
+                                "Fam2",
+                                "Fam3",
+                                "Fam4",
+                                "Fam5"
+                            ]
+                        },
+                        "Sample1.txt:md5,cd414909ef75fbabb7a3e33b0ae13ea4"
+                    ]
+                ],
+                "versions_cat": [
+                    [
+                        "CUSTOM_MERGECALLS",
+                        "cat",
+                        "9.5"
+                    ]
+                ],
+                "versions_grep": [
+                    [
+                        "CUSTOM_MERGECALLS",
+                        "grep",
+                        "3.11"
+                    ]
+                ],
+                "versions_head": [
+                    [
+                        "CUSTOM_MERGECALLS",
+                        "head",
+                        "9.5"
+                    ]
+                ],
+                "versions_sort": [
+                    [
+                        "CUSTOM_MERGECALLS",
+                        "sort",
+                        "9.5"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-05-27T19:46:21.477924",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.2"
+        }
+    }
+}

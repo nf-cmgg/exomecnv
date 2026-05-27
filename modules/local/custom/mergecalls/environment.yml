@@ -3,6 +3,5 @@
 channels:
   - conda-forge
   - bioconda
-
 dependencies:
-  - bioconda::htslib=1.21
+  - conda-forge::coreutils=9.5
