@@ -4,7 +4,7 @@
             11,
             {
                 "ENSEMBLVEP_VEP": {
-                    "ensemblvep": 115.2,
+                    "ensemblvep": 105.0,
                     "perl-math-cdf": 0.1,
                     "tabix": "1.23.1"
                 },

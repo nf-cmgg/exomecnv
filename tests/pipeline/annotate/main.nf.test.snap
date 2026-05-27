@@ -22,7 +22,7 @@
                     "cut": 9.5
                 },
                 "ENSEMBLVEP_VEP": {
-                    "ensemblvep": 115.2,
+                    "ensemblvep": 105.0,
                     "perl-math-cdf": 0.1,
                     "tabix": "1.23.1"
                 },
@@ -159,7 +159,7 @@
                     "cut": 9.5
                 },
                 "ENSEMBLVEP_VEP": {
-                    "ensemblvep": 115.2,
+                    "ensemblvep": 105.0,
                     "perl-math-cdf": 0.1,
                     "tabix": "1.23.1"
                 },
@@ -271,7 +271,7 @@
                 
             ]
         ],
-        "timestamp": "2026-05-27T20:13:07.047249",
+        "timestamp": "2026-05-27T21:54:28.570316",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.2"
