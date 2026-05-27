@@ -3,18 +3,6 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## dev
-
-### `Changes`
-
-- Bumped minimal Nextflow version to 26.04.0
-- Moved the default configuration base to nf-cmgg/configs
-
-### `Improvements`
-
-- Migrated the pipeline's version handling to topic channels.
-- Migrated the pipeline to parameter types
-
 ## v2.1.0 Jewel Jashari
 
 ### `New features`
@@ -23,10 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `--roi_sheet` parameter to provide ROI BED files for each batch. The `--roi` parameter will be used as default in case the batch isn't present in this file.
 - Added **SeqCap** profile
 
+### `Changes`
+
+- Bumped minimal Nextflow version to 26.04.0
+- Moved the default configuration base to nf-cmgg/configs
+
 ### `Improvements`
 
 - Migrated the pipeline to nf-core template v3.5.1
 - Migrated the pipeline to workflow output definitions and thus bumping the minimal Nextflow version to 25.10.0
+- Migrated the pipeline's version handling to topic channels.
+- Migrated the pipeline to parameter types
 
 ## v2.0.2 Vintage Verthongen [2025-12-03]
 
