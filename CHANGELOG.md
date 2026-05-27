@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Changes`
 
 - Bumped minimal Nextflow version to 26.04.0
+- Moved the default configuration base to nf-cmgg/configs
 
 ### `Improvements`
 
