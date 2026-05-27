@@ -14,19 +14,19 @@
                     "bedtools": "2.31.1"
                 },
                 "CUSTOM_MERGECOUNTS": {
-                    "cp": 9.3,
-                    "mv": 9.3,
-                    "paste": 9.3
+                    "cp": 9.5,
+                    "mv": 9.5,
+                    "paste": 9.5
                 },
                 "CUSTOM_REFORMATCOUNTS": {
-                    "cut": 9.3
+                    "cut": 9.5
                 },
                 "EXOMEDEPTH_CALL": {
                     "ExomeDepth": "1.1.18",
                     "R": "4.4.3"
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v2.1.0"
+                    "nf-cmgg/exomecnv": "v2.0.3"
                 }
             },
             [
@@ -94,10 +94,10 @@
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
             ]
         ],
-        "timestamp": "2026-05-20T14:50:18.388173532",
+        "timestamp": "2026-05-27T20:33:51.660453",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nextflow": "26.04.2"
         }
     },
     "exomedepth_cram": {
@@ -115,12 +115,12 @@
                     "bedtools": "2.31.1"
                 },
                 "CUSTOM_MERGECOUNTS": {
-                    "cp": 9.3,
-                    "mv": 9.3,
-                    "paste": 9.3
+                    "cp": 9.5,
+                    "mv": 9.5,
+                    "paste": 9.5
                 },
                 "CUSTOM_REFORMATCOUNTS": {
-                    "cut": 9.3
+                    "cut": 9.5
                 },
                 "EXOMEDEPTH_CALL": {
                     "ExomeDepth": "1.1.18",
@@ -131,7 +131,7 @@
                     "mosdepth": "0.3.14"
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v2.1.0"
+                    "nf-cmgg/exomecnv": "v2.0.3"
                 }
             },
             [
@@ -199,10 +199,10 @@
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
             ]
         ],
-        "timestamp": "2026-05-20T14:49:01.862229111",
+        "timestamp": "2026-05-27T20:30:52.133586",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nextflow": "26.04.2"
         }
     }
 }

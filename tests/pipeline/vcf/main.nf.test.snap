@@ -9,7 +9,7 @@
                     "tabix": 1.21
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v2.1.0"
+                    "nf-cmgg/exomecnv": "v2.0.3"
                 }
             },
             [
@@ -89,10 +89,10 @@
                 ".stub:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-05-20T14:53:00.92985113",
+        "timestamp": "2026-05-27T20:22:21.598508",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nextflow": "26.04.2"
         }
     }
 }
