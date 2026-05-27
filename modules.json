@@ -23,7 +23,7 @@
                     },
                     "ensemblvep/vep": {
                         "branch": "master",
-                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "git_sha": "251885fdb29eca03523d326aca5c827d1f6bdfeb",
                         "installed_by": ["modules", "vcf_annotate_ensemblvep"]
                     },
                     "mosdepth": {
@@ -57,7 +57,7 @@
                     },
                     "vcf_annotate_ensemblvep": {
                         "branch": "master",
-                        "git_sha": "890fdcff71928fc1470d3e669d4c430c8c770297",
+                        "git_sha": "251885fdb29eca03523d326aca5c827d1f6bdfeb",
                         "installed_by": ["subworkflows"]
                     }
                 }
