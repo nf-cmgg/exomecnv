@@ -14,12 +14,12 @@
                     "bedtools": "2.31.1"
                 },
                 "CUSTOM_MERGECOUNTS": {
-                    "cp": 9.3,
-                    "mv": 9.3,
-                    "paste": 9.3
+                    "cp": 9.5,
+                    "mv": 9.5,
+                    "paste": 9.5
                 },
                 "CUSTOM_REFORMATCOUNTS": {
-                    "cut": 9.3
+                    "cut": 9.5
                 },
                 "ENSEMBLVEP_VEP": {
                     "ensemblvep": 105.0,
@@ -31,7 +31,7 @@
                     "R": "4.4.3"
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v2.1.0"
+                    "nf-cmgg/exomecnv": "v2.0.3"
                 }
             },
             [
@@ -130,10 +130,10 @@
                 
             ]
         ],
-        "timestamp": "2026-05-20T14:47:23.822978688",
+        "timestamp": "2026-05-27T20:15:17.05797",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nextflow": "26.04.2"
         }
     },
     "exomedepth_cram + annotate": {
@@ -151,12 +151,12 @@
                     "bedtools": "2.31.1"
                 },
                 "CUSTOM_MERGECOUNTS": {
-                    "cp": 9.3,
-                    "mv": 9.3,
-                    "paste": 9.3
+                    "cp": 9.5,
+                    "mv": 9.5,
+                    "paste": 9.5
                 },
                 "CUSTOM_REFORMATCOUNTS": {
-                    "cut": 9.3
+                    "cut": 9.5
                 },
                 "ENSEMBLVEP_VEP": {
                     "ensemblvep": 105.0,
@@ -172,7 +172,7 @@
                     "mosdepth": "0.3.14"
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v2.1.0"
+                    "nf-cmgg/exomecnv": "v2.0.3"
                 }
             },
             [
@@ -271,10 +271,10 @@
                 
             ]
         ],
-        "timestamp": "2026-05-20T14:46:36.047616991",
+        "timestamp": "2026-05-27T20:13:07.047249",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.1"
+            "nextflow": "26.04.2"
         }
     }
 }
