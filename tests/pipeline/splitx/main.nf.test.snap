@@ -39,7 +39,7 @@
                     "mosdepth": "0.3.14"
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v2.2.0dev"
+                    "nf-cmgg/exomecnv": "v2.1.1"
                 }
             },
             [
