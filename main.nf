@@ -45,7 +45,7 @@ params {
     roi_sheet: Path?
 
     // The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.
-    outdir: Path
+    outdir: String
 
     // Email address for completion summary.
     email: String?

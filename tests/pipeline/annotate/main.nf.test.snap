@@ -31,7 +31,7 @@
                     "R": "4.4.3"
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v2.1.0"
+                    "nf-cmgg/exomecnv": "v2.1.1"
                 }
             },
             [
@@ -172,7 +172,7 @@
                     "mosdepth": "0.3.14"
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v2.1.0"
+                    "nf-cmgg/exomecnv": "v2.1.1"
                 }
             },
             [

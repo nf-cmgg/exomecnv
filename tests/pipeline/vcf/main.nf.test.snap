@@ -9,7 +9,7 @@
                     "tabix": "1.23.1"
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v2.1.0"
+                    "nf-cmgg/exomecnv": "v2.1.1"
                 }
             },
             [
