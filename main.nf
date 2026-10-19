@@ -89,9 +89,6 @@ params {
     // Do not use coloured log outputs.
     monochrome_logs: Boolean = false
 
-    // Incoming hook URL for messaging service
-    hook_url: String?
-
     // Custom config file to supply to MultiQC.
     multiqc_config: Path?
 
