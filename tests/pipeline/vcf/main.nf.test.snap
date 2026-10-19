@@ -87,12 +87,15 @@
                 "Sample9.cnvs.vep_summary.html:md5,d41d8cd98f00b204e9800998ecf8427e",
                 ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
                 ".stub:md5,d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            [
+                
             ]
         ],
-        "timestamp": "2026-05-27T20:22:21.598508",
+        "timestamp": "2026-10-19T14:13:02.17597",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.2"
+            "nextflow": "26.04.7"
         }
     }
 }
