@@ -1,7 +1,7 @@
 {
     "pipeline - splitx": {
         "content": [
-            91,
+            107,
             {
                 "BCFTOOLS_SORT": {
                     "bcftools": "1.23.1"
@@ -69,6 +69,7 @@
                 "exomedepth/counts/prep_F.autosomal.txt",
                 "exomedepth/counts/prep_F.chrx.txt",
                 "exomedepth/counts/prep_M.autosomal.txt",
+                "exomedepth/counts/prep_M.chrx.txt",
                 "multiqc",
                 "multiqc/multiqc_data",
                 "multiqc/multiqc_data/llms-full.txt",
@@ -91,10 +92,10 @@
                 "Sample2.cnvs.vcf.gz.tbi:md5,c99c58ed4ad8e31a6ce6f6de14715269",
                 "Sample3.cnvs.vcf.gz:md5,9bf252474cec022d1419e8113f714730",
                 "Sample3.cnvs.vcf.gz.tbi:md5,a46e5952f41f69a49af355ee66bce7f2",
-                "Sample4.cnvs.vcf.gz:md5,039b2445f96ece8b9dc39c3e41f95ecc",
-                "Sample4.cnvs.vcf.gz.tbi:md5,c99c58ed4ad8e31a6ce6f6de14715269",
-                "Sample5.cnvs.vcf.gz:md5,2feb01963916cf578c11e4f730ae5b6f",
-                "Sample5.cnvs.vcf.gz.tbi:md5,c3f6b822d7f3c89ca0371f63f398fa7c",
+                "Sample4.cnvs.vcf.gz:md5,3b575a950cac68cb0df7484e4de277b3",
+                "Sample4.cnvs.vcf.gz.tbi:md5,da2e87e0547e41dc23b16d414a86ca76",
+                "Sample5.cnvs.vcf.gz:md5,2075a5bc640c779b9e98ca0d25394fca",
+                "Sample5.cnvs.vcf.gz.tbi:md5,9dd93f302cabe245abd5d249a57c1866",
                 "Sample6.cnvs.vcf.gz:md5,cab49a19398f8f891a8976ecc723281e",
                 "Sample6.cnvs.vcf.gz.tbi:md5,15572bdad0d2d5294ab403e6bf7ff3ba",
                 "Sample7.cnvs.vcf.gz:md5,7a39c892bd0977e31250f79530523283",
@@ -106,16 +107,17 @@
                 "prep_F.autosomal.txt:md5,b18488e87c7c92b7422a857ae86af42a",
                 "prep_F.chrx.txt:md5,eb268cbb3c14f82d951413ebc3aab6e6",
                 "prep_M.autosomal.txt:md5,5498ba71b0d162c80b90750438242dc7",
+                "prep_M.chrx.txt:md5,b23971d6eec469149e43020b1c1739d7",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
             ],
             [
                 
             ]
         ],
-        "timestamp": "2026-05-27T20:27:01.703614",
+        "timestamp": "2026-10-19T10:04:15.69011",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.2"
+            "nextflow": "26.04.7"
         }
     }
 }
