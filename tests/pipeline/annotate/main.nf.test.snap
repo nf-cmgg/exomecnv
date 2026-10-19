@@ -101,26 +101,6 @@
                 "pipeline_info/exomecnv_software_mqc_versions.yml"
             ],
             [
-                "Sample1.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample1.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample10.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample10.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample2.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample2.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample3.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample3.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample4.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample4.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample5.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample5.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample6.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample6.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample7.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample7.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample8.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample8.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample9.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample9.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "prep_F.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "prep_M.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -130,10 +110,10 @@
                 
             ]
         ],
-        "timestamp": "2026-05-27T20:15:17.05797",
+        "timestamp": "2026-10-19T11:19:03.388753",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.2"
+            "nextflow": "26.04.7"
         }
     },
     "exomedepth_cram + annotate": {
@@ -242,26 +222,6 @@
                 "pipeline_info/exomecnv_software_mqc_versions.yml"
             ],
             [
-                "Sample1.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample1.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample10.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample10.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample2.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample2.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample3.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample3.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample4.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample4.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample5.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample5.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample6.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample6.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample7.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample7.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample8.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample8.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "Sample9.cnvs.vcf.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
-                "Sample9.cnvs.vcf.gz.tbi:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "prep_F.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "prep_M.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 ".stub:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -271,10 +231,10 @@
                 
             ]
         ],
-        "timestamp": "2026-05-27T21:54:28.570316",
+        "timestamp": "2026-10-19T11:17:36.870087",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.2"
+            "nextflow": "26.04.7"
         }
     }
 }
