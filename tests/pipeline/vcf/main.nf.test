@@ -21,11 +21,11 @@ nextflow_pipeline {
 
         then {
             // stable_name: All files + folders in ${params.outdir}/ with a stable name
-            def stable_name = getAllFilesFromDir(params.outdir, includeDir: true, include: ['*', '**/*'], ignore: ['pipeline_info/*.{html,json,txt}'])
+            def stable_name = getAllFilesFromPath(params.outdir, includeDir: true, include: ['*', '**/*'], ignore: ['pipeline_info/*.{html,json,txt}'])
             // stable_path: All files in ${params.outdir}/ with stable content
-            def stable_path = getAllFilesFromDir(params.outdir, includeDir: false, include: ['*', '**/*'], ignoreFile: 'tests/.nftignore')
+            def stable_path = getAllFilesFromPath(params.outdir, includeDir: false, include: ['*', '**/*'], ignoreFile: 'tests/.nftignore')
             // stable_path: VEP VCF files
-            def stable_path_vcf = getAllFilesFromDir(params.outdir, includeDir: false, include: ['exomedepth/**/*.vcf.gz}'], ignore: ['*', '**/*'])
+            def stable_path_vcf = getAllFilesFromPath(params.outdir, includeDir: false, include: ['exomedepth/**/*.vcf.gz}'], ignore: ['*', '**/*'])
             assertAll(
                 { assert workflow.success},
                 { assert snapshot(

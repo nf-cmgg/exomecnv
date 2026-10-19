@@ -20,11 +20,11 @@ nextflow_pipeline {
 
         then {
             // stable_name: All files + folders in ${params.outdir}/ with a stable name
-            def stable_name = getAllFilesFromDir(params.outdir, includeDir: true, include: ['*', '**/*'], ignore: ['pipeline_info/*.{html,json,txt}'])
+            def stable_name = getAllFilesFromPath(params.outdir, ignore: ['pipeline_info/*.{html,json,txt}'])
             // stable_path: All files in ${params.outdir}/ with stable content
-            def stable_path = getAllFilesFromDir(params.outdir, includeDir: false, include: ['*', '**/*'], ignore: ['exomedepth/cnv_call_vep/*vep*'], ignoreFile: 'tests/.nftignore')
-            // stable_path: VEP VCF files
-            def stable_path_vcf = getAllFilesFromDir(params.outdir, includeDir: false, include: ['exomedepth/**/*.vcf.gz}'], ignore: ['*', '**/*'])
+            def stable_path = getAllFilesFromPath(params.outdir, ignore: ['exomedepth/cnv_call*/*.{vcf*,html}'], ignoreFile: 'tests/.nftignore')
+            // stable_path: VCF files
+            def stable_path_vcf = getAllFilesFromPath(params.outdir, include: ['exomedepth/cnv_call*/*.vcf.gz'])
             assertAll(
                 { assert workflow.success},
                 { assert snapshot(
@@ -38,8 +38,7 @@ nextflow_pipeline {
                     stable_path,
                     // VCF files with stable contents
                     stable_path_vcf.collect { ["VCF", path(it.toString()).vcf.variantsMD5] }
-
-                ).match("exomedepth_cram + annotate") }
+                ).match() }
             )
         }
     }
@@ -56,11 +55,11 @@ nextflow_pipeline {
 
         then {
             // stable_name: All files + folders in ${params.outdir}/ with a stable name
-            def stable_name = getAllFilesFromDir(params.outdir, includeDir: true, include: ['*', '**/*'], ignore: ['pipeline_info/*.{html,json,txt}'])
+            def stable_name = getAllFilesFromPath(params.outdir, ignore: ['pipeline_info/*.{html,json,txt}'])
             // stable_path: All files in ${params.outdir}/ with stable content
-            def stable_path = getAllFilesFromDir(params.outdir, includeDir: false, include: ['*', '**/*'], ignore: ['exomedepth/cnv_call_vep/*vep*'], ignoreFile: 'tests/.nftignore')
-            // stable_path: VEP VCF files
-            def stable_path_vcf = getAllFilesFromDir(params.outdir, includeDir: false, include: ['exomedepth/cnv_call_vep/*vep.vcf.gz}'], ignore: ['*', '**/*'])
+            def stable_path = getAllFilesFromPath(params.outdir, ignore: ['exomedepth/cnv_call*/*.{vcf*,html}'], ignoreFile: 'tests/.nftignore')
+            // stable_path: VCF files
+            def stable_path_vcf = getAllFilesFromPath(params.outdir, include: ['exomedepth/cnv_call*/*.vcf.gz'])
             assertAll(
                 { assert workflow.success},
                 { assert snapshot(
@@ -73,9 +72,8 @@ nextflow_pipeline {
                     // All files with stable contents
                     stable_path,
                     // VCF files with stable contents
-                    stable_path_vcf.collect { ["VCF_annotated", path(it.toString()).vcf.variantsMD5] }
-
-                ).match("exomedepth_bed + annotate") }
+                    stable_path_vcf.collect { ["VCF", path(it.toString()).vcf.variantsMD5] }
+                ).match() }
             )
         }
     }

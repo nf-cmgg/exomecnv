@@ -24,7 +24,7 @@ environments:
         packages:
             linux-64:
                 - conda: https://conda.anaconda.org/bioconda/noarch/nextflow-26.10.2-h2a3209d_0.conda
-                - conda: https://conda.anaconda.org/bioconda/noarch/nf-core-4.0.2-pyhdfd78af_1.conda
+                - conda: https://conda.anaconda.org/bioconda/noarch/nf-core-4.1.0-pyhdfd78af_0.conda
                 - conda: https://conda.anaconda.org/bioconda/noarch/nf-test-0.9.5-h2a3209d_0.conda
                 - conda: https://conda.anaconda.org/bioconda/noarch/piper-0.15.1-pyhdfd78af_0.conda
                 - conda: https://conda.anaconda.org/bioconda/noarch/pyfaidx-0.9.0.4-pyhdfd78af_0.conda
@@ -217,7 +217,7 @@ environments:
                 - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-3.23.1-pyhcf101f3_0.conda
             osx-64:
                 - conda: https://conda.anaconda.org/bioconda/noarch/nextflow-26.10.2-h2a3209d_0.conda
-                - conda: https://conda.anaconda.org/bioconda/noarch/nf-core-4.0.2-pyhdfd78af_1.conda
+                - conda: https://conda.anaconda.org/bioconda/noarch/nf-core-4.1.0-pyhdfd78af_0.conda
                 - conda: https://conda.anaconda.org/bioconda/noarch/nf-test-0.9.5-h2a3209d_0.conda
                 - conda: https://conda.anaconda.org/bioconda/noarch/piper-0.15.1-pyhdfd78af_0.conda
                 - conda: https://conda.anaconda.org/bioconda/noarch/pyfaidx-0.9.0.4-pyhdfd78af_0.conda
@@ -379,7 +379,7 @@ environments:
                 - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-h3eecb57_6.conda
             osx-arm64:
                 - conda: https://conda.anaconda.org/bioconda/noarch/nextflow-26.10.2-h2a3209d_0.conda
-                - conda: https://conda.anaconda.org/bioconda/noarch/nf-core-4.0.2-pyhdfd78af_1.conda
+                - conda: https://conda.anaconda.org/bioconda/noarch/nf-core-4.1.0-pyhdfd78af_0.conda
                 - conda: https://conda.anaconda.org/bioconda/noarch/nf-test-0.9.5-h2a3209d_0.conda
                 - conda: https://conda.anaconda.org/bioconda/noarch/piper-0.15.1-pyhdfd78af_0.conda
                 - conda: https://conda.anaconda.org/bioconda/noarch/pyfaidx-0.9.0.4-pyhdfd78af_0.conda
@@ -552,9 +552,9 @@ packages:
               - nextflow >=26.10.2,<26.11.0a0
       size: 42930811
       timestamp: 1792089781953
-    - conda: https://conda.anaconda.org/bioconda/noarch/nf-core-4.0.2-pyhdfd78af_1.conda
-      sha256: a62019fbb74ba3bcb39ef037fb47b2e00a5bc1293b577468f1102137175e44cc
-      md5: 4ab387e9266b5d792bfa86e28ef4dda8
+    - conda: https://conda.anaconda.org/bioconda/noarch/nf-core-4.1.0-pyhdfd78af_0.conda
+      sha256: b90513a5036ff2084d8654913cb76611f374813900df48b394bd05077b6e391b
+      md5: 0bb17a17f070f2689ea0e9bbf59de9c1
       depends:
           - click
           - filetype
@@ -589,8 +589,11 @@ packages:
           - trogon
       license: MIT
       license_family: MIT
-      size: 476065
-      timestamp: 1777930150340
+      run_exports:
+          weak:
+              - nf-core >=4.1.0,<5.0a0
+      size: 509814
+      timestamp: 1785339005547
     - conda: https://conda.anaconda.org/bioconda/noarch/nf-test-0.9.5-h2a3209d_0.conda
       sha256: a99f62b01c74b01854c01bdebe765110f4754e2245ec536df10a521ad96befd5
       md5: 394b91381c88e5c7df30b7e34fefd6e5
@@ -599,6 +602,9 @@ packages:
           - curl
           - openjdk >=17,<26
       license: MIT
+      run_exports:
+          weak:
+              - nf-test >=0.9.5,<0.10.0a0
       size: 16542781
       timestamp: 1773937784890
     - conda: https://conda.anaconda.org/bioconda/noarch/piper-0.15.1-pyhdfd78af_0.conda
@@ -1606,6 +1612,7 @@ packages:
           - __glibc >=2.17
       license: MIT
       license_family: MIT
+      run_exports: {}
       size: 5916663
       timestamp: 1778015597635
     - conda: https://conda.anaconda.org/conda-forge/linux-64/psutil-7.2.2-py314h0f05182_0.conda
@@ -3596,6 +3603,7 @@ packages:
           - __osx >=10.13
       license: MIT
       license_family: MIT
+      run_exports: {}
       size: 5913252
       timestamp: 1778015839614
     - conda: https://conda.anaconda.org/conda-forge/osx-64/psutil-7.2.2-py314h5a675f6_0.conda
@@ -4432,6 +4440,7 @@ packages:
           - __osx >=11.0
       license: MIT
       license_family: MIT
+      run_exports: {}
       size: 5515401
       timestamp: 1778015743544
     - conda: https://conda.anaconda.org/conda-forge/osx-arm64/psutil-7.2.2-py314h8dbd3ad_0.conda
