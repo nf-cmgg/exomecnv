@@ -25,7 +25,7 @@ nextflow_pipeline {
                     // All stable path name, with a relative path
                     stable_path,
                     // All files with stable contents
-                    stable_content
+                    stable_content.collect { path -> "${outputDir}/${path}"}
                 ).match() }
             )
         }
