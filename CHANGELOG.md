@@ -3,6 +3,11 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.1.1
+
+- Re-added the `genome` parameter to `nextflow.config` as it's needed by other configs.
+- Revert the default configs base to the nf-core configs in preparation of converting nf-cmgg/configs to a private repo
+
 ## v2.1.0 Jewel Jashari [2026-05-28]
 
 ### `New features`

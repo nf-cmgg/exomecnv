@@ -86,7 +86,7 @@ workflow PIPELINE_INITIALISATION {
     def pools = [:]
     def inputList = samplesheetToList(input, "${projectDir}/assets/schema_input.json")
     def rois_map = [:]
-    def roiList = samplesheetToList(roi_sheet, "${projectDir}/assets/schema_roi.json")
+    def roiList = roi_sheet ? samplesheetToList(roi_sheet, "${projectDir}/assets/schema_roi.json") : []
 
     inputList.each { meta, _cram, _crai, _bed, _bed_index, vcf, _vcf_index ->
         // Don't account for inputs that have a VCF file

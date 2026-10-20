@@ -21,9 +21,9 @@ nextflow_pipeline {
 
         then {
             // stable_name: All files + folders in ${params.outdir}/ with a stable name
-            def stable_name = getAllFilesFromDir(params.outdir, includeDir: true, include: ['*', '**/*'], ignore: ['pipeline_info/*.{html,json,txt}'])
+            def stable_name = getAllFilesFromPath(params.outdir, includeDir: true, include: ['*', '**/*'], ignore: ['pipeline_info/*.{html,json,txt}'])
             // stable_path: All files in ${params.outdir}/ with stable content
-            def stable_path = getAllFilesFromDir(params.outdir, includeDir: false, include: ['*', '**/*'], ignoreFile: 'tests/.nftignore')
+            def stable_path = getAllFilesFromPath(params.outdir, includeDir: false, include: ['*', '**/*'], ignoreFile: 'tests/.nftignore')
             assertAll(
                 { assert workflow.success},
                 { assert snapshot(
@@ -32,9 +32,9 @@ nextflow_pipeline {
                     // pipeline versions.yml file for multiqc from which Nextflow version is removed because we tests pipelines on multiple Nextflow versions
                     removeNextflowVersion("$outputDir/pipeline_info/exomecnv_software_mqc_versions.yml"),
                     // All stable path name, with a relative path
-                    getRelativePath(stable_name, outputDir),
-                    // All files with stable contents
-                    stable_path
+                    stable_name,
+                    // VCF files with stable contents
+                    stable_path.collect { path -> "${outputDir}/${path}" }
                 ).match() }
             )
         }

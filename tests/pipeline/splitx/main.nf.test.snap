@@ -39,7 +39,7 @@
                     "mosdepth": "0.3.14"
                 },
                 "Workflow": {
-                    "nf-cmgg/exomecnv": "v2.1.0"
+                    "nf-cmgg/exomecnv": "v2.1.1"
                 }
             },
             [
@@ -107,15 +107,12 @@
                 "prep_F.chrx.txt:md5,eb268cbb3c14f82d951413ebc3aab6e6",
                 "prep_M.autosomal.txt:md5,5498ba71b0d162c80b90750438242dc7",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f"
-            ],
-            [
-                
             ]
         ],
-        "timestamp": "2026-05-27T20:27:01.703614",
+        "timestamp": "2026-10-20T11:29:30.891616793",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.2"
+            "nextflow": "26.10.2"
         }
     }
 }
